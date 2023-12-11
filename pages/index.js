@@ -1,8 +1,9 @@
 import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react'
+import LandingWrapper from '../component/landing/landingWrapper';
 
-export default function Home() {
+export default function Index() {
 
     // const SPORTFY_AUTHENTICATION = "https://accounts.spotify.com/authorize"
     // const SPOTIFY_CLIENT_ID = "e5e4c494c00742d8845eab9e97cf26a2"
@@ -28,9 +29,10 @@ export default function Home() {
     }, [session])
     return (
         <>
-            <button className='loginButton' onClick={login} >
+            {/* <button className='loginButton' onClick={login} >
                 login
-            </button>
+            </button> */}
+            <LandingWrapper/>
         </>
     )
 }

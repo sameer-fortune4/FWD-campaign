@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../styles/Home.module.css';
+import styles from '../styles/Common.module.css';
 import { getData } from '../utilities/service';
 import { apiList } from '../utilities/apiList';
 import { signOut, useSession } from 'next-auth/react';
@@ -99,6 +99,7 @@ export default function PlayList() {
                             {/* <img src={v.image} alt={v.name} /> */}
                             <h2>{v.name}</h2>
                         </a>
+                        
                     ))}
             </div>
         </>
