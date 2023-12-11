@@ -1,0 +1,7 @@
+.loader-wrapper{display: flex;align-items: center;justify-content: center;flex-direction: column;
+h4{text-align: center;}
+.dots-container{ display: flex; gap: 4px; margin-top: 20px;
+    .laoder-dot{display: block; height: 45px; width: 25px; background-color: #664D2C; border-radius: 20px;
+    &.active{background-color: #D87D39; transition: all .4s ease-in-out;}}
+}
+}

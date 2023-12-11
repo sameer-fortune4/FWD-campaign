@@ -15,7 +15,15 @@
     position: absolute;
     top: 0;
     background-color: rgb(0, 0, 0, .4);
-    transition: all .4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+    &.open{
+        opacity: 1;
+        visibility: visible;
+    }
+    &.close{
+        opacity: 0;
+        visibility: hidden;
+    }
     .dialog-box{
         max-width: 630px;
         position: absolute;
@@ -25,29 +33,32 @@
         transform: translate(-50%,-50%);
         border: none;
         padding: 70px 75px;
-        border-radius: 20px;
+        border-radius: 30px;
         background-color: #F9EDE6;
         .modal-title{
             font-family: 'Grand Rainbow Demo';
             font-size: 26px;
             max-width: 500px;
+            font-weight: 500;
         }
         .btn-wrap{
             margin-top: 45px;
+            display: flex;
+            justify-content: center;
             .btn{
-                padding: 10px 15px;
-                font-weight: 600;
-                font-family: 'Rubik', sans-serif;
-                font-size: 16px;
-                border-radius: 5px;
+                display: block;
+                height: 60px;
+                width: 60px;
+                background-repeat: no-repeat;
+                background-repeat: no-repeat;
+                background-position: 100% 100%;
+                background-size: cover;
                 &.confirm-btn{
-                    border: 2px solid #5996A7;
-                    color: #5996A7;
-                    margin-right: 10px;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22' fill='none'%3E%3Cpath d='M5.5 10.5C7 12.5 7 16 7.5 16.5C8 17 11 11 15.5 5.5M1.00018 1H20.0002C20.2497 16.6857 20.2504 20.5725 20.0002 20H1.00018L1.00098 19.5C1.00098 19.5 1.00098 9.5 1.00098 6C1.00098 2.5 1.00018 1 1.00018 1Z' stroke='%235792A5' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+                    margin-right: 20px;
                 }
                 &.cancel-btn{
-                    border: 2px solid #A84A1D;
-                    color: #A84A1D;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22' fill='none'%3E%3Cpath d='M20.0002 20H1.00018L1.00098 19.5V6C1.00098 2.5 1.00018 1 1.00018 1H20.0002C20.2497 16.6857 20.2504 20.5725 20.0002 20Z' stroke='%23A94D1E' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M5.5 5.5L15.5 15M15.5 5.5L5.5 15' stroke='%23A94D1E' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
                 }
             }
         }

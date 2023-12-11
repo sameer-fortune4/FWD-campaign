@@ -11,9 +11,6 @@ export default function Home() {
     const router = useRouter()
 
     const [open, setOpen] = useState(false)
-    const handleClick = () => {
-        setOpen(true)
-    }
 
     useEffect(() => {
         // Load the Lottie animation
@@ -37,7 +34,9 @@ export default function Home() {
 
     useEffect(() => {
         if (session) {
-            router.push("/play-list")
+            // router.push("/play-list")
+            // router.push("/loader")
+            router.push("/songCollection")
         }
     }, [session])
 
@@ -54,19 +53,16 @@ export default function Home() {
                 </div>
                 <a href="#" className={homeStyle["btn"]} onClick={() => setOpen(true)}>Generate</a>
             </section>
-            {
-                open == true ? <>
-                    <div className={homeStyle["dialog-wrapper"]}>
-                        <div className={homeStyle["dialog-box"]}>
-                            <h4 className={homeStyle["modal-title"]}>Log in with your spotify account to get the most personalised experience.</h4>
-                            <div className={homeStyle["btn-wrap"]}>
-                                <a href="#" className={homeStyle["btn"] + " " + homeStyle["confirm-btn"]} onClick={login}>Okay</a>
-                                <a href="#" className={homeStyle["btn"] + " " + homeStyle["cancel-btn"]} onClick={() => setOpen(false)}>Cancel</a>
-                            </div>
-                        </div>
+        
+            <div className={homeStyle["dialog-wrapper"] + " " + (open == true ? homeStyle["open"] : homeStyle["close"]) }>
+                <div className={homeStyle["dialog-box"]}>
+                    <h4 className={homeStyle["modal-title"]}>Log in with your spotify account to get the most personalised experience.</h4>
+                    <div className={homeStyle["btn-wrap"]}>
+                        <a href="#" className={homeStyle["btn"] + " " + homeStyle["confirm-btn"]} onClick={login}></a>
+                        <a href="#" className={homeStyle["btn"] + " " + homeStyle["cancel-btn"]} onClick={() => setOpen(false)}></a>
                     </div>
-                </> : <></>
-            }
+                </div>
+            </div>
         </>
     )
 }
