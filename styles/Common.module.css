@@ -26,3 +26,27 @@
 .main-wrapper{min-height: 100vh ;width: 100%;display: flex;align-items: center;justify-content: center;}
 .bg-animation{position: absolute;top: 0;left: 0;height: 100% ;width: 100%;z-index: -1; overflow: hidden;}
 #bg-wrapper svg{vertical-align: middle;}
+
+.logo-wrapper {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+}
+.logo-wrapper .chat-titie {
+  max-width: 150px;
+  background-color: #dbdedf;
+  padding: 15px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.logo-wrapper .chat-titie .botton-title {
+  margin-top: 10px;
+}
+.logo-wrapper .chat-titie .botton-title a {
+  text-decoration: underline;
+}
+.logo-wrapper .logo-wrap img {
+  margin: 0 auto;
+  display: block;
+}
+

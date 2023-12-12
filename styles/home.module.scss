@@ -7,6 +7,7 @@
         }
     }
     .btn{display: block;padding: 10px 40px;border-radius: 35px;border: none;color: #fff;background-color: #1E2F28;margin-top: 35px;
+        
     }
 }
 .dialog-wrapper{
@@ -19,6 +20,7 @@
     &.open{
         opacity: 1;
         visibility: visible;
+        z-index: 1;
     }
     &.close{
         opacity: 0;

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import commonStyle from '../styles/Common.module.css';
 import loaderStyle from '../styles/loader.module.scss';
 import lottie from 'lottie-web';
+import Chatbox from '../component/common/chatbox';
 
 export default function Loader() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Load the Lottie animation
     const animation = lottie.loadAnimation({
       container: document.getElementById('bg-wrapper'),
       renderer: 'svg',
@@ -15,8 +15,6 @@ export default function Loader() {
       autoplay: true,
       path: '/assets/js/lottiefiles.json',
     });
-
-    // Clean up the animation when the component is unmounted
     return () => {
       animation.destroy();
     };
@@ -51,6 +49,7 @@ export default function Loader() {
             ))}
           </div>
         </section>
+        <Chatbox/>
       </div>
     </>
   );

@@ -5,6 +5,7 @@ import commonStyle from "../../styles/Common.module.css"
 import lottie from 'lottie-web';
 import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
+import Chatbox from '../common/chatbox';
 export default function Home() {
 
     const { data: session } = useSession();
@@ -36,7 +37,7 @@ export default function Home() {
         if (session) {
             // router.push("/play-list")
             // router.push("/loader")
-            router.push("/songCollection")
+            // router.push("/songCollection")
         }
     }, [session])
 
@@ -51,7 +52,8 @@ export default function Home() {
                     <input type="text"
                         placeholder="I'm so anxious that I might lose my job I'm worried it's driving my wife away." />
                 </div>
-                <a href="#" className={homeStyle["btn"]} onClick={() => setOpen(true)}>Generate</a>
+                <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a>
+
             </section>
         
             <div className={homeStyle["dialog-wrapper"] + " " + (open == true ? homeStyle["open"] : homeStyle["close"]) }>
@@ -63,6 +65,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <Chatbox/>
         </>
     )
 }
