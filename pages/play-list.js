@@ -4,6 +4,15 @@ import { getData } from '../utilities/service';
 import { apiList } from '../utilities/apiList';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import commonStyle from "../styles/Common.module.css"
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, EffectCoverflow } from 'swiper/modules';
+import lottie from 'lottie-web';
+import Loader from '../component/landing/loader';
 
 export default function PlayList() {
     const { data: session } = useSession();
@@ -11,7 +20,7 @@ export default function PlayList() {
 
     const [listSong, setListSong] = useState([]);
     const [plyasong, setPlaySong] = useState();
-    console.log("object", plyasong);
+
     useEffect(() => {
         if (!session) {
             router.push('/');
@@ -20,6 +29,22 @@ export default function PlayList() {
             handledata()
         }
     }, [session]);
+
+    useEffect(() => {
+        // Load the Lottie animation
+        const animation = lottie.loadAnimation({
+            container: document.getElementById('bg'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '/assets/js/slider.json',
+        });
+
+        // Clean up the animation when the component is unmounted
+        return () => {
+            animation.destroy();
+        };
+    }, []);
 
     // const playData = async (id) => {
     //     try {
@@ -53,7 +78,9 @@ export default function PlayList() {
             //         songUrl: plyasong && plyasong
             //     })
             // ))
-            setListSong(response)
+            if (response) {
+                setListSong(response)
+            }
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -65,9 +92,26 @@ export default function PlayList() {
         let response = await getData(apiList.PLAY_SONG + `?user=${user}&id=${data}`);
         setPlaySong(response[0]?.track.preview_url)
     }
-
+    const swiperOptions = {
+        className: "mySwiper",
+        effect: 'coverflow',
+        centeredSlides: true,
+        slidesPerView: [3.2],
+        initialSlide: [2],
+        coverflowEffect: {
+            rotate: 0,
+            depth: 300,
+            modifier: 1,
+            slideShadows: true,
+            scale: 1,
+        },
+        // loop:true,
+        pagination: true,
+        modules: [EffectCoverflow, Navigation],
+    }
     return (
         <>
+            <div id="bg" className={commonStyle["bg-animation"]} ></div>
             <header className={styles.headerWrapper}>
                 <div className={styles.copy}>
                     <span className={styles.name}>{`${session?.user.name}'s`}</span>
@@ -78,30 +122,35 @@ export default function PlayList() {
                 </button>
             </header>
             <div className={styles.container}>
-                {listSong &&
-                    listSong.map((v, i) => (
-                        <a key={i} className={styles.card}>
-                            <div className={styles.image}>
-                                <img src={v.images[0].url} alt={v.name} onClick={() => handledata(v.id)} />
-                                <div className={styles.player}>
-                                    
-                                </div>
-                                {idData === v.id ?
-                                    <>
-                                    <div className={styles.player}>
-                                        <audio controls>
-                                            <source src={plyasong} type="audio/mpeg" />
-                                        </audio>
+                <Swiper
+                    {...swiperOptions}
+                >
+                    {listSong &&
+                        listSong.map((v, i) => (
+                            <SwiperSlide key={i}>
+                                <a className={styles.card}>
+                                    <div className={styles.image}>
+                                        <img src={v.images[0].url} alt={v.name} onClick={() => handledata(v.id)} />
+                                        <div className={styles.player}>
+
+                                        </div>
+                                        {idData === v.id ?
+                                            <>
+                                                <div className={styles.player}>
+                                                    <audio controls>
+                                                        <source src={plyasong} type="audio/mpeg" />
+                                                    </audio>
+                                                </div>
+                                            </>
+                                            : ""}
                                     </div>
-                                    </>
-                                    : ""}
-                            </div>
-                            {/* <img src={v.image} alt={v.name} /> */}
-                            <h2>{v.name}</h2>
-                        </a>
-                        
-                    ))}
-            </div>
+                                    {/* <img src={v.image} alt={v.name} /> */}
+                                    <h2>{v.name}</h2>
+                                </a>
+                            </SwiperSlide>
+                        ))}
+                </Swiper>
+            </div >
         </>
     );
 }

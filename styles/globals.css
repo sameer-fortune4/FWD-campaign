@@ -1,14 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,600;1,400;1,500;1,600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,600;1,400;1,500;1,600&display=swap");
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
   font-weight: 400;
   font-size: 16px;
-  color: #1E2F28;
+  color: #1e2f28;
   line-height: 1.4;
-
 }
 
 a {
@@ -32,4 +31,26 @@ a {
   }
 } */
 
-.loginButton{position: absolute;transform:translateX(-50%) translateY(-50%);top:50%;left:50%;padding:10px 26px;border:none;background-color:lightblue;border-radius:30px;font-size:18px;color:#000;letter-spacing:inherit;text-transform:uppercase;cursor: pointer;}
+.loginButton {
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+  top: 50%;
+  left: 50%;
+  padding: 10px 26px;
+  border: none;
+  background-color: lightblue;
+  border-radius: 30px;
+  font-size: 18px;
+  color: #000;
+  letter-spacing: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.swiper-3d .swiper-slide-shadow-left {
+  background-image: none !important;
+}
+
+.swiper-3d .swiper-slide-shadow-right {
+  background-image: none !important;
+}
