@@ -90,6 +90,7 @@ export default function PlayList() {
         setIdData(data)
         let user = session?.accessToken;
         let response = await getData(apiList.PLAY_SONG + `?user=${user}&id=${data}`);
+        console.log("fjgdhfgdhfgdhfgdh",response)
         setPlaySong(response[0]?.track.preview_url)
     }
     const swiperOptions = {
@@ -98,6 +99,7 @@ export default function PlayList() {
         centeredSlides: true,
         slidesPerView: [3.2],
         initialSlide: [2],
+        
         coverflowEffect: {
             rotate: 0,
             depth: 300,
@@ -108,7 +110,12 @@ export default function PlayList() {
         // loop:true,
         pagination: true,
         modules: [EffectCoverflow, Navigation],
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
     }
+    console.log("listSong",listSong);
     return (
         <>
             <div id="bg" className={commonStyle["bg-animation"]} ></div>
@@ -128,29 +135,31 @@ export default function PlayList() {
                     {listSong &&
                         listSong.map((v, i) => (
                             <SwiperSlide key={i}>
-                                <a className={styles.card}>
+                                <a className={styles.card} onClick={() => handledata(v.id)}>
                                     <div className={styles.image}>
-                                        <img src={v.images[0].url} alt={v.name} onClick={() => handledata(v.id)} />
+                                        <img src={v.images[0].url} alt={v.name}  />
                                         <div className={styles.player}>
 
                                         </div>
-                                        {idData === v.id ?
+                                         {/* {idData === v.id ?
                                             <>
                                                 <div className={styles.player}>
-                                                    <audio controls>
+                                                     <audio controls>
                                                         <source src={plyasong} type="audio/mpeg" />
                                                     </audio>
                                                 </div>
                                             </>
-                                            : ""}
+                                            : ""}  */}
+                                        <div className={styles.player}>
+                                        <p className={styles["info-title"]}>{v.name}</p>
+                                        </div>
                                     </div>
                                     {/* <img src={v.image} alt={v.name} /> */}
-                                    <h2>{v.name}</h2>
                                 </a>
                             </SwiperSlide>
                         ))}
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
+                        <div className="swiper-button-prev"></div>
+                        <div className="swiper-button-next"></div>
                 </Swiper>
             </div >
         </>
