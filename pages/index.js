@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import homeStyle from "../styles/home.module.scss";
-import commonStyle from "../styles/Common.module.css"
+import commonStyle from "../styles/Common.module.scss"
 import lottie from 'lottie-web';
 import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
@@ -95,7 +95,12 @@ export default function Index() {
                                 <input type="text"
                                     placeholder={placeholders.name} />
                             </div>
-                            <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a>
+                            {/* <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a> */}
+                            <div className={homeStyle["button-wrapper"]}>
+                                <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a> 
+                                {/* <button className={homeStyle["button"]} type="button">Generate</button> */}
+                                <div className={homeStyle["button-bg"]}></div>
+                            </div>
 
                         </section>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import commonStyle from "../../styles/Common.module.css";
+import commonStyle from "../../styles/Common.module.scss";
 import Image from 'next/image';
 import Logo from "../../public/assets/images/fwd-logo.svg"
 export default function Chatbox() {

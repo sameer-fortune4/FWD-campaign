@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../styles/Common.module.css';
+import styles from '../styles/Common.module.scss';
 import { getData } from '../utilities/service';
 import { apiList } from '../utilities/apiList';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import commonStyle from "../styles/Common.module.css"
+import commonStyle from "../styles/Common.module.scss"
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -12,7 +12,7 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, EffectCoverflow } from 'swiper/modules';
 import lottie from 'lottie-web';
-import Loader from '../component/landing/loader';
+// import Loader from '../component/landing/loader';
 
 export default function PlayList() {
     const { data: session } = useSession();

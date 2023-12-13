@@ -1,22 +1,3 @@
-@keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  @keyframes fadeInText {
-    from {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
 
 .banner-wrapper{max-width: 650px;display: flex;align-items: center;justify-content: center;flex-direction: column;
     .text-container {
@@ -37,10 +18,35 @@
             }
         }
     }
-    .btn{display: block;padding: 10px 40px;border-radius: 35px;border: none;color: #fff;background-color: #1E2F28;margin-top: 35px;
-        
-    }
-}
+    }        
+    .button-wrapper {
+        position: relative;
+        margin-top: 35px;
+          .btn{display: block;padding: 10px 40px;border-radius: 35px;border: none;color: #fff;background-color: #1E2F28; transition: all .4s ease-in-out;}
+          &:hover{
+            .btn{
+                background-color: #fff;
+                color: #000;
+            }
+            .button-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: calc(100% + 4px);
+                height: calc(100% + 4px);
+                background: linear-gradient(90deg, #FF8038 0%, #FF0099 30.43%, #00EBEB 68.23%, #DB00FF 100%);
+                background-size: 600% 600%;
+                border-radius: 50px;
+                animation: AnimateBorder 4s ease infinite;
+                -webkit-animation: AnimateBorder 4s ease infinite;
+                -moz-animation: AnimateBorder 4s ease infinite;
+                z-index: -1;
+                transform: translate(-2px, -2px);
+                transition: filter 1s ease-in;
+              }
+          }
+      }
+
 .dialog-wrapper{
     min-height: 100vh;
     width: 100%;
@@ -73,8 +79,6 @@
         background-color: #F9EDE6;
         transition: all 0.5s ease-in-out;
         
-        
-
         .modal-title{
             font-family: 'Grand Rainbow Demo';
             font-size: 26px;
@@ -103,4 +107,39 @@
             }
         }
     }
+}
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeInText {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @-webkit-keyframes AnimateBorder {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimateBorder {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes AnimateBorder {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
 }

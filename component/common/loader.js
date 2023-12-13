@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import commonStyle from '../../styles/Common.module.css';
+import commonStyle from '../../styles/Common.module.scss';
 import loaderStyle from '../../styles/loader.module.scss';
 
 import lottie from 'lottie-web';
