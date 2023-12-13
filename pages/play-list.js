@@ -149,6 +149,8 @@ export default function PlayList() {
                                 </a>
                             </SwiperSlide>
                         ))}
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
                 </Swiper>
             </div >
         </>
