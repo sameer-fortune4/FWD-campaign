@@ -14,9 +14,44 @@ export default function Home() {
     const router = useRouter()
 
     const [open, setOpen] = useState(false)
-
+    
+   //////////
+   const milliseconds = 4000;
+   const [intervalTime, setIntervalTime] = useState(milliseconds);
+   const writePlaceholder = (field, text, n) => {
+     if (n < text.length) {
+       setPlaceholders((prevPlaceholders) => ({
+         ...prevPlaceholders,
+         [field]: text.substring(0, n + 1),
+       }));
+       n++;
+       setTimeout(() => {
+         writePlaceholder(field, text, n);
+       }, 65);
+     }
+   };
+ 
+   const setFields = (objFields) => {
+     for (const key in objFields) {
+       if (objFields.hasOwnProperty(key)) {
+         writePlaceholder(key, objFields[key], 0);
+       }
+     }
+   }; 
+   const intervalTimeHandler = (ms) => {
+     setIntervalTime(ms);
+   };
+ 
+   const [placeholders, setPlaceholders] = useState({});
+   useEffect(() => {
+     intervalTimeHandler(5000);
+     setFields({
+       name: "I'm so anxious that I might lose my job I'm worried it's driving my wife away.",
+     });
+   }, []);
+   /////////////////
+    
     useEffect(() => {
-        // Load the Lottie animation
         const animation = lottie.loadAnimation({
             container: document.getElementById('bg-wrapper'),
             renderer: 'svg',
@@ -24,8 +59,6 @@ export default function Home() {
             autoplay: true,
             path: '/assets/js/lottiefiles.json',
         });
-
-        // Clean up the animation when the component is unmounted
         return () => {
             animation.destroy();
         };
@@ -52,12 +85,14 @@ export default function Home() {
                 :
                 <>
                     <section className={homeStyle["banner-wrapper"]} >
-                        <h1 className={commonStyle["large-title"]}>PLAYLIST FOR A PROBLEM</h1>
+                        <div className={homeStyle["text-container"]}>
+                            <h1 className={commonStyle["large-title"]}>PLAYLIST FOR A PROBLEM</h1>
+                        </div>
                         <p className={homeStyle["tag-lines"]}>Sharing your feelings is healthy. Tell us how you feel today and we'll curate an album
                             designed to make you feel better.</p>
                         <div className={homeStyle["form-group"]}>
                             <input type="text"
-                                placeholder="I'm so anxious that I might lose my job I'm worried it's driving my wife away." />
+                                placeholder={placeholders.name} />
                         </div>
                         <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a>
 

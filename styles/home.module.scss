@@ -1,9 +1,40 @@
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeInText {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
 .banner-wrapper{max-width: 650px;display: flex;align-items: center;justify-content: center;flex-direction: column;
+    .text-container {
+        opacity: 0; 
+        animation: fadeIn 1.5s ease-in-out;
+        animation-fill-mode: forwards;
+        h1{
+            animation: fadeInText 1s ease-in-out;
+        }
+      }
     .tag-lines{max-width: 480px;text-align: center;
     }
     .form-group{ width: 100%;margin-top: 25px;
         input{padding: 15px 20px;width: 100%;display: block;background-color: #FBF3E1;border: none;border-radius: 13px;font-size: 16px;
             &:focus{outline: none;}
+            &::placeholder{
+                transition: all .4s ease-in-out;
+            }
         }
     }
     .btn{display: block;padding: 10px 40px;border-radius: 35px;border: none;color: #fff;background-color: #1E2F28;margin-top: 35px;
@@ -21,22 +52,29 @@
         opacity: 1;
         visibility: visible;
         z-index: 1;
+        .dialog-box{
+            transform: translate(-50%,-50%) scale(1, 1);
+        }
     }
     &.close{
         opacity: 0;
         visibility: hidden;
     }
     .dialog-box{
-        max-width: 630px;
+        max-width: 700px;
         position: absolute;
         top: 50%;
         left: 50%;
         text-align: center;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%) scale(0.5, 0.5);
         border: none;
-        padding: 70px 75px;
+        padding: 50px 100px;
         border-radius: 30px;
         background-color: #F9EDE6;
+        transition: all 0.5s ease-in-out;
+        
+        
+
         .modal-title{
             font-family: 'Grand Rainbow Demo';
             font-size: 26px;
@@ -44,10 +82,10 @@
             font-weight: 500;
         }
         .btn-wrap{
-            margin-top: 45px;
+            margin-top: 40px;
             display: flex;
             justify-content: center;
-            .btn{
+            .btn{   
                 display: block;
                 height: 60px;
                 width: 60px;
