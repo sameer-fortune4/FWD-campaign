@@ -96,10 +96,9 @@ export default function Index() {
                                     placeholder={placeholders.name} />
                             </div>
                             {/* <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a> */}
-                            <div className={homeStyle["button-wrapper"]}>
-                                <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a> 
-                                {/* <button className={homeStyle["button"]} type="button">Generate</button> */}
-                                <div className={homeStyle["button-bg"]}></div>
+                            <div className={commonStyle["button-wrapper"] + " " + homeStyle["home-btn"]}>
+                                <a href="#" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a> 
+                                <div className={commonStyle["button-bg"]}></div>
                             </div>
 
                         </section>

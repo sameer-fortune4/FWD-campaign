@@ -124,9 +124,13 @@ export default function PlayList() {
                     <span className={styles.name}>{`${session?.user.name}'s`}</span>
                     <span className={styles.list}>Playlist</span>
                 </div>
-                <button onClick={signOut} className='loginButton'>
+                <div className={commonStyle["button-wrapper"]}>
+                    <a href="#" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]} onClick={signOut}>SignOut</a> 
+                    <div className={commonStyle["button-bg"]}></div>
+                </div>
+                {/* <button onClick={signOut} className='loginButton'>
                     SignOut
-                </button>
+                </button> */}
             </header>
             <div className={styles.container}>
                 <Swiper
