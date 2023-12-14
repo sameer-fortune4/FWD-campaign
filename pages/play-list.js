@@ -138,9 +138,9 @@ export default function PlayList() {
                                 <a className={styles.card} onClick={() => handledata(v.id)}>
                                     <div className={styles.image}>
                                         <img src={v.images[0].url} alt={v.name}  />
-                                        <div className={styles.player}>
+                                        {/* <div className={styles.player}>
 
-                                        </div>
+                                        </div> */}
                                          {/* {idData === v.id ?
                                             <>
                                                 <div className={styles.player}>
@@ -151,7 +151,8 @@ export default function PlayList() {
                                             </>
                                             : ""}  */}
                                         <div className={styles.player}>
-                                        <p className={styles["info-title"]}>{v.name}</p>
+                                            <span className={styles["media-icon"]}></span>
+                                            <p className={styles["info-title"]}>{v.name}</p>
                                         </div>
                                     </div>
                                     {/* <img src={v.image} alt={v.name} /> */}

@@ -11,30 +11,23 @@
 }
 
 .card{max-width:270px;
-  // margin-right:7px;
-  // margin-left:7px;
   overflow:hidden;
-  // margin-bottom:20px;
   cursor: pointer;
   .image{position: relative; height: 100%;
     h2{margin:0;font-size:16px;margin-top:8px;font-weight:500;letter-spacing:.6px;margin-left:15px;}
     img{max-width:100%;border-radius:10px; height: 100%;}
-    .player{position: absolute;left:50%; transform: translateX(-50%); border-radius: 15px; bottom:10px;width:90%;height:45px;display: flex;transition:all .3s ease-in-out; background-color: rgba(255, 255, 255, 0.4);backdrop-filter: blur(5px);
-      .info-title{color: #000;}
-      // audio{display: none;}
-      // &::after{
-      //   content:"";background-color: #FFF;border-radius:100px;transition:all .4s ease-in-out;display: block;flex:0 0 auto;width:45px;
-      // }
+    .player{
+      padding: 0 10px; position: absolute;left:50%; transform: translateX(-50%); border-radius: 15px; bottom:15px;width:90%;height:60px;display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.28);backdrop-filter: blur(6px);
+      .media-icon{
+        height: 40px; width: 40px; background-color: #fff; display: block; border-radius: 50%; flex: 0 0 auto;
+      }
+      .info-title{color: #fff; text-wrap: nowrap; overflow: hidden; text-overflow: ellipsis;}
+
     }
   }
   &:hover{
     .image{
-      // .player{
-      //   width:auto;right:10px;
-      //   &::after{
-      //     opacity:1;visibility: visible;width:100%;flex:1
-      //   }
-      // }
+
     }
   }
 }
