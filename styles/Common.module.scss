@@ -23,7 +23,9 @@
       }
       .info-title{color: #fff; text-wrap: nowrap; overflow: hidden; text-overflow: ellipsis;}
     }
-    .btn-play{display: block; height: 60px; width: 60px; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);background: rgba(255, 255, 255, 0.28);backdrop-filter: blur(6px); transition: all .4s ease-in-out;}
+    .btn-play{height: 60px; width: 60px; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);background: rgba(255, 255, 255, 0.28);backdrop-filter: blur(6px); transition: all .4s ease-in-out; display: flex; align-items: center; justify-content: center;
+    &::after{content: ""; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='34' viewBox='0 0 21 34' fill='none'%3E%3Cpath d='M0 34V0L21 17.8293L0 34Z' fill='white'/%3E%3C/svg%3E"); background-size: contain; background-position: 100%; background-repeat: no-repeat; height: 30px; width: 25px; display: block;}
+    }
   }
   &:hover{
     .image{
