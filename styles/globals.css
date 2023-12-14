@@ -31,26 +31,8 @@ a {
   }
 } */
 
-.loginButton {
-  position: absolute;
-  transform: translateX(-50%) translateY(-50%);
-  top: 50%;
-  left: 50%;
-  padding: 10px 26px;
-  border: none;
-  background-color: lightblue;
-  border-radius: 30px;
-  font-size: 18px;
-  color: #000;
-  letter-spacing: inherit;
-  text-transform: uppercase;
-  cursor: pointer;
+.swiper-container .swiper-slide-active .player-wrapper{
+  opacity: 1 !important; visibility: visible !important;
 }
+.swiper-container .swiper-slide-active .play-btn{opacity: 0 !important; visibility: hidden !important;}
 
-/* .swiper-3d .swiper-slide-shadow-left {
-  background-image: none !important;
-}
-
-.swiper-3d .swiper-slide-shadow-right {
-  background-image: none !important;
-} */

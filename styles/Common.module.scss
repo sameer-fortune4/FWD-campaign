@@ -16,14 +16,14 @@
   .image{position: relative; height: 100%;
     h2{margin:0;font-size:16px;margin-top:8px;font-weight:500;letter-spacing:.6px;margin-left:15px;}
     img{max-width:100%;border-radius:10px; height: 100%;}
-    .player{
-      padding: 0 10px; position: absolute;left:50%; transform: translateX(-50%); border-radius: 15px; bottom:15px;width:90%;height:60px;display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.28);backdrop-filter: blur(6px);
+    .player{ opacity: 0; visibility: hidden;
+      padding: 0 10px; position: absolute;left:50%; transform: translateX(-50%); border-radius: 15px; bottom:15px;width:90%;height:60px;display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.28);backdrop-filter: blur(6px); transition: all .4s ease-in-out;
       .media-icon{
         height: 40px; width: 40px; background-color: #fff; display: block; border-radius: 50%; flex: 0 0 auto;
       }
       .info-title{color: #fff; text-wrap: nowrap; overflow: hidden; text-overflow: ellipsis;}
-
     }
+    .btn-play{display: block; height: 60px; width: 60px; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);background: rgba(255, 255, 255, 0.28);backdrop-filter: blur(6px); transition: all .4s ease-in-out;}
   }
   &:hover{
     .image{

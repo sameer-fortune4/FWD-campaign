@@ -37,7 +37,7 @@ export default function PlayList() {
             renderer: 'svg',
             loop: true,
             autoplay: true,
-            path: '/assets/js/slider.json',
+            path: '/assets/js/lottiefiles.json',
         });
 
         // Clean up the animation when the component is unmounted
@@ -99,7 +99,7 @@ export default function PlayList() {
         centeredSlides: true,
         slidesPerView: [3.2],
         initialSlide: [2],
-        
+        speed: [1000],
         coverflowEffect: {
             rotate: 0,
             depth: 300,
@@ -132,7 +132,7 @@ export default function PlayList() {
                     SignOut
                 </button> */}
             </header>
-            <div className={styles.container}>
+            <div className={styles.container + " " + "swiper-container"}>
                 <Swiper
                     {...swiperOptions}
                 >
@@ -154,10 +154,11 @@ export default function PlayList() {
                                                 </div>
                                             </>
                                             : ""}  */}
-                                        <div className={styles.player}>
+                                        <div className={styles["player"] + " " +"player-wrapper"}>
                                             <span className={styles["media-icon"]}></span>
                                             <p className={styles["info-title"]}>{v.name}</p>
                                         </div>
+                                        <span className={styles["btn-play"] + " " + "play-btn"}></span>
                                     </div>
                                     {/* <img src={v.image} alt={v.name} /> */}
                                 </a>
