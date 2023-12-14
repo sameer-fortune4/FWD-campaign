@@ -41,6 +41,7 @@ export default function Loader() {
 
   return (
     <>
+      <div className={commonStyle["main-wrapper"]}>
         <div id="bg-wrapper" className={commonStyle['bg-animation']}></div>
         <section className={loaderStyle['loader-wrapper']}>
           <h4 className={commonStyle['small-title']}>
@@ -55,6 +56,7 @@ export default function Loader() {
             ))}
           </div>
         </section>
+      </div>
     </>
   );
 }

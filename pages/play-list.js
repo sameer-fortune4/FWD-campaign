@@ -12,6 +12,7 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, EffectCoverflow } from 'swiper/modules';
 import lottie from 'lottie-web';
+import Chatbox from '../component/common/chatbox';
 // import Loader from '../component/landing/loader';
 
 export default function PlayList() {
@@ -86,7 +87,9 @@ export default function PlayList() {
         }
     };
     const [idData, setIdData] = useState()
+    const [classData,setClassData] = useState(false)
     const handledata = async (data) => {
+        setClassData(!classData)
         setIdData(data)
         let user = session?.accessToken;
         let response = await getData(apiList.PLAY_SONG + `?user=${user}&id=${data}`);
@@ -97,7 +100,7 @@ export default function PlayList() {
         className: "mySwiper",
         effect: 'coverflow',
         centeredSlides: true,
-        slidesPerView: [3.2],
+        // slidesPerView: [1.2],
         initialSlide: [2],
         speed: [1000],
         coverflowEffect: {
@@ -107,18 +110,35 @@ export default function PlayList() {
             slideShadows: true,
             scale: 1,
         },
+        breakpoints: {
+            0:{
+                slidesPerView: 1.2,
+            },
+            499: {
+                slidesPerView: 2.2,
+            },
+            999: {
+                slidesPerView: 3.2,
+            }
+          },
         // loop:true,
         pagination: true,
+        allowTouchMove: true,
         modules: [EffectCoverflow, Navigation],
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+        on: {
+            slideChange: () => setClassData(false), // Set classData to false on slide change
+        },
     }
     console.log("listSong",listSong);
     return (
         <>
+        
             <div id="bg" className={commonStyle["bg-animation"]} ></div>
+            <div>
             <header className={styles.headerWrapper}>
                 <div className={styles.copy}>
                     <span className={styles.name}>{`${session?.user.name}'s`}</span>
@@ -132,6 +152,8 @@ export default function PlayList() {
                     SignOut
                 </button> */}
             </header>
+                {/* <h2 className={styles["medium-title"]}>Listen to other people's</h2> */}   
+                {/* <h2 className={styles["medium-title"]}>Playlist for a Problem</h2> */}   
             <div className={styles.container + " " + "swiper-container"}>
                 <Swiper
                     {...swiperOptions}
@@ -155,7 +177,7 @@ export default function PlayList() {
                                             </>
                                             : ""}  */}
                                         <div className={styles["player"] + " " +"player-wrapper"}>
-                                            <span className={styles["media-icon"]}></span>
+                                            <span className={styles["media-icon"] + " " + (idData === v.id && !classData ? "active" : "")}></span>
                                             <p className={styles["info-title"]}>{v.name}</p>
                                         </div>
                                         <span className={styles["btn-play"] + " " + "play-btn"}></span>
@@ -164,10 +186,12 @@ export default function PlayList() {
                                 </a>
                             </SwiperSlide>
                         ))}
-                        <div className="swiper-button-prev"></div>
-                        <div className="swiper-button-next"></div>
+                        <div className="swiper-button-prev swipe-btn"></div>
+                        <div className="swiper-button-next swipe-btn"></div>
                 </Swiper>
             </div >
+            </div>
+            <Chatbox/>
         </>
     );
 }
