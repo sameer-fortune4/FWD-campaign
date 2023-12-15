@@ -177,8 +177,17 @@ export default function PlayList() {
                                             </>
                                             : ""}  */}
                                         <div className={styles["player"] + " " +"player-wrapper"}>
-                                            <span className={styles["media-icon"] + " " + (idData === v.id && !classData ? "active" : "")}></span>
-                                            <p className={styles["info-title"]}>{v.name}</p>
+                                            <span className={styles["media-icon"] + " " + (idData === v.id && !classData ? styles.active : "")}></span>
+                                            <div className={styles["control-wrapper"]}>
+                                                <span className={styles["info-title"]}>{v.name}</span>
+                                                <span className={styles["timer-wrap"]}>
+                                                    <span>-6s</span>
+                                                    <span>2min</span>
+                                                </span>
+                                                <div className={styles["progress-bar"]}>
+                                                    <span className={styles["strip"]}></span>
+                                                </div>
+                                            </div>
                                         </div>
                                         <span className={styles["btn-play"] + " " + "play-btn"}></span>
                                     </div>
