@@ -1,9 +1,14 @@
-.container {
-  padding: 1rem 15vw;
-  display: flex;
-  flex-wrap:wrap;
-  @media (max-width:480px) {
-    padding: 20px;
+.container {padding: 0 15vw;display: flex;flex-wrap:wrap;
+  @media (max-width:480px) {padding: 20px;}
+}
+
+.swiper-box{height: 100vh;
+  .container {position: relative;top: 50%;left: 50%;transform: translate(-50%,-50%);
+    .medium-title{width: 100%;
+      &:nth-child(2){margin-bottom: 20px;}
+      @media (max-width:480px) {max-width: 100%;
+      }
+    }
   }
 }
 
@@ -13,9 +18,7 @@
   .list{font-size:22px;display: block;font-weight:600;}
 }
 
-.card{max-width:270px;
-  overflow:hidden;
-  cursor: pointer;
+.card{max-width:270px;overflow:hidden;cursor: pointer;
   .image{position: relative; height: 100%;
     h2{margin:0;font-size:16px;margin-top:8px;font-weight:500;letter-spacing:.6px;margin-left:15px;}
     img{max-width:100%;border-radius:10px; height: 100%;}
@@ -36,15 +39,8 @@
       .control-wrapper{overflow: hidden; width: 100%;
         .info-title{color: #fff; text-wrap: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;    margin-bottom: 4px;}
         .timer-wrap{display: flex; justify-content: space-between; font-size: 10px; color: #fff; margin-bottom: 1px;}
-        .progress-bar{
-          width: 100%;
-          height: 2px;
-          background-color: #fff;
-          .strip{
-            width: 40%;
-            height: 100%;
-            background-color: #FF0099;
-            display: block;
+        .progress-bar{width: 100%;height: 2px;background-color: #fff;
+          .strip{width: 40%;height: 100%;background-color: #ff0068;display: block;
           }
         }
       }
@@ -53,31 +49,12 @@
     &::after{content: ""; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='34' viewBox='0 0 21 34' fill='none'%3E%3Cpath d='M0 34V0L21 17.8293L0 34Z' fill='white'/%3E%3C/svg%3E"); background-size: contain; background-position: 100%; background-repeat: no-repeat;height: 25px;width: 20px;display: block;}
     }
     &::after{
-    content: "";
-    background: linear-gradient(0deg, #000000d4, transparent 32%);
-    border-radius: 8px;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    // opacity: 0;
-    transition: all .4s ease-in-out 0s;
-    // z-index: 1;
+    content: "";background: linear-gradient(0deg, #000000d4, transparent 32%);border-radius: 8px;position: absolute;height: 100%;width: 100%;left: 0;top: 0;bottom: 0;right: 0;transition: all .4s ease-in-out 0s;
     }
   }
 }
-
-
-
-
-
-
-
 .small-title{font-size: 32px;font-weight: 500;font-family: 'Grand Rainbow Demo';}
-.large-title{font-size: 55px;font-weight: 500;font-family: 'Grand Rainbow Demo';}
+.large-title{font-size: 59px;font-weight: 500;font-family: 'Grand Rainbow Demo';}
 .medium-title{font-size: 45px;font-weight: 500; text-align: center; line-height: 1.2; font-family: 'Grand Rainbow Demo';
 @media (max-width:480px) {font-size: 35px;max-width: 300px;}
 }
@@ -88,7 +65,7 @@
 .bg-animation{position: absolute;top: 0;left: 0;height: 100% ;width: 100%;z-index: -1; overflow: hidden;}
 #bg-wrapper svg{vertical-align: middle;}
 
-.logo-wrapper {position: absolute;bottom: 20px;right: 40px;
+.logo-wrapper {position: absolute;bottom: 20px;right: 30px;
   @media (max-width:480px){right: 0;margin: 0 20px;}
   .chat-titie {max-width: 150px;background-color: #dbdedf;padding: 15px;border-radius: 20px;margin-bottom: 25px; font-weight: 600; font-size: 15px;
     @media (max-width:480px){max-width: 100%; text-align: center; margin-bottom: 20px;}
@@ -111,12 +88,9 @@
 }
 .button-wrapper {
   position: relative;
-    .btn{letter-spacing: .5px; display: block;padding: 10px 40px;border-radius: 35px;border: none;color: #fff;background-color: #1E2F28; transition: all .4s ease-in-out;}
+    .btn{letter-spacing: .4px; display: block;padding: 10px 40px;border-radius: 35px;border: none;color: #fff;background-color: #1E2F28; transition: all .4s ease-in-out;}
     &:hover{
-      .btn{
-          background-color: #fff;
-          color: #000;
-      }
+      .btn{background-color: #fff;color: #1E2F28;font-weight: 600;}
       .button-bg {
           position: absolute;
           top: 0;
@@ -149,4 +123,10 @@
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
+}
+
+.nitin{
+  position: absolute;
+  top: 0;
+  left: 0;
 }

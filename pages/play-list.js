@@ -27,7 +27,6 @@ export default function PlayList() {
             router.push('/');
         } else {
             fetchData();
-            handledata()
         }
     }, [session]);
 
@@ -133,73 +132,71 @@ export default function PlayList() {
             slideChange: () => setClassData(false), // Set classData to false on slide change
         },
     }
-    console.log("listSong",listSong);
+    console.log("listSong",plyasong);
     return (
         <>
-        
             <div id="bg" className={commonStyle["bg-animation"]} ></div>
-            <div>
-            <header className={styles.headerWrapper}>
-                <div className={styles.copy}>
-                    <span className={styles.name}>{`${session?.user.name}'s`}</span>
-                    <span className={styles.list}>Playlist</span>
-                </div>
-                <div className={commonStyle["button-wrapper"]}>
-                    <a href="#" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]} onClick={signOut}>SignOut</a> 
-                    <div className={commonStyle["button-bg"]}></div>
-                </div>
-                {/* <button onClick={signOut} className='loginButton'>
-                    SignOut
-                </button> */}
-            </header>
-                {/* <h2 className={styles["medium-title"]}>Listen to other people's</h2> */}   
-                {/* <h2 className={styles["medium-title"]}>Playlist for a Problem</h2> */}   
-            <div className={styles.container + " " + "swiper-container"}>
-                <Swiper
-                    {...swiperOptions}
-                >
-                    {listSong &&
-                        listSong.map((v, i) => (
-                            <SwiperSlide key={i}>
-                                <a className={styles.card} onClick={() => handledata(v.id)}>
-                                    <div className={styles.image}>
-                                        <img src={v.images[0].url} alt={v.name}  />
-                                        {/* <div className={styles.player}>
-
-                                        </div> */}
-                                         {/* {idData === v.id ?
-                                            <>
-                                                <div className={styles.player}>
-                                                     <audio controls>
-                                                        <source src={plyasong} type="audio/mpeg" />
-                                                    </audio>
+                {/* <header className={styles.headerWrapper}>
+                    <div className={styles.copy}>
+                        <span className={styles.name}>{`${session?.user.name}'s`}</span>
+                        <span className={styles.list}>Playlist</span>
+                    </div>
+                    <div className={commonStyle["button-wrapper"]}>
+                        <a href="#" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]} onClick={signOut}>SignOut</a> 
+                        <div className={commonStyle["button-bg"]}></div>
+                    </div>
+                    <button onClick={signOut} className='loginButton'>
+                        SignOut
+                    </button>
+                </header> */}
+                <div className={styles["swiper-box"]}>
+                    <div className={styles.container + " " + "swiper-container"}>
+                        <h2 className={styles["medium-title"]}>Listen to other people's</h2>   
+                         <h2 className={styles["medium-title"]}>Playlist for a Problem</h2>   
+                        <Swiper {...swiperOptions}>
+                            {listSong &&
+                                listSong.map((v, i) => (
+                                    <SwiperSlide key={i}>
+                                        <a className={styles.card}  onClick={() => handledata(v.id)} >
+                                            <div className={styles.image}>
+                                                <img src={v.images[0].url} alt={v.name}  />
+                                                {/* <div className={styles.player}>
+                                                </div> */}
+                                               
+                                                <div className={styles["player"] + " " +"player-wrapper"}>
+                                                    <span  onClick={() => handledata(v.id)} className={styles["media-icon"] + " " + (idData === v.id && !classData ? styles.active : "")}></span>
+                                                    <div className={styles["control-wrapper"]}>
+                                                        <span className={styles["info-title"]}>{v.name}</span>
+                                                        <span className={styles["timer-wrap"]}>
+                                                            <span>-6s</span>
+                                                            <span>2min</span>
+                                                        </span>
+                                                        <div className={styles["progress-bar"]}>
+                                                            <span className={styles["strip"]}></span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </>
-                                            : ""}  */}
-                                        <div className={styles["player"] + " " +"player-wrapper"}>
-                                            <span className={styles["media-icon"] + " " + (idData === v.id && !classData ? styles.active : "")}></span>
-                                            <div className={styles["control-wrapper"]}>
-                                                <span className={styles["info-title"]}>{v.name}</span>
-                                                <span className={styles["timer-wrap"]}>
-                                                    <span>-6s</span>
-                                                    <span>2min</span>
-                                                </span>
-                                                <div className={styles["progress-bar"]}>
-                                                    <span className={styles["strip"]}></span>
-                                                </div>
+                                                <span className={styles["btn-play"] + " " + "play-btn"}></span>
                                             </div>
-                                        </div>
-                                        <span className={styles["btn-play"] + " " + "play-btn"}></span>
-                                    </div>
-                                    {/* <img src={v.image} alt={v.name} /> */}
-                                </a>
-                            </SwiperSlide>
-                        ))}
-                        <div className="swiper-button-prev swipe-btn"></div>
-                        <div className="swiper-button-next swipe-btn"></div>
-                </Swiper>
-            </div >
-            </div>
+                                           
+                                            {/* <img src={v.image} alt={v.name} /> */}
+                                        {/* {idData === v.id ?
+                                                    <>
+                                                        <div className={styles["nitin"]}>
+                                                            <audio ref={audioRef} src={plyasong}/>
+                                                                
+                                                            </audio>
+                                                        </div>
+                                                    </>
+                                                    : ""}  */}
+                                        </a>
+                                    </SwiperSlide>
+                                ))}
+                                <div className="swiper-button-prev swipe-btn"></div>
+                                <div className="swiper-button-next swipe-btn"></div>
+                        </Swiper>
+                    </div >
+                </div>
             <Chatbox/>
         </>
     );

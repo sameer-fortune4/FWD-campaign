@@ -1,5 +1,5 @@
 
-.banner-wrapper{max-width: 650px;display: flex;align-items: center;justify-content: center;flex-direction: column;
+.banner-wrapper{max-width: 680px;display: flex;align-items: center;justify-content: center;flex-direction: column;
     .text-container {
         opacity: 0; 
         animation: fadeIn 1.5s ease-in-out;
@@ -11,7 +11,7 @@
     .tag-lines{max-width: 490px;text-align: center;font-weight: 600;
     }
     .form-group{ width: 100%;margin-top: 25px;
-        input{padding: 15px 20px;width: 100%;display: block;background-color: #FBF3E1;border: none;border-radius: 13px;font-size: 16px;
+        input{padding: 12px 20px;width: 100%;display: block;background-color: #FBF3E1;border: none;border-radius: 13px;font-size: 16px;font-family: 'Poppins', sans-serif; color: #1E2F28; font-weight: 600; opacity: 1;
             &:focus{outline: none;}
             &::placeholder{
                 transition: all .4s ease-in-out;

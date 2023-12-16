@@ -1,6 +1,5 @@
 .playlist-wrappper{
     text-align: center;
-    margin-bottom: 13vw;
     h2{
         margin-bottom: 20px;
         @media (max-width:480px) {max-width: 300px; margin-bottom: 30px;}
@@ -14,5 +13,6 @@
     .listen-txt{
         display: block;
         margin-top: 10px;
+        font-weight: 600;
     }
 }
