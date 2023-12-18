@@ -68,16 +68,33 @@ export default function PlayList() {
 
     const [audioRef, setAudioRef] = useState(null);
     const [playSong, setPlaySong] = useState()
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
     useEffect(() => {
         // Create an audio element reference
         const audioElement = new Audio();
         setAudioRef(audioElement);
+
+        const handleTimeUpdate = () => {
+            setCurrentTime(audioElement.currentTime);
+        };
+
+        // Handle duration change
+        const handleDurationChange = () => {
+            setDuration(audioElement.duration);
+        };
+
+        // Attach event listeners
+        audioElement.addEventListener('timeupdate', handleTimeUpdate);
+        audioElement.addEventListener('durationchange', handleDurationChange);
 
         // Clean up the audio element when the component is unmounted
         return () => {
             audioElement.pause();
             audioElement.src = '';
             audioElement.load();
+            audioElement.removeEventListener('timeupdate', handleTimeUpdate);
+            audioElement.removeEventListener('durationchange', handleDurationChange);
         };
     }, []);
     const handledata = async (data) => {
@@ -111,6 +128,12 @@ export default function PlayList() {
                 console.error('Error fetching playlist song data:', error);
             }
         }
+    };
+    const calculateProgressBarWidth = () => {
+        if (duration > 0) {
+            return (currentTime / duration) * 100 + '%';
+        }
+        return '0%';
     };
     const swiperOptions = {
         className: "mySwiper",
@@ -149,6 +172,11 @@ export default function PlayList() {
             slideChange: () => setClassData(false), // Set classData to false on slide change
         },
     }
+    const formatTime = (timeInSeconds) => {
+        const minutes = Math.floor(timeInSeconds / 60);
+        const seconds = Math.floor(timeInSeconds % 60);
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    };
     return (
         <>
             <div id="bg" className={commonStyle["bg-animation"]} ></div>
@@ -167,14 +195,28 @@ export default function PlayList() {
                                                 <span className={styles["media-icon"] + " " + ((idData === v.id && classData ? styles.active : ""))}></span>
                                                 <div className={styles["control-wrapper"]}>
                                                     <span className={styles["info-title"]}>{v.name}</span>
-                                                    {idData === v.id && classData && (
-                                                        // <audio controls >
-                                                            <source ref={audioRef} src={playSong} type="audio/mpeg" />
-                                                        // {/* </audio> */}
-                                                    )}
-                                                    <div className={styles["progress-bar"]}>
-                                                        <span className={styles["strip"]}></span>
+                                                    <div className={styles['timer-wrap']}>
+                                                        <span>{formatTime(currentTime)}</span>
+                                                        <span>{formatTime(duration)}</span>
                                                     </div>
+                                                    <source ref={audioRef} src={playSong} type="audio/mpeg" />
+                                                    <div className={styles["progress-bar"]}>
+                                                        {idData === v.id && classData ?
+                                                            <span
+                                                                className={styles["strip"]}
+                                                                style={{ width: calculateProgressBarWidth() }}
+                                                            ></span>
+                                                            :
+                                                            <span
+                                                                className={styles["strip"]}
+                                                                style={{ width: calculateProgressBarWidth() }}
+                                                            ></span>
+                                                        }
+                                                    </div>
+
+                                                    {/* <div className={styles["progress-bar"]}>
+                                                                <span className={styles["strip"]}></span>
+                                                            </div> */}
                                                 </div>
                                             </div>
                                             <span className={styles["btn-play"] + " " + "play-btn"}></span>
