@@ -4,9 +4,18 @@ export const authOptions = {
     providers: [
         SpotifyProvider({
             clientId: process.env.SPOTIFY_CLIENT_ID,
-            clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+            clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+            // authorization: {
+            //     params: {
+            //       prompt: "consent",
+            //       access_type: "offline",
+            //       response_type: "code",
+            //       redirect_uri:"http://192.168.10.147:3000/api/auth/callback/spotify"
+            //     }
+            //   }
         })
     ],
+    // site:"http://192.168.10.147:3000/play-list",
     jwt: {
         maxAge: 30 * 24 * 60 * 60,
         encryption: true

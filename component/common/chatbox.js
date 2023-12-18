@@ -3,7 +3,14 @@ import commonStyle from "../../styles/Common.module.scss";
 import Image from 'next/image';
 import Logo from "../../public/assets/images/fwd-logo.svg"
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 export default function Chatbox() {
+  const router = useRouter()
+  const handleData = ()=>{
+    signOut();
+    router.push('/')
+    localStorage.clear()
+  }
   return (
     <>
         <div className={commonStyle["logo-wrapper"]}>
@@ -13,7 +20,7 @@ export default function Chatbox() {
                     professional.</p>
             </div>
             <a href="#" className={commonStyle["logo-wrap"]}>
-                <Image onClick={signOut} src={Logo} height={100} width={100}/>
+                <Image onClick={handleData} src={Logo} height={100} width={100}/>
             </a>
         </div>
     </>

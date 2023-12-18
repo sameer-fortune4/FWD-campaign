@@ -21,14 +21,41 @@ export default function PlayList() {
 
     const [listSong, setListSong] = useState([]);
     const [plyasong, setPlaySong] = useState();
+    const [idData, setIdData] = useState()
+    const [classData, setClassData] = useState(false)
 
     useEffect(() => {
+        let access_token = session?.accessToken;
+        let token = localStorage.getItem('access_token')
+
+        // if (!session) {
+        //     router.push('/');
+        // } else {
+        //     fetchPlayListData(access_token);
+        //     handledata()
+        // }
         if (!session) {
-            router.push('/');
+            if (token) {
+                fetchFilterList(token)
+                fetchFilterListSong(token)
+            }
         } else {
-            fetchData();
+            fetchFilterList(access_token)
+            fetchFilterListSong(access_token)
         }
     }, [session]);
+
+    useEffect(() => {
+        let access_token = session?.accessToken;
+        let token = localStorage.getItem('access_token')
+        if (!session) {
+            if (token) {
+                fetchPlayListSong(token)
+            }
+        } else {
+            fetchPlayListSong(access_token)
+        }
+    }, [idData])
 
     useEffect(() => {
         // Load the Lottie animation
@@ -58,10 +85,9 @@ export default function PlayList() {
     //     }
     // };
 
-    const fetchData = async () => {
+    const fetchPlayListData = async (access_token) => {
         try {
-            let user = session?.accessToken;
-            let response = await getData(apiList.PLAY_LIST + `?user=${user}`);
+            let response = await getData(apiList.PLAY_LIST + `?access_token=${access_token}`);
             // setListSong(
             //     response?.map((v) => ({
             //         image: v.images[0]?.url,
@@ -85,15 +111,34 @@ export default function PlayList() {
             console.error('Error fetching data:', error);
         }
     };
-    const [idData, setIdData] = useState()
-    const [classData,setClassData] = useState(false)
+    const fetchPlayListSong = async (access_token) => {
+        try {
+            let response = await getData(apiList.PLAY_SONG + `?access_token=${access_token}&id=${idData}`);
+            console.log("000000000000", response);
+            setPlaySong(response[0]?.track.preview_url)
+
+        } catch (error) {
+            console.error('Error fetching paylist song data:', error);
+
+        }
+    }
+
+    const fetchFilterList = async (access_token) => {
+        let item = JSON.parse(localStorage.getItem('emotionData'))
+        // let access_token = localStorage?.getItem('access_token')
+        let response = await getData(apiList.FILTER_SONG + `?q=${item?.name}&access_token=${access_token}`)
+        // setListSong(response.items)
+
+    }
+    const fetchFilterListSong = async (access_token) => {
+        let item = JSON.parse(localStorage.getItem('emotionData'))
+        let response = await getData(apiList.FILTER_BY_TRACK_SONG + `?q=${item?.name}&access_token=${access_token}`)
+        setListSong(response.items)
+        console.log("0000000000000000", response);
+    }
     const handledata = async (data) => {
         setClassData(!classData)
         setIdData(data)
-        let user = session?.accessToken;
-        let response = await getData(apiList.PLAY_SONG + `?user=${user}&id=${data}`);
-        console.log("fjgdhfgdhfgdhfgdh",response)
-        setPlaySong(response[0]?.track.preview_url)
     }
     const swiperOptions = {
         className: "mySwiper",
@@ -110,7 +155,7 @@ export default function PlayList() {
             scale: 1,
         },
         breakpoints: {
-            0:{
+            0: {
                 slidesPerView: 1.2,
             },
             499: {
@@ -119,7 +164,7 @@ export default function PlayList() {
             999: {
                 slidesPerView: 3.2,
             }
-          },
+        },
         // loop:true,
         pagination: true,
         allowTouchMove: true,
@@ -132,11 +177,10 @@ export default function PlayList() {
             slideChange: () => setClassData(false), // Set classData to false on slide change
         },
     }
-    console.log("listSong",plyasong);
     return (
         <>
             <div id="bg" className={commonStyle["bg-animation"]} ></div>
-                {/* <header className={styles.headerWrapper}>
+            {/* <header className={styles.headerWrapper}>
                     <div className={styles.copy}>
                         <span className={styles.name}>{`${session?.user.name}'s`}</span>
                         <span className={styles.list}>Playlist</span>
@@ -149,37 +193,36 @@ export default function PlayList() {
                         SignOut
                     </button>
                 </header> */}
-                <div className={styles["swiper-box"]}>
-                    <div className={styles.container + " " + "swiper-container"}>
-                        <h2 className={styles["medium-title"]}>Listen to other people's</h2>   
-                         <h2 className={styles["medium-title"]}>Playlist for a Problem</h2>   
-                        <Swiper {...swiperOptions}>
-                            {listSong &&
-                                listSong.map((v, i) => (
-                                    <SwiperSlide key={i}>
-                                        <a className={styles.card}  onClick={() => handledata(v.id)} >
-                                            <div className={styles.image}>
-                                                <img src={v.images[0].url} alt={v.name}  />
-                                                {/* <div className={styles.player}>
+            <div className={styles["swiper-box"]}>
+                <div className={styles.container + " " + "swiper-container"}>
+                    <h2 className={styles["medium-title"]}>Listen to other people's</h2>
+                    <h2 className={styles["medium-title"]}>Playlist for a Problem</h2>
+                    <Swiper {...swiperOptions}>
+                        {listSong &&
+                            listSong.map((v, i) => (
+                                <SwiperSlide key={i}>
+                                    <a className={styles.card} onClick={() => handledata(v.id)} >
+                                        <div className={styles.image}>
+                                            <img src={v.album?.images[0]?.url} alt={v.name} />
+                                            {/* <div className={styles.player}>
                                                 </div> */}
-                                               
-                                                <div className={styles["player"] + " " +"player-wrapper"}>
-                                                    <span  onClick={() => handledata(v.id)} className={styles["media-icon"] + " " + (idData === v.id && !classData ? styles.active : "")}></span>
-                                                    <div className={styles["control-wrapper"]}>
-                                                        <span className={styles["info-title"]}>{v.name}</span>
-                                                        <span className={styles["timer-wrap"]}>
-                                                            <span>-6s</span>
-                                                            <span>2min</span>
-                                                        </span>
-                                                        <div className={styles["progress-bar"]}>
-                                                            <span className={styles["strip"]}></span>
-                                                        </div>
+
+                                            <div className={styles["player"] + " " + "player-wrapper"}>
+                                                <span className={styles["media-icon"] + " " + (idData === v.id && !classData ? styles.active : "")}></span>
+                                                <div className={styles["control-wrapper"]}>
+                                                    <span className={styles["info-title"]}>{v.name}</span>
+                                                    <audio controls>
+                                                        <source src={v.preview_url} type="audio/mpeg" />
+                                                    </audio>
+                                                    <div className={styles["progress-bar"]}>
+                                                        <span className={styles["strip"]}></span>
                                                     </div>
                                                 </div>
-                                                <span className={styles["btn-play"] + " " + "play-btn"}></span>
                                             </div>
-                                           
-                                            {/* <img src={v.image} alt={v.name} /> */}
+                                            <span className={styles["btn-play"] + " " + "play-btn"}></span>
+                                        </div>
+
+                                        {/* <img src={v.image} alt={v.name} /> */}
                                         {/* {idData === v.id ?
                                                     <>
                                                         <div className={styles["nitin"]}>
@@ -189,15 +232,15 @@ export default function PlayList() {
                                                         </div>
                                                     </>
                                                     : ""}  */}
-                                        </a>
-                                    </SwiperSlide>
-                                ))}
-                                <div className="swiper-button-prev swipe-btn"></div>
-                                <div className="swiper-button-next swipe-btn"></div>
-                        </Swiper>
-                    </div >
-                </div>
-            <Chatbox/>
+                                    </a>
+                                </SwiperSlide>
+                            ))}
+                        <div className="swiper-button-prev swipe-btn"></div>
+                        <div className="swiper-button-next swipe-btn"></div>
+                    </Swiper>
+                </div >
+            </div>
+            <Chatbox />
         </>
     );
 }

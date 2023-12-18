@@ -1,5 +1,5 @@
 const topTracks = async (query) => {
-    const data = await query.user
+    const data = await query.access_token
     const id = await query.id
     return fetch(`https://api.spotify.com/v1/playlists/${id}/tracks`, {
         headers: {

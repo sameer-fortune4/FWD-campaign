@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import homeStyle from "../styles/home.module.scss";
 import commonStyle from "../styles/Common.module.scss"
@@ -12,9 +12,19 @@ export default function Index() {
     const { data: session } = useSession();
     const [loading, setLoading] = useState(false)
     const router = useRouter()
+    const socketRef = useRef(null);
 
     const [open, setOpen] = useState(false)
+    const [formData, setFormData] = useState({ name: '', });
+    const [mainData, setMainData] = useState('')
+    const [emotions, setEmotions] = useState([]);
 
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
     //////////
     const milliseconds = 4000;
     const [intervalTime, setIntervalTime] = useState(milliseconds);
@@ -63,20 +73,58 @@ export default function Index() {
             animation.destroy();
         };
     }, []);
-
-    const login = () => {
+    // const [collection,setCollection] = useState(false)
+    const login = (e) => {
         signIn('spotify')
         setLoading(true)
+        e.preventDefault();
+        router.push('/songCollection')
+        // setMainData(formData.name)
+        // localStorage.clear();
     }
-
+    const closeButton = async () => {
+        setOpen(false)
+        const authorizationCode = process.env.NEXT_PUBLIC_CODE;
+        try {
+            const response = await fetch('/api/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ code: authorizationCode }),
+            });
+            if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem('access_token', data.access_token);
+                localStorage?.setItem('inputData', JSON.stringify(formData.name))
+                setLoading(true)
+                router.push('/songCollection')
+            } else {
+                console.error('Error:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
     useEffect(() => {
         if (session) {
-            router.push("/play-list")
+            // router.push("/play-list")
             // router.push("/loader")
+            router.push("/songCollection")
+        } else {
             // router.push("/songCollection")
+            router.push("/")
         }
     }, [session])
 
+    const generateTExt = () => {
+        if (formData.name === '') {
+            alert("please enter text")
+        } else {
+            setOpen(true)
+            localStorage?.setItem('inputData', JSON.stringify(formData.name))
+        }
+    }
     return (
         <>
             <div className={commonStyle["main-wrapper"]}>
@@ -84,6 +132,8 @@ export default function Index() {
                 {loading ?
                     <Loader />
                     :
+                    // {collection ? <SongCollection mainData={mainData} /> :
+
                     <>
                         <section className={homeStyle["banner-wrapper"]} >
                             <div className={homeStyle["text-container"]}>
@@ -93,11 +143,15 @@ export default function Index() {
                                 designed to make you feel better.</p>
                             <div className={homeStyle["form-group"]}>
                                 <input type="text"
-                                    placeholder={placeholders.name} />
+                                    placeholder={placeholders.name}
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                />
                             </div>
                             {/* <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a> */}
                             <div className={commonStyle["button-wrapper"] + " " + homeStyle["home-btn"]}>
-                                <a href="#" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a> 
+                                <a href="#" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]} onClick={generateTExt}>Generate</a>
                                 <div className={commonStyle["button-bg"]}></div>
                             </div>
 
@@ -108,14 +162,39 @@ export default function Index() {
                                 <h4 className={homeStyle["modal-title"]}>Log in with your spotify account to get the most personalised experience.</h4>
                                 <div className={homeStyle["btn-wrap"]}>
                                     <a href="#" className={homeStyle["btn"] + " " + homeStyle["confirm-btn"]} onClick={login}></a>
-                                    <a href="#" className={homeStyle["btn"] + " " + homeStyle["cancel-btn"]} onClick={() => setOpen(false)}></a>
+                                    <a href="#" className={homeStyle["btn"] + " " + homeStyle["cancel-btn"]} onClick={closeButton}></a>
                                 </div>
                             </div>
                         </div>
                     </>
                 }
+
                 <Chatbox />
             </div>
         </>
     )
 }
+
+// export const getServerSideProps = (context) => {
+//     let data = context.req.cookies['next-auth.session-token']
+//     console.log("0000000",data);
+//     if (!data) {
+//         return {
+//             redirect: {
+//                 destination: '/play-list',
+//                 permanent: true,
+//             },
+//         }
+//     } else {
+//         return {
+//             redirect: {
+//                 destination: '/',
+//                 permanent: false
+//             }
+//         }
+//     }
+//     return {
+//         props: { "userData": "userData" }
+//     }
+
+// }
