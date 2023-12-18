@@ -20,7 +20,6 @@ export default function PlayList() {
     const router = useRouter();
 
     const [listSong, setListSong] = useState([]);
-    const [plyasong, setPlaySong] = useState();
     const [idData, setIdData] = useState()
     const [classData, setClassData] = useState(false)
 
@@ -36,26 +35,14 @@ export default function PlayList() {
         // }
         if (!session) {
             if (token) {
-                fetchFilterList(token)
+
                 fetchFilterListSong(token)
             }
         } else {
-            fetchFilterList(access_token)
+
             fetchFilterListSong(access_token)
         }
     }, [session]);
-
-    useEffect(() => {
-        let access_token = session?.accessToken;
-        let token = localStorage.getItem('access_token')
-        if (!session) {
-            if (token) {
-                fetchPlayListSong(token)
-            }
-        } else {
-            fetchPlayListSong(access_token)
-        }
-    }, [idData])
 
     useEffect(() => {
         // Load the Lottie animation
@@ -73,73 +60,58 @@ export default function PlayList() {
         };
     }, []);
 
-    // const playData = async (id) => {
-    //     try {
-    //         let user = session?.accessToken;
-    //         let response = await getData(apiList.PLAY_SONG + `?user=${user}&id=${id}`);
-    //         // return response?.map((v) => v.track.preview_url);
-    //         setPlaySong(response?.track.preview_url)
-    //     } catch (error) {
-    //         console.error('Error fetching play data:', error);
-    //         return null;
-    //     }
-    // };
-
-    const fetchPlayListData = async (access_token) => {
-        try {
-            let response = await getData(apiList.PLAY_LIST + `?access_token=${access_token}`);
-            // setListSong(
-            //     response?.map((v) => ({
-            //         image: v.images[0]?.url,
-            //         name: v.name,
-            //         songUrl: "df",
-            //     }))
-            // );
-            // let dataSong = []
-            // response && response?.map((v,i) => (
-            //     playData(v.id),
-            //     dataSong.push({
-            //         image: v.images[0].url,
-            //         name: v.name,
-            //         songUrl: plyasong && plyasong
-            //     })
-            // ))
-            if (response) {
-                setListSong(response)
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-    const fetchPlayListSong = async (access_token) => {
-        try {
-            let response = await getData(apiList.PLAY_SONG + `?access_token=${access_token}&id=${idData}`);
-            console.log("000000000000", response);
-            setPlaySong(response[0]?.track.preview_url)
-
-        } catch (error) {
-            console.error('Error fetching paylist song data:', error);
-
-        }
-    }
-
-    const fetchFilterList = async (access_token) => {
-        let item = JSON.parse(localStorage.getItem('emotionData'))
-        // let access_token = localStorage?.getItem('access_token')
-        let response = await getData(apiList.FILTER_SONG + `?q=${item?.name}&access_token=${access_token}`)
-        // setListSong(response.items)
-
-    }
     const fetchFilterListSong = async (access_token) => {
         let item = JSON.parse(localStorage.getItem('emotionData'))
         let response = await getData(apiList.FILTER_BY_TRACK_SONG + `?q=${item?.name}&access_token=${access_token}`)
         setListSong(response.items)
-        console.log("0000000000000000", response);
     }
+
+    const [audioRef, setAudioRef] = useState(null);
+    const [playSong, setPlaySong] = useState()
+    useEffect(() => {
+        // Create an audio element reference
+        const audioElement = new Audio();
+        setAudioRef(audioElement);
+
+        // Clean up the audio element when the component is unmounted
+        return () => {
+            audioElement.pause();
+            audioElement.src = '';
+            audioElement.load();
+        };
+    }, []);
     const handledata = async (data) => {
-        setClassData(!classData)
-        setIdData(data)
-    }
+        console.log("object", playSong);
+        // Pause the previous song
+        if (audioRef) {
+            audioRef.pause();
+        }
+
+        // If the clicked card is the same as the currently playing one, pause the audio
+        if (idData === data) {
+            setIdData(null);
+        } else {
+            // Otherwise, play the new song
+            setIdData(data);
+            setClassData(true)
+            // Fetch the new song data based on the id
+            try {
+                // let access_token = session?.accessToken;
+                let access_token = localStorage.getItem('access_token');
+                let response = await getData(apiList.SINGLE_SONG + `?access_token=${access_token}&id=${data}`);
+                setPlaySong(response.preview_url);
+
+                // Play the audio
+                if (audioRef) {
+                    audioRef.src = response.preview_url;
+                    audioRef.load();
+                    audioRef.play();
+                }
+            } catch (error) {
+                console.error('Error fetching playlist song data:', error);
+            }
+        }
+    };
     const swiperOptions = {
         className: "mySwiper",
         effect: 'coverflow',
@@ -180,19 +152,6 @@ export default function PlayList() {
     return (
         <>
             <div id="bg" className={commonStyle["bg-animation"]} ></div>
-            {/* <header className={styles.headerWrapper}>
-                    <div className={styles.copy}>
-                        <span className={styles.name}>{`${session?.user.name}'s`}</span>
-                        <span className={styles.list}>Playlist</span>
-                    </div>
-                    <div className={commonStyle["button-wrapper"]}>
-                        <a href="#" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]} onClick={signOut}>SignOut</a> 
-                        <div className={commonStyle["button-bg"]}></div>
-                    </div>
-                    <button onClick={signOut} className='loginButton'>
-                        SignOut
-                    </button>
-                </header> */}
             <div className={styles["swiper-box"]}>
                 <div className={styles.container + " " + "swiper-container"}>
                     <h2 className={styles["medium-title"]}>Listen to other people's</h2>
@@ -204,16 +163,15 @@ export default function PlayList() {
                                     <a className={styles.card} onClick={() => handledata(v.id)} >
                                         <div className={styles.image}>
                                             <img src={v.album?.images[0]?.url} alt={v.name} />
-                                            {/* <div className={styles.player}>
-                                                </div> */}
-
                                             <div className={styles["player"] + " " + "player-wrapper"}>
-                                                <span className={styles["media-icon"] + " " + (idData === v.id && !classData ? styles.active : "")}></span>
+                                                <span className={styles["media-icon"] + " " + ((idData === v.id && classData ? styles.active : ""))}></span>
                                                 <div className={styles["control-wrapper"]}>
                                                     <span className={styles["info-title"]}>{v.name}</span>
-                                                    <audio controls>
-                                                        <source src={v.preview_url} type="audio/mpeg" />
-                                                    </audio>
+                                                    {idData === v.id && classData && (
+                                                        // <audio controls >
+                                                            <source ref={audioRef} src={playSong} type="audio/mpeg" />
+                                                        // {/* </audio> */}
+                                                    )}
                                                     <div className={styles["progress-bar"]}>
                                                         <span className={styles["strip"]}></span>
                                                     </div>
@@ -221,17 +179,6 @@ export default function PlayList() {
                                             </div>
                                             <span className={styles["btn-play"] + " " + "play-btn"}></span>
                                         </div>
-
-                                        {/* <img src={v.image} alt={v.name} /> */}
-                                        {/* {idData === v.id ?
-                                                    <>
-                                                        <div className={styles["nitin"]}>
-                                                            <audio ref={audioRef} src={plyasong}/>
-                                                                
-                                                            </audio>
-                                                        </div>
-                                                    </>
-                                                    : ""}  */}
                                     </a>
                                 </SwiperSlide>
                             ))}
