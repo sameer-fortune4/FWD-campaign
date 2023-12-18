@@ -5,7 +5,7 @@
 .swiper-box{height: 100vh;
   .container {position: relative;top: 50%;left: 50%;transform: translate(-50%,-50%);
     .medium-title{width: 100%;
-      &:nth-child(2){margin-bottom: 20px;}
+      &:nth-child(2){margin-bottom: 30px;}
       @media (max-width:480px) {max-width: 100%;
       }
     }
@@ -67,7 +67,7 @@
 
 .logo-wrapper {position: absolute;bottom: 20px;right: 30px;
   @media (max-width:480px){right: 0;margin: 0 20px;}
-  .chat-titie {max-width: 150px;background-color: #dbdedf;padding: 15px;border-radius: 20px;margin-bottom: 25px; font-weight: 600; font-size: 15px;
+  .chat-titie {max-width: 144px;background-color: #dbdedf;padding: 15px;border-radius: 20px;margin-bottom: 25px; font-weight: 600; font-size: 15px;
     @media (max-width:480px){max-width: 100%; text-align: center; margin-bottom: 20px;}
     .botton-title {margin-top: 10px;
     a{text-decoration: underline;}
