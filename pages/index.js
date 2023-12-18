@@ -16,6 +16,7 @@ export default function Index() {
 
     const [open, setOpen] = useState(false)
     const [formData, setFormData] = useState({ name: '', });
+    const [validation, setValidation] = useState(false)
     const [mainData, setMainData] = useState('')
     const [emotions, setEmotions] = useState([]);
 
@@ -119,7 +120,8 @@ export default function Index() {
 
     const generateTExt = () => {
         if (formData.name === '') {
-            alert("please enter text")
+            // alert("please enter text11")
+            setValidation(true)
         } else {
             setOpen(true)
             localStorage?.setItem('inputData', JSON.stringify(formData.name))
@@ -141,13 +143,14 @@ export default function Index() {
                             </div>
                             <p className={homeStyle["tag-lines"]}>Sharing your feelings is healthy. Tell us how you feel today and we&apos;ll curate an album
                                 designed to make you feel better.</p>
-                            <div className={homeStyle["form-group"]}>
+                            <div className={homeStyle["form-group"] + " " + (validation == true ? homeStyle["active"] : "")}>
                                 <input type="text"
                                     placeholder={placeholders.name}
                                     name="name"
                                     value={formData.name}
                                     onChange={handleChange}
                                 />
+                                <p className={homeStyle["error"]}>Please enter your emotions before submitting!</p>
                             </div>
                             {/* <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a> */}
                             <div className={commonStyle["button-wrapper"] + " " + homeStyle["home-btn"]}>
