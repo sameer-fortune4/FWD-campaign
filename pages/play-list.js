@@ -168,10 +168,43 @@ export default function PlayList() {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
-        on: {
-            slideChange: () => setClassData(false), // Set classData to false on slide change
-        },
+        // on: {
+        //     slideChange: (swiper) => {
+        //         setClassData(false);
+        //         if (audioRef) {
+        //             audioRef.pause();
+        //         }
+        //     },
+        // },
     }
+
+    const [swiper, setSwiper] = useState(null);
+    // useEffect(() => {
+    //     if (swiper) {
+    //         swiper.on('slideChange', () => {
+    //             setClassData(false);
+    //             if (audioRef) {
+    //                 audioRef.pause();
+    //             }
+    //         });
+    //     }
+    // }, [swiper]);
+
+    const handleSwiper = (swiperInstance) => {
+        setSwiper(swiperInstance);
+
+        swiperInstance.on('slideChange', () => {
+            setClassData(false);
+        });
+    };
+
+    useEffect(() => {
+        if (audioRef && classData === false) {
+            audioRef.pause()
+        }
+    }, [classData])
+    // console.log("object", audioRef);
+
     const formatTime = (timeInSeconds) => {
         const minutes = Math.floor(timeInSeconds / 60);
         const seconds = Math.floor(timeInSeconds % 60);
@@ -184,7 +217,7 @@ export default function PlayList() {
                 <div className={styles.container + " " + "swiper-container"}>
                     <h2 className={styles["medium-title"]}>Listen to other people's</h2>
                     <h2 className={styles["medium-title"]}>Playlist for a Problem</h2>
-                    <Swiper {...swiperOptions}>
+                    <Swiper {...swiperOptions} onSwiper={handleSwiper}>
                         {listSong &&
                             listSong.map((v, i) => (
                                 <SwiperSlide key={i}>
@@ -196,8 +229,16 @@ export default function PlayList() {
                                                 <div className={styles["control-wrapper"]}>
                                                     <span className={styles["info-title"]}>{v.name}</span>
                                                     <div className={styles['timer-wrap']}>
-                                                        <span>{formatTime(currentTime)}</span>
-                                                        <span>{formatTime(duration)}</span>
+                                                        {idData === v.id && classData ? <>
+                                                            <span>{formatTime(currentTime)}</span>
+                                                            <span>{formatTime(duration)}</span>
+                                                        </>
+                                                            :
+                                                            <>
+                                                                <span>0.00</span>
+                                                                <span>{formatTime(duration)}</span>
+                                                            </>
+                                                        }
                                                     </div>
                                                     <source ref={audioRef} src={playSong} type="audio/mpeg" />
                                                     <div className={styles["progress-bar"]}>
@@ -209,7 +250,6 @@ export default function PlayList() {
                                                             :
                                                             <span
                                                                 className={styles["strip"]}
-                                                                style={{ width: calculateProgressBarWidth() }}
                                                             ></span>
                                                         }
                                                     </div>
