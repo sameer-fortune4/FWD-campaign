@@ -114,57 +114,91 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
+  justify-content: center;
+  overflow: hidden;
   .loader-card{
-    height: 300px;
-    min-width: 300px;
+    height: 22.5vw;
+    min-width: 22vw;
     border: 1px solid #DDDBDD;
     border-radius: 10px;
     padding: 15px;
     background-color: #eee;
     animation: wave-lines 2s infinite ease-out;
+    @media (max-width:480px) {
+      height: 300px;
+      min-width: 280px;
+    }
     &:nth-child(1){
-      margin-right: -180px;
-      height: 200px !important;
+      margin-right: -14vw;
+      height: 15vw !important;
       .top-img{
-        min-height: 100px !important;
+        min-height: 7vw !important;
+      }
+      @media (max-width:480px) {
+        display: none;
       }
     }
     &:nth-child(2){
-      margin-right: -100px;
-      height: 250px !important;
+      margin-right: -7vw;
+      height: 18vw !important;
       .top-img{
-        min-height: 150px !important;
+        min-height: 10vw !important;
+        @media (max-width:480px) {
+          min-height: 155px !important;
+        }
       }
+      @media (max-width:480px) {
+        min-width: 133px;
+        height: 240px !important;
+      }
+      
     }
     &:nth-child(3){
       z-index: 2;
     }
     &:nth-child(4){
-      margin-left: -100px;
+      margin-left: -7vw;
       z-index: 1;
-      height: 250px !important;
+      height: 18vw !important;
       .top-img{
-        min-height: 150px !important;
+        min-height: 10vw;
+        @media (max-width:480px) {
+          min-height: 155px !important;
+        }
+      }
+      @media (max-width:480px) {
+        min-width: 133px;
+        height: 240px !important;
       }
     }
     &:nth-child(5){
-      margin-left: -180px;
-      height: 200px !important;
+      margin-left: -14vw;
+      height: 15vw !important;
       .top-img{
-        min-height: 100px !important;
+        min-height: 7vw !important;
+      }
+      @media (max-width:480px) {
+        display: none;
       }
     }
     .top-img{
-      min-height: 200px;
+      min-height: 14vw;
       width: 100%;
       border-radius: 10px;
+      @media (max-width:480px) {
+        min-height: 215px;
+      }
     }
-    .footer-wrap{ display: flex; align-items: center; gap: 10px; margin-top: 20px;
+    .footer-wrap{ display: flex; align-items: center; gap: 10px; margin-top: 2vw;
       .img-logo{
         display: block;
-        height: 50px;
-        width: 50px;
+        height: 3vw;
+        width: 3vw;
         border-radius: 50%;
+        @media (max-width:480px) {
+          height: 30px;
+          width: 30px;
+        }
       }
       .control-wrap{ flex: 1 1;
         .top{
