@@ -217,6 +217,58 @@ export default function PlayList() {
                 <div className={styles.container + " " + "swiper-container"}>
                     <h2 className={styles["medium-title"]}>Listen to other people's</h2>
                     <h2 className={styles["medium-title"]}>Playlist for a Problem</h2>
+                    <div className={styles["loader"]}>
+                        <div className={styles["loader-card"]}>
+                            <div className={styles["top-img"] + " " + styles["pulsate"]}></div>
+                            <div className={styles["footer-wrap"]}>
+                                <span className={styles["img-logo"] + " " + styles["pulsate"]}></span>
+                                <div className={styles["control-wrap"]}>
+                                    <span className={styles["top"] + " " + styles["pulsate"]}></span>
+                                    <span className={styles["top"] + " " + styles["top-first"] + " " + styles["pulsate"]}></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles["loader-card"]}>
+                            <div className={styles["top-img"] + " " + styles["pulsate"]}></div>
+                            <div className={styles["footer-wrap"]}>
+                                <span className={styles["img-logo"] + " " + styles["pulsate"]}></span>
+                                <div className={styles["control-wrap"]}>
+                                    <span className={styles["top"] + " " + styles["pulsate"]}></span>
+                                    <span className={styles["top"] + " " + styles["top-first"] + " " + styles["pulsate"]}></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles["loader-card"]}>
+                            <div className={styles["top-img"] + " " + styles["pulsate"]}></div>
+                            <div className={styles["footer-wrap"]}>
+                                <span className={styles["img-logo"] + " " + styles["pulsate"]}></span>
+                                <div className={styles["control-wrap"]}>
+                                    <span className={styles["top"] + " " + styles["pulsate"]}></span>
+                                    <span className={styles["top"] + " " + styles["top-first"] + " " + styles["pulsate"]}></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles["loader-card"]}>
+                            <div className={styles["top-img"] + " " + styles["pulsate"]}></div>
+                            <div className={styles["footer-wrap"]}>
+                                <span className={styles["img-logo"] + " " + styles["pulsate"]}></span>
+                                <div className={styles["control-wrap"]}>
+                                    <span className={styles["top"] + " " + styles["pulsate"]}></span>
+                                    <span className={styles["top"] + " " + styles["top-first"] + " " + styles["pulsate"]}></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles["loader-card"]}>
+                            <div className={styles["top-img"] + " " + styles["pulsate"]}></div>
+                            <div className={styles["footer-wrap"]}>
+                                <span className={styles["img-logo"] + " " + styles["pulsate"]}></span>
+                                <div className={styles["control-wrap"]}>
+                                    <span className={styles["top"] + " " + styles["pulsate"]}></span>
+                                    <span className={styles["top"] + " " + styles["top-first"] + " " + styles["pulsate"]}></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <Swiper {...swiperOptions} onSwiper={handleSwiper}>
                         {listSong &&
                             listSong.map((v, i) => (
