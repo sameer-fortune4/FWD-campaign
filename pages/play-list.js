@@ -13,6 +13,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, EffectCoverflow } from 'swiper/modules';
 import lottie from 'lottie-web';
 import Chatbox from '../component/common/chatbox';
+import LoaderCard from '../component/common/loaderCard';
 // import Loader from '../component/landing/loader';
 
 export default function PlayList() {
@@ -59,11 +60,15 @@ export default function PlayList() {
             animation.destroy();
         };
     }, []);
-
+    const [isLoading, setIsloading] = useState(false)
     const fetchFilterListSong = async (access_token) => {
+        setIsloading(true)
         let item = JSON.parse(localStorage.getItem('emotionData'))
         let response = await getData(apiList.FILTER_BY_TRACK_SONG + `?q=${item?.name}&access_token=${access_token}`)
-        setListSong(response.items)
+        if (response) {
+            setListSong(response.items)
+            setIsloading(false)
+        }
     }
 
     const [audioRef, setAudioRef] = useState(null);
@@ -217,109 +222,61 @@ export default function PlayList() {
                 <div className={styles.container + " " + "swiper-container"}>
                     <h2 className={styles["medium-title"]}>Listen to other people's</h2>
                     <h2 className={styles["medium-title"]}>Playlist for a Problem</h2>
-                    <div className={styles["loader"]}>
-                        <div className={styles["loader-card"]}>
-                            <div className={styles["top-img"] + " " + styles["pulsate"]}></div>
-                            <div className={styles["footer-wrap"]}>
-                                <span className={styles["img-logo"] + " " + styles["pulsate"]}></span>
-                                <div className={styles["control-wrap"]}>
-                                    <span className={styles["top"] + " " + styles["pulsate"]}></span>
-                                    <span className={styles["top"] + " " + styles["top-first"] + " " + styles["pulsate"]}></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles["loader-card"]}>
-                            <div className={styles["top-img"] + " " + styles["pulsate"]}></div>
-                            <div className={styles["footer-wrap"]}>
-                                <span className={styles["img-logo"] + " " + styles["pulsate"]}></span>
-                                <div className={styles["control-wrap"]}>
-                                    <span className={styles["top"] + " " + styles["pulsate"]}></span>
-                                    <span className={styles["top"] + " " + styles["top-first"] + " " + styles["pulsate"]}></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles["loader-card"]}>
-                            <div className={styles["top-img"] + " " + styles["pulsate"]}></div>
-                            <div className={styles["footer-wrap"]}>
-                                <span className={styles["img-logo"] + " " + styles["pulsate"]}></span>
-                                <div className={styles["control-wrap"]}>
-                                    <span className={styles["top"] + " " + styles["pulsate"]}></span>
-                                    <span className={styles["top"] + " " + styles["top-first"] + " " + styles["pulsate"]}></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles["loader-card"]}>
-                            <div className={styles["top-img"] + " " + styles["pulsate"]}></div>
-                            <div className={styles["footer-wrap"]}>
-                                <span className={styles["img-logo"] + " " + styles["pulsate"]}></span>
-                                <div className={styles["control-wrap"]}>
-                                    <span className={styles["top"] + " " + styles["pulsate"]}></span>
-                                    <span className={styles["top"] + " " + styles["top-first"] + " " + styles["pulsate"]}></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles["loader-card"]}>
-                            <div className={styles["top-img"] + " " + styles["pulsate"]}></div>
-                            <div className={styles["footer-wrap"]}>
-                                <span className={styles["img-logo"] + " " + styles["pulsate"]}></span>
-                                <div className={styles["control-wrap"]}>
-                                    <span className={styles["top"] + " " + styles["pulsate"]}></span>
-                                    <span className={styles["top"] + " " + styles["top-first"] + " " + styles["pulsate"]}></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <Swiper {...swiperOptions} onSwiper={handleSwiper}>
-                        {listSong &&
-                            listSong.map((v, i) => (
-                                <SwiperSlide key={i}>
-                                    <a className={styles.card} onClick={() => handledata(v.id)} >
-                                        <div className={styles.image}>
-                                            <img src={v.album?.images[0]?.url} alt={v.name} />
-                                            <div className={styles["player"] + " " + "player-wrapper"}>
-                                                <span className={styles["media-icon"] + " " + ((idData === v.id && classData ? styles.active : ""))}></span>
-                                                <div className={styles["control-wrapper"]}>
-                                                    <span className={styles["info-title"]}>{v.name}</span>
-                                                    <div className={styles['timer-wrap']}>
-                                                        {idData === v.id && classData ? <>
-                                                            <span>{formatTime(currentTime)}</span>
-                                                            <span>{formatTime(duration)}</span>
-                                                        </>
-                                                            :
-                                                            <>
-                                                                <span>0.00</span>
+                    {isLoading ?
+                        <LoaderCard />
+                        :
+                        <Swiper {...swiperOptions} onSwiper={handleSwiper}>
+                            {listSong &&
+                                listSong.map((v, i) => (
+                                    <SwiperSlide key={i}>
+                                        <a className={styles.card} onClick={() => handledata(v.id)} >
+                                            <div className={styles.image}>
+                                                <img src={v.album?.images[0]?.url} alt={v.name} />
+                                                <div className={styles["player"] + " " + "player-wrapper"}>
+                                                    <span className={styles["media-icon"] + " " + ((idData === v.id && classData ? styles.active : ""))}></span>
+                                                    <div className={styles["control-wrapper"]}>
+                                                        <span className={styles["info-title"]}>{v.name}</span>
+                                                        <div className={styles['timer-wrap']}>
+                                                            {idData === v.id && classData ? <>
+                                                                <span>{formatTime(currentTime)}</span>
                                                                 <span>{formatTime(duration)}</span>
                                                             </>
-                                                        }
-                                                    </div>
-                                                    <source ref={audioRef} src={playSong} type="audio/mpeg" />
-                                                    <div className={styles["progress-bar"]}>
-                                                        {idData === v.id && classData ?
-                                                            <span
-                                                                className={styles["strip"]}
-                                                                style={{ width: calculateProgressBarWidth() }}
-                                                            ></span>
-                                                            :
-                                                            <span
-                                                                className={styles["strip"]}
-                                                            ></span>
-                                                        }
-                                                    </div>
+                                                                :
+                                                                <>
+                                                                    <span>0.00</span>
+                                                                    <span>{formatTime(duration)}</span>
+                                                                </>
+                                                            }
+                                                        </div>
+                                                        <source ref={audioRef} src={playSong} type="audio/mpeg" />
+                                                        <div className={styles["progress-bar"]}>
+                                                            {idData === v.id && classData ?
+                                                                <span
+                                                                    className={styles["strip"]}
+                                                                    style={{ width: calculateProgressBarWidth() }}
+                                                                ></span>
+                                                                :
+                                                                <span
+                                                                    className={styles["strip"]}
+                                                                ></span>
+                                                            }
+                                                        </div>
 
-                                                    {/* <div className={styles["progress-bar"]}>
+                                                        {/* <div className={styles["progress-bar"]}>
                                                                 <span className={styles["strip"]}></span>
                                                             </div> */}
+                                                    </div>
                                                 </div>
+                                                <span className={styles["btn-play"] + " " + "play-btn"}></span>
                                             </div>
-                                            <span className={styles["btn-play"] + " " + "play-btn"}></span>
-                                        </div>
-                                    </a>
-                                </SwiperSlide>
-                            ))}
-                        <div className="swiper-button-prev swipe-btn"></div>
-                        <div className="swiper-button-next swipe-btn"></div>
-                    </Swiper>
-                </div >
+                                        </a>
+                                    </SwiperSlide>
+                                ))}
+                            <div className="swiper-button-prev swipe-btn"></div>
+                            <div className="swiper-button-next swipe-btn"></div>
+                        </Swiper>
+                    }
+                </div>
             </div>
             <Chatbox />
         </>
