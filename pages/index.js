@@ -12,19 +12,31 @@ export default function Index() {
     const { data: session } = useSession();
     const [loading, setLoading] = useState(false)
     const router = useRouter()
-    const socketRef = useRef(null);
 
     const [open, setOpen] = useState(false)
     const [formData, setFormData] = useState({ name: '', });
     const [validation, setValidation] = useState(false)
-    const [mainData, setMainData] = useState('')
-    const [emotions, setEmotions] = useState([]);
-
+    const [space, setSpace] = useState(false)
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
+        const inputValue = e.target.value;
+        if (inputValue !== " ") {
+            // Validate input using a regular expression (allowing only letters and spaces)
+            const isValid = /^[a-zA-Z\s]*$/.test(inputValue);
+            // Update state only if the input is valid
+            if (isValid) {
+                setFormData({
+                    ...formData,
+                    [e.target.name]: inputValue,
+                });
+                setValidation(false);
+                setSpace(false)
+            } else {
+                setValidation(false);
+                setSpace(true)
+            }
+        } else {
+            setSpace(true)
+        }
     };
     //////////
     const milliseconds = 4000;
@@ -83,8 +95,8 @@ export default function Index() {
         // setMainData(formData.name)
         // localStorage.clear();
     }
-    const closeButton = async () => {
-        setOpen(false)
+
+    const fetchTokenApi = async () => {
         const authorizationCode = process.env.NEXT_PUBLIC_CODE;
         try {
             const response = await fetch('/api/token', {
@@ -106,7 +118,22 @@ export default function Index() {
         } catch (error) {
             console.error('Error:', error);
         }
-    }
+    };
+
+    useEffect(() => {
+        const fetchTokenInterval = setInterval(fetchTokenApi, 60 * 60 * 1000); // 1 hour
+        // fetchTokenApi()
+        return () => {
+            clearInterval(fetchTokenInterval); // Clear the interval when the component unmounts
+        };
+    }, []);
+
+    const closeButton = async () => {
+        setOpen(false);
+        fetchTokenApi(); // Call the API immediately when the close button is clicked
+        // ... (your existing code)
+    };
+
     useEffect(() => {
         if (session) {
             // router.push("/play-list")
@@ -122,6 +149,7 @@ export default function Index() {
         if (formData.name === '') {
             // alert("please enter text11")
             setValidation(true)
+            setSpace(false)
         } else {
             setOpen(true)
             localStorage?.setItem('inputData', JSON.stringify(formData.name))
@@ -144,7 +172,7 @@ export default function Index() {
                             </div>
                             <p className={homeStyle["tag-lines"]}>Sharing your feelings is healthy. Tell us how you feel today and we&apos;ll curate an album
                                 designed to make you feel better.</p>
-                            <div className={homeStyle["form-group"] + " " + (validation == true ? homeStyle["active"] : "")}>
+                            <div className={homeStyle["form-group"] + " " + (validation == true || space == true ? homeStyle["active"] : "")}>
                                 <input type="text"
                                     placeholder={placeholders.name}
                                     name="name"
@@ -152,7 +180,12 @@ export default function Index() {
                                     onChange={handleChange}
                                     autocomplete="off"
                                 />
-                                <p className={homeStyle["error"]}>Please enter your emotions before submitting!</p>
+                                {validation &&
+                                    <p className={homeStyle["error"]}>Please enter your emotions before submitting!</p>
+                                }
+                                {space &&
+                                    <p className={homeStyle["error"]}>Please enter correct para or word before submitting!</p>
+                                }
                             </div>
                             {/* <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a> */}
                             <div className={commonStyle["button-wrapper"] + " " + homeStyle["home-btn"]}>
