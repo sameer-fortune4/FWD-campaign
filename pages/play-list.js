@@ -124,17 +124,17 @@ export default function PlayList() {
             prevEl: '.swiper-button-prev',
         },
     }
-    console.log("first",playSong,idData)
-    const swipperData =(text)=>{
-        text.on('slideChange',()=>{
+    console.log("first", playSong, idData)
+    const swipperData = (text) => {
+        text.on('slideChange', () => {
             setClassData(false)
         })
 
     }
-    console.log("classData",classData)
+    console.log("classData", listSong)
     return (
         <>
-        {/* <div className={commonStyle["main-wrapper"]}> */}
+            {/* <div className={commonStyle["main-wrapper"]}> */}
             {/* <div id="bg" className={commonStyle["bg-animation"]} ></div> */}
             <div className={commonStyle["bg-gradient"]}></div>
             <div className={styles["swiper-box"]}>
@@ -144,32 +144,36 @@ export default function PlayList() {
                     {isLoading ?
                         <LoaderCard />
                         :
-                        <Swiper {...swiperOptions} onSwiper={swipperData}>
-                            {listSong &&
-                                listSong.map((v, i) => (
-                                    <SwiperSlide key={i}>
-                                        <a className={styles.card + " " + (classData == true ? "control" : "")} onClick={() => handledata(v.id)} >
-                                            <div className={styles.image}>
-                                                <img src={v.album?.images[0]?.url} alt={v.name} />
-                                                <div className={styles["player"] + " " + "player-wrapper"}>
-                                                    <div className={styles["wrap-control"]}>
-                                                        <p className={styles["card-title"]}>{v.name}</p>
-                                                        {idData == v.id && playSong !==undefined &&
-                                                            <audio controls src={playSong} autoPlay={classData}>
-                                                                <source src={playSong} type="audio/mpeg" />
-                                                            </audio>
-                                                        }
+                        listSong.length > 0 ?
+                            <Swiper {...swiperOptions} onSwiper={swipperData}>
+                                {listSong &&
+                                    listSong.map((v, i) => (
+                                        <SwiperSlide key={i}>
+                                            <a className={styles.card + " " + (classData == true ? "control" : "")} onClick={() => handledata(v.id)} >
+                                                <div className={styles.image}>
+                                                    <img src={v.album?.images[0]?.url} alt={v.name} />
+                                                    <div className={styles["player"] + " " + "player-wrapper"}>
+                                                        <div className={styles["wrap-control"]}>
+                                                            <p className={styles["card-title"]}>{v.name}</p>
+                                                            {idData == v.id && playSong !== undefined &&
+                                                                <audio controls src={playSong} autoPlay={classData}>
+                                                                    {/* <source src={playSong} type="audio/mpeg" /> */}
+                                                                </audio>
+                                                            }
+                                                        </div>
                                                     </div>
+                                                    {/* <span className={styles["btn-play"] + " " + (!classData ? "active" : "")}></span> */}
                                                 </div>
-                                                {/* <span className={styles["btn-play"] + " " + (!classData ? "active" : "")}></span> */}
-                                            </div>
-                                        </a>
-                                    </SwiperSlide>
-                                ))}
+                                            </a>
+                                        </SwiperSlide>
+                                    ))}
 
-                            <div className="swiper-button-prev swipe-btn"></div>
-                            <div className="swiper-button-next swipe-btn"></div>
-                        </Swiper>
+                                <div className="swiper-button-prev swipe-btn"></div>
+                                <div className="swiper-button-next swipe-btn"></div>
+                            </Swiper>
+                            :
+                            <p>hello</p>
+
                     }
                 </div>
             </div>
