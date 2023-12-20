@@ -20,17 +20,6 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-} */
-
 .swiper-container .swiper-slide-active .player-wrapper{
   opacity: 1 !important; visibility: visible !important;
 }

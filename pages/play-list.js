@@ -14,8 +14,9 @@ import { Navigation, EffectCoverflow } from 'swiper/modules';
 import lottie from 'lottie-web';
 import Chatbox from '../component/common/chatbox';
 import LoaderCard from '../component/common/loaderCard';
+import dynamic from 'next/dynamic';
 // import Loader from '../component/landing/loader';
-
+// const lottie = dynamic(()=>import('lottie-web'))
 export default function PlayList() {
     const { data: session } = useSession();
     const router = useRouter();
@@ -217,7 +218,8 @@ export default function PlayList() {
     };
     return (
         <>
-            <div id="bg" className={commonStyle["bg-animation"]} ></div>
+            {/* <div id="bg" className={commonStyle["bg-animation"]} ></div> */}
+            <div className={commonStyle["bg-gradient"]}></div>
             <div className={styles["swiper-box"]}>
                 <div className={styles.container + " " + "swiper-container"}>
                     <h2 className={styles["medium-title"]}>Listen to other people's</h2>
@@ -225,6 +227,7 @@ export default function PlayList() {
                     {isLoading ?
                         <LoaderCard />
                         :
+                        <>
                         <Swiper {...swiperOptions} onSwiper={handleSwiper}>
                             {listSong &&
                                 listSong.map((v, i) => (
@@ -275,6 +278,8 @@ export default function PlayList() {
                             <div className="swiper-button-prev swipe-btn"></div>
                             <div className="swiper-button-next swipe-btn"></div>
                         </Swiper>
+                        <a className={styles["listen-txt"]}>Click to listen</a>
+                        </>
                     }
                 </div>
             </div>

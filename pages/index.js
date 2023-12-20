@@ -130,7 +130,8 @@ export default function Index() {
     return (
         <>
             <div className={commonStyle["main-wrapper"]}>
-                <div id="bg-wrapper" className={commonStyle["bg-animation"]}></div>
+                {/* <div id="bg-wrapper" className={commonStyle["bg-animation"]}></div> */}
+                <div className={commonStyle["bg-gradient"]}></div>
                 {loading ?
                     <Loader />
                     :

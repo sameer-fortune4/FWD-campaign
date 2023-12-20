@@ -110,7 +110,8 @@ export default function SongCollection() {
   }
   return (
     <>
-      <div id="bg-wrapper" className={commonStyle['bg-animation']}></div>
+      {/* <div id="bg-wrapper" className={commonStyle['bg-animation']}></div> */}
+      <div className={commonStyle["bg-gradient"]}></div>
       <div className={commonStyle['main-wrapper']}>
       {/* <button onClick={signOut} >click</button> */}
         <section className={collectionStyle["playlist-wrappper"]}>
