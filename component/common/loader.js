@@ -42,7 +42,8 @@ export default function Loader() {
   return (
     <>
       <div className={commonStyle["main-wrapper"]}>
-        <div id="bg-wrapper" className={commonStyle['bg-animation']}></div>
+        {/* <div id="bg-wrapper" className={commonStyle['bg-animation']}></div> */}
+        <div className={commonStyle["bg-gradient"]}></div>
         <section className={loaderStyle['loader-wrapper']}>
           <h4 className={commonStyle['small-title']}>
             Breathe in, breathe out... <br /> Your Playlist for a Problem is on its way.
