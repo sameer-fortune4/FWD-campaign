@@ -172,7 +172,13 @@ export default function PlayList() {
                                 <div className="swiper-button-next swipe-btn"></div>
                             </Swiper>
                             :
-                            <p>hello</p>
+                            <div className={styles["error-wrap"]}>
+                                <p className={styles["error-txt"]}>No Result Found</p>
+                                <div className={commonStyle["button-wrapper"]} style={{width:"fit-content", margin :"0 auto"}}>
+                                <a href="/" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]}>Go To Home Page</a>
+                                <div className={commonStyle["button-bg"]}></div>
+                            </div>
+                            </div>
 
                     }
                 </div>
