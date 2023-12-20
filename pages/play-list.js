@@ -22,7 +22,6 @@ export default function PlayList() {
     const [listSong, setListSong] = useState([]);
     const [idData, setIdData] = useState()
     const [classData, setClassData] = useState(false)
-
     useEffect(() => {
         let access_token = session?.accessToken;
         let token = localStorage.getItem('access_token')
@@ -125,9 +124,19 @@ export default function PlayList() {
             prevEl: '.swiper-button-prev',
         },
     }
+    console.log("first",playSong,idData)
+    const swipperData =(text)=>{
+        text.on('slideChange',()=>{
+            setClassData(false)
+        })
+
+    }
+    console.log("classData",classData)
     return (
         <>
-            <div id="bg" className={commonStyle["bg-animation"]} ></div>
+        {/* <div className={commonStyle["main-wrapper"]}> */}
+            {/* <div id="bg" className={commonStyle["bg-animation"]} ></div> */}
+            <div className={commonStyle["bg-gradient"]}></div>
             <div className={styles["swiper-box"]}>
                 <div className={styles.container + " " + "swiper-container"}>
                     <h2 className={styles["medium-title"]}>Listen to other people's</h2>
@@ -135,22 +144,24 @@ export default function PlayList() {
                     {isLoading ?
                         <LoaderCard />
                         :
-                        <Swiper {...swiperOptions}>
+                        <Swiper {...swiperOptions} onSwiper={swipperData}>
                             {listSong &&
                                 listSong.map((v, i) => (
                                     <SwiperSlide key={i}>
-                                        <a className={styles.card} onClick={() => handledata(v.id)} >
+                                        <a className={styles.card + " " + (classData == true ? "control" : "")} onClick={() => handledata(v.id)} >
                                             <div className={styles.image}>
                                                 <img src={v.album?.images[0]?.url} alt={v.name} />
                                                 <div className={styles["player"] + " " + "player-wrapper"}>
-                                                    {idData == v.id && playSong !==undefined &&
-                                                        <audio controls>
-                                                            <source src={playSong} type="audio/mpeg" />
-                                                        </audio>
-                                                    }
-                                                    
+                                                    <div className={styles["wrap-control"]}>
+                                                        <p className={styles["card-title"]}>{v.name}</p>
+                                                        {idData == v.id && playSong !==undefined &&
+                                                            <audio controls src={playSong} autoPlay={classData}>
+                                                                <source src={playSong} type="audio/mpeg" />
+                                                            </audio>
+                                                        }
+                                                    </div>
                                                 </div>
-                                                <span className={styles["btn-play"] + " " + "play-btn"}></span>
+                                                {/* <span className={styles["btn-play"] + " " + (!classData ? "active" : "")}></span> */}
                                             </div>
                                         </a>
                                     </SwiperSlide>
@@ -163,6 +174,7 @@ export default function PlayList() {
                 </div>
             </div>
             <Chatbox />
+            {/* </div> */}
         </>
     );
 }

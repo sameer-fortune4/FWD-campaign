@@ -1,18 +1,9 @@
-.playlist-wrappper{
-    text-align: center;
-    h2{
-        margin-bottom: 20px;
+.playlist-wrappper{text-align: center;
+    h2{margin-bottom: 20px;
         @media (max-width:480px) {max-width: 300px; margin-bottom: 30px;}
     }
-    .playlist-img{
-        height: 250px;
-        width: 250px;
-        object-fit: cover;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    .playlist-img{height: 250px;width: 250px;object-fit: cover;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
-    .listen-txt{
-        display: block;
-        margin-top: 5px;
-        font-weight: 600;
+    .listen-txt{display: block;margin-top: 5px;font-weight: 600;
     }
 }

@@ -111,12 +111,12 @@ export default function SongCollection() {
   return (
     <>
       {/* <div id="bg-wrapper" className={commonStyle['bg-animation']}></div> */}
-      <div className={commonStyle["bg-gradient"]}></div>
       <div className={commonStyle['main-wrapper']}>
+      <div className={commonStyle["bg-gradient"]}></div>
       {/* <button onClick={signOut} >click</button> */}
         <section className={collectionStyle["playlist-wrappper"]}>
           <h2 className={commonStyle["medium-title"]}>Here's your Playlist for a Problem</h2>
-          <a href="#"><img className={collectionStyle["playlist-img"]} src="https://images.unsplash.com/photo-1515010137531-66995c7f40e6?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /></a>
+          <a href="#"><img onClick={handelClick} className={collectionStyle["playlist-img"]} src="https://images.unsplash.com/photo-1515010137531-66995c7f40e6?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /></a>
           <a href="#" className={collectionStyle["listen-txt"]} onClick={handelClick}>Click to listen</a>
         </section>
       </div>

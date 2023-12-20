@@ -4,55 +4,26 @@
         opacity: 0; 
         animation: fadeIn 1.5s ease-in-out;
         animation-fill-mode: forwards;
-        h1{
-            animation: fadeInText 1s ease-in-out;
-        }
+        h1{animation: fadeInText 1s ease-in-out;}
       }
     .tag-lines{max-width: 490px;text-align: center;font-weight: 600;
     }
     .form-group{ width: 100%;margin-top: 25px;
         input{padding: 12px 20px;width: 100%;display: block;background-color: #FBF3E1;border: none;border-radius: 13px;font-size: 16px;font-family: 'Poppins', sans-serif; color: #1E2F28; font-weight: 600; opacity: 1;
             &:focus{outline: none;
-            .error{
-                opacity: 0 !important; visibility: hidden !important;
-               
-            }
-            }
-            &::placeholder{
-                transition: all .4s ease-in-out;
-            }
+            .error{opacity: 0 !important; visibility: hidden !important;}}
+            &::placeholder{transition: all .4s ease-in-out;}
         }
-        .error{
-            font-size: 13px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-5px);
-            transition: all .2s ease-in-out !important;
-            margin-left: 6px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .error{font-size: 13px;opacity: 0;visibility: hidden;transform: translateY(-5px);transition: all .2s ease-in-out !important;margin-left: 6px;display: flex;align-items: center;gap: 5px;
             &::before{
                 content: "";
-                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50' fill='none'%3E%3Ccircle cx='25' cy='25' r='25' fill='%23FC4E4E'/%3E%3Cpath d='M25 8V32' stroke='white' stroke-width='5'/%3E%3Cpath d='M25 37V42' stroke='white' stroke-width='5'/%3E%3C/svg%3E");
-                background-repeat: no-repeat;
-                background-size: contain;
-                background-position: 100%;
-                height: 13px;
-                width: 13px;
-                display: block;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50' fill='none'%3E%3Ccircle cx='25' cy='25' r='25' fill='%23FC4E4E'/%3E%3Cpath d='M25 8V32' stroke='white' stroke-width='5'/%3E%3Cpath d='M25 37V42' stroke='white' stroke-width='5'/%3E%3C/svg%3E");background-repeat: no-repeat;background-size: contain;background-position: 100%;height: 13px;width: 13px;display: block;
             }
         }
         &.active{
-            input{
-                border: 2px solid #fc4e4e !important;
+            input{border: 2px solid #fc4e4e !important;
             }
-            .error{
-                color: #fc4e4e;
-                opacity: 1;
-                visibility: visible;
-                margin-top: 5px;
-                transform: translateY(0px);
+            .error{color: #fc4e4e;opacity: 1;visibility: visible;margin-top: 5px;transform: translateY(0px);
             }
         }
     }
@@ -61,62 +32,22 @@
     }
     }        
 
-.dialog-wrapper{
-    min-height: 100vh;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    background-color: rgb(0, 0, 0, .4);
-    transition: all 0.4s ease-in-out;
-    &.open{
-        opacity: 1;
-        visibility: visible;
-        z-index: 1;
-        .dialog-box{
-            transform: translate(-50%,-50%) scale(1, 1);
+.dialog-wrapper{min-height: 100vh;width: 100%;position: absolute;top: 0;background-color: rgb(0, 0, 0, .4);transition: all 0.4s ease-in-out;
+    &.open{opacity: 1;visibility: visible;z-index: 1;
+        .dialog-box{transform: translate(-50%,-50%) scale(1, 1);
         }
     }
-    &.close{
-        opacity: 0;
-        visibility: hidden;
+    &.close{opacity: 0;visibility: hidden;
     }
-    .dialog-box{
-        max-width: 700px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        text-align: center;
-        transform: translate(-50%,-50%) scale(0.5, 0.5);
-        border: none;
-        padding: 53px 100px;
-        border-radius: 30px;
-        background-color: #F9EDE6;
-        transition: all 0.5s ease-in-out;
-        @media (max-width:480px) {
-            padding: 50px 15px;
-            width: 93%;
+    .dialog-box{max-width: 700px;position: absolute;top: 50%;left: 50%;text-align: center;transform: translate(-50%,-50%) scale(0.5, 0.5);border: none;padding: 53px 100px;border-radius: 30px;background-color: #F9EDE6;transition: all 0.5s ease-in-out;
+        @media (max-width:480px) {padding: 50px 15px;width: 93%;
         }
-        .modal-title{
-            font-family: 'Grand Rainbow Demo';
-            font-size: 28px;
-            max-width: 500px;
-            font-weight: 500;
-            @media (max-width:480px) {
-                font-size: 24px;
+        .modal-title{font-family: 'Grand Rainbow Demo';font-size: 28px;max-width: 500px;font-weight: 500;
+            @media (max-width:480px) {font-size: 24px;
             }
         }
-        .btn-wrap{
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            .btn{   
-                display: block;
-                height: 60px;
-                width: 60px;
-                background-repeat: no-repeat;
-                background-repeat: no-repeat;
-                background-position: 100% 100%;
-                background-size: cover;
+        .btn-wrap{margin-top: 40px;display: flex;justify-content: center;
+            .btn{   display: block;height: 60px;width: 60px;background-repeat: no-repeat;background-repeat: no-repeat;background-position: 100% 100%;background-size: cover;
                 &.confirm-btn{
                     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22' fill='none'%3E%3Cpath d='M5.5 10.5C7 12.5 7 16 7.5 16.5C8 17 11 11 15.5 5.5M1.00018 1H20.0002C20.2497 16.6857 20.2504 20.5725 20.0002 20H1.00018L1.00098 19.5C1.00098 19.5 1.00098 9.5 1.00098 6C1.00098 2.5 1.00018 1 1.00018 1Z' stroke='%235792A5' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
                     margin-right: 20px;
@@ -124,9 +55,7 @@
                 &.cancel-btn{
                     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22' fill='none'%3E%3Cpath d='M20.0002 20H1.00018L1.00098 19.5V6C1.00098 2.5 1.00018 1 1.00018 1H20.0002C20.2497 16.6857 20.2504 20.5725 20.0002 20Z' stroke='%23A94D1E' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M5.5 5.5L15.5 15M15.5 5.5L5.5 15' stroke='%23A94D1E' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
                 }
-                @media (max-width:480px) {
-                    height: 50px;
-                    width: 50px;
+                @media (max-width:480px) {height: 50px;width: 50px;
                 }
             }
         }
