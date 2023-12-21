@@ -25,7 +25,10 @@ a {
   opacity: 1 !important; visibility: visible !important;
 }
 .swiper-container .swiper-slide-active .control .active{opacity: 0; visibility: hidden;}
-.swiper-container .swiper-slide-active .play-btn.active{opacity: 0 !important; visibility: hidden !important;}
+
+.swiper-container .swiper-slide-active .control::after {
+    content: "";background: linear-gradient(0deg, #000000d4, transparent 60%);position: absolute;height: 100%;width: 100%;left: 0;top: 0;bottom: 0;right: 0;transition: all .4s ease-in-out 0s;
+}
 
 .swipe-btn{
   &::after{
@@ -59,6 +62,19 @@ a {
   }
 }
 .swiper{
-  /* border: 2px solid red; */
   max-height: 300px;
 }
+.player-wrapper .rhap_container{
+  background: rgba(255, 255, 255, 0);
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  padding-top: 5px !important;
+}
+.player-wrapper .rhap_time{ color: #fff !important; font-size: 12px !important; min-width: 35px;}
+.player-wrapper .rhap_progress-indicator{ height: 10px !important; width: 10px !important; top: -3px !important;}
+.rhap_progress-bar-show-download{ background-color: #fff !important;}
+.rhap_progress-filled { background-color: red!important;}
+.rhap_progress-indicator{ background-color: red !important;}
+.rhap_container svg path{ fill: #fff !important;}
+.rhap_volume-indicator{ background-color: red !important; height: 10px !important; width: 10px !important; top: -3px !important;}
+.rhap_stacked .rhap_controls-section{ margin-top: 5px !important;}

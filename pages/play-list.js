@@ -157,12 +157,16 @@ export default function PlayList() {
                                                     <img src={v.album?.images[0]?.url} alt={v.name} />
                                                     <div className={styles["player"] + " " + "player-wrapper"}>
                                                         <div className={styles["wrap-control"]}>
-                                                            <p className={styles["card-title"]}>{v.name}</p>
+                                                            {/* <p className={styles["card-title"]}>{v.name}</p>
                                                             {idData == v.id && playSong !== undefined &&
                                                                 <audio controls src={playSong} autoPlay={classData}>
-                                                                    {/* <source src={playSong} type="audio/mpeg" /> */}
+                                                                    <source src={playSong} type="audio/mpeg" />
                                                                 </audio>
-                                                            }
+                                                            } */}
+                                                            <p className={styles["card-title"]}>{v.name}</p>
+                                                             <AudioPlayer
+                                                                autoPlay
+                                                                src={playSong} />
                                                         </div>
                                                     </div>
                                                     <span className={styles["btn-play"] + " " + (classData ? "active" : "")}></span>
@@ -185,9 +189,7 @@ export default function PlayList() {
                                 </div>
                             </div>
                     }
-                    <AudioPlayer
-                        autoPlay
-                        src={playSong} />
+                   
                 </div>
             </div>
             <Chatbox />
