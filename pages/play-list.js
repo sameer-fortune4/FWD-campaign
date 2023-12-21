@@ -15,6 +15,9 @@ import lottie from 'lottie-web';
 import Chatbox from '../component/common/chatbox';
 import LoaderCard from '../component/common/loaderCard';
 // import Loader from '../component/landing/loader';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
+import Link from 'next/link';
 
 export default function PlayList() {
     const { data: session } = useSession();
@@ -174,13 +177,17 @@ export default function PlayList() {
                             :
                             <div className={styles["error-wrap"]}>
                                 <p className={styles["error-txt"]}>No Result Found</p>
-                                <div className={commonStyle["button-wrapper"]} style={{width:"fit-content", margin :"0 auto"}}>
-                                <a href="/" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]}>Go To Home Page</a>
-                                <div className={commonStyle["button-bg"]}></div>
+                                <div className={commonStyle["button-wrapper"]} style={{ width: "fit-content", margin: "0 auto" }}>
+                                    <Link href="/" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]}>
+                                        Go To Home Page
+                                    </Link>
+                                    <div className={commonStyle["button-bg"]}></div>
+                                </div>
                             </div>
-                            </div>
-
                     }
+                    <AudioPlayer
+                        autoPlay
+                        src={playSong} />
                 </div>
             </div>
             <Chatbox />
