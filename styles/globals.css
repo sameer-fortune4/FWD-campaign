@@ -24,8 +24,8 @@ a {
 .swiper-container .swiper-slide-active .control .player-wrapper{
   opacity: 1 !important; visibility: visible !important;
 }
-.swiper-container .swiper-slide-active .active{border: 1px solid red;}
-/* .swiper-container .swiper-slide-active .play-btn.active{opacity: 0 !important; visibility: hidden !important;} */
+.swiper-container .swiper-slide-active .control .active{opacity: 0; visibility: hidden;}
+.swiper-container .swiper-slide-active .play-btn.active{opacity: 0 !important; visibility: hidden !important;}
 
 .swipe-btn{
   &::after{

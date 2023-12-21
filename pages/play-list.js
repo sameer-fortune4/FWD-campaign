@@ -165,7 +165,7 @@ export default function PlayList() {
                                                             }
                                                         </div>
                                                     </div>
-                                                    {/* <span className={styles["btn-play"] + " " + (!classData ? "active" : "")}></span> */}
+                                                    <span className={styles["btn-play"] + " " + (classData ? "active" : "")}></span>
                                                 </div>
                                             </a>
                                         </SwiperSlide>
