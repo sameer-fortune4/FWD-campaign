@@ -99,7 +99,6 @@ export default function SongCollection() {
     averagesArray.push({ name, averageScore });
   });
   let arr = averagesArray.sort((a, b) => b.averageScore - a.averageScore).slice(0, 3)
-  console.log("object", arr);
   if (typeof window !== 'undefined') {
     // Perform localStorage action
     localStorage?.setItem('emotionData', JSON.stringify(arr[0]))

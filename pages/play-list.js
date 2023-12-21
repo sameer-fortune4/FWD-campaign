@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/Common.module.scss';
 import { getData } from '../utilities/service';
-import { apiList } from '../utilities/apiList';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import commonStyle from "../styles/Common.module.scss"
 import 'swiper/css';
@@ -14,10 +13,10 @@ import { Navigation, EffectCoverflow } from 'swiper/modules';
 import lottie from 'lottie-web';
 import Chatbox from '../component/common/chatbox';
 import LoaderCard from '../component/common/loaderCard';
-// import Loader from '../component/landing/loader';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import Link from 'next/link';
+import ReactAudioPlayer from 'react-audio-player';
 
 export default function PlayList() {
     const { data: session } = useSession();
@@ -62,9 +61,8 @@ export default function PlayList() {
     const [isLoading, setIsloading] = useState(false)
     const fetchFilterListSong = async (access_token) => {
         setIsloading(true)
-        // let item = JSON.parse(localStorage.getItem('emotionData'))
-        let item = localStorage.getItem('inputData')
-        // console.log("object");
+        let item = JSON.parse(localStorage.getItem('emotionData'))
+        // let item = localStorage.getItem('inputData')
         let response = await getData('api/filter/filterByTrackSong' + `?q=${item}&access_token=${access_token}`)
         if (response) {
             setListSong(response.items)
@@ -73,24 +71,21 @@ export default function PlayList() {
     }
 
     const [playSong, setPlaySong] = useState()
-
+    const [vishal,setVishal] = useState(false)
+    console.log("first",vishal,classData)
     const handledata = async (data) => {
-        if (idData === data) {
-            setIdData(null);
-        } else {
-            // Otherwise, play the new song
+
             setIdData(data);
             setClassData(true)
-            // Fetch the new song data based on the id
+            setVishal(true)
             try {
-                // let access_token = session?.accessToken;
                 let access_token = localStorage.getItem('access_token');
                 let response = await getData('api/filter/track' + `?access_token=${access_token}&id=${data}`);
                 setPlaySong(response.preview_url);
             } catch (error) {
                 console.error('Error fetching playlist song data:', error);
             }
-        }
+        
     };
 
     const swiperOptions = {
@@ -127,14 +122,21 @@ export default function PlayList() {
             prevEl: '.swiper-button-prev',
         },
     }
-    console.log("first", playSong, idData)
     const swipperData = (text) => {
         text.on('slideChange', () => {
             setClassData(false)
         })
 
     }
-    console.log("classData", listSong)
+    const [isPlaying, setIsPlaying] = useState(false);
+    console.log("firs000000t",isPlaying)
+    const handlePlay = () => {
+        setIsPlaying(true);
+      };
+      const handlePause = () => {
+        setIsPlaying(false);
+      };
+      
     return (
         <>
             {/* <div className={commonStyle["main-wrapper"]}> */}
@@ -148,7 +150,7 @@ export default function PlayList() {
                         <LoaderCard />
                         :
                         listSong.length > 0 ?
-                            <Swiper {...swiperOptions} onSwiper={swipperData}>
+                            <Swiper {...swiperOptions} onSwiper={swipperData} allowTouchMove={false}>
                                 {listSong &&
                                     listSong.map((v, i) => (
                                         <SwiperSlide key={i}>
@@ -157,19 +159,21 @@ export default function PlayList() {
                                                     <img src={v.album?.images[0]?.url} alt={v.name} />
                                                     <div className={styles["player"] + " " + "player-wrapper"}>
                                                         <div className={styles["wrap-control"]}>
-                                                            {/* <p className={styles["card-title"]}>{v.name}</p>
-                                                            {idData == v.id && playSong !== undefined &&
-                                                                <audio controls src={playSong} autoPlay={classData}>
-                                                                    <source src={playSong} type="audio/mpeg" />
-                                                                </audio>
-                                                            } */}
+                                                            
+                                                            {idData == v.id && <>
                                                             <p className={styles["card-title"]}>{v.name}</p>
                                                              <AudioPlayer
-                                                                autoPlay
-                                                                src={playSong} />
+                                                                autoPlay={classData}
+                                                                src={playSong}
+                                                                onPlay={handlePlay}
+                                                                onPause={handlePause}
+                                                                />
+                                                                
+                                                            </>
+                                                            }
                                                         </div>
                                                     </div>
-                                                    <span className={styles["btn-play"] + " " + (classData ? "active" : "")}></span>
+                                                    <span className={styles["btn-play"] + " " + (classData ? "active" : "") + " " + (idData ==v.id && vishal && isPlaying ? styles["current"]:"")}></span>
                                                 </div>
                                             </a>
                                         </SwiperSlide>
