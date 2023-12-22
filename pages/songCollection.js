@@ -74,45 +74,73 @@ export default function SongCollection() {
 
   // console.log("nfgvbhfgrfg000000000000000", emotions && emotions.sort((a, b) => b.score - a.score).slice(0, 5))
   // const dar = "dfg df dfd df"
-  const data = emotions?.map(v => v.emotions)
-  const datamain = []?.concat(...data)
-  // const t = new Set(datamain)
 
-  const scoreMap = {};
+  const scoresObject = {};
 
-  // Iterate through the data and calculate the sum and count for each name
-  datamain.forEach(item => {
-    if (!scoreMap[item.name]) {
-      scoreMap[item.name] = { sum: 0, count: 0 };
-    }
-
-    scoreMap[item.name].sum += item.score;
-    scoreMap[item.name].count += 1;
+  emotions.forEach((item) => {
+    // Iterate through the emotions array for each item
+    item.emotions.forEach((emotion) => {
+      const { name, score } = emotion;
+      // Check if the name is already in the scoresObject
+      if (scoresObject[name] === undefined || scoresObject[name] < score) {
+        // If not present or if the score is higher, update the score
+        scoresObject[name] = score;
+      }
+    });
   });
-
-  // Create a new array to store the averages
-  const averagesArray = [];
-
-  // Calculate the average for each name and push it to the new array
-  Object.keys(scoreMap).forEach(name => {
-    const averageScore = scoreMap[name].sum / scoreMap[name].count;
-    averagesArray.push({ name, averageScore });
-  });
-  let arr = averagesArray.sort((a, b) => b.averageScore - a.averageScore).slice(0, 3)
+  const resultArray = Object.keys(scoresObject).map((name) => ({
+    name,
+    score: scoresObject[name],
+  }));
+  let data = resultArray.sort((a, b) => b.score - a.score).slice(0,3);
+  // console.log(resultArray)
   if (typeof window !== 'undefined') {
-    // Perform localStorage action
-    localStorage?.setItem('emotionData', JSON.stringify(arr[0]))
-  }
+      // Perform localStorage action
+      localStorage?.setItem('emotionData', JSON.stringify(data[0]))
+    }
+  // const data = emotions?.map(v => v.emotions)
+  // const datamain = []?.concat(...data)
+  // // const t = new Set(datamain)
+
+  // const scoreMap = {};
+
+  // // Iterate through the data and calculate the sum and count for each name
+  // datamain.forEach(item => {
+  //   if (!scoreMap[item.name]) {
+  //     scoreMap[item.name] = { sum: 0, count: 0 };
+  //   }
+
+  //   scoreMap[item.name].sum += item.score;
+  //   scoreMap[item.name].count += 1;
+  // });
+  // console.log("object",scoreMap);
+  // // Create a new array to store the averages
+  // const averagesArray = [];
+
+  // // Calculate the average for each name and push it to the new array
+  // Object.keys(scoreMap).forEach(name => {
+  //   const averageScore = scoreMap[name].sum / scoreMap[name].count;
+  //   averagesArray.push({ name, averageScore });
+  // });
+  // let arr = averagesArray.sort((a, b) => b.averageScore - a.averageScore).slice(0, 3)
+  // console.log("dfghdfg",averagesArray);
+  // if (typeof window !== 'undefined') {
+  //   // Perform localStorage action
+  //   localStorage?.setItem('emotionData', JSON.stringify(arr[0]))
+  // }
 
   const handelClick = () => {
-    router.push('/play-list')
+    let data = localStorage.getItem('emotionData')
+    if (data) {
+      router.push('/play-list')
+    }
   }
   return (
     <>
       {/* <div id="bg-wrapper" className={commonStyle['bg-animation']}></div> */}
       <div className={commonStyle['main-wrapper']}>
-      <div className={commonStyle["bg-gradient"]}></div>
-      {/* <button onClick={signOut} >click</button> */}
+        <div className={commonStyle["bg-gradient"]}></div>
+        {/* <button onClick={signOut} >click</button> */}
         <section className={collectionStyle["playlist-wrappper"]}>
           <h2 className={commonStyle["medium-title"]}>Here's your Playlist for a Problem</h2>
           <a href="#"><img onClick={handelClick} className={collectionStyle["playlist-img"]} src="https://images.unsplash.com/photo-1515010137531-66995c7f40e6?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /></a>

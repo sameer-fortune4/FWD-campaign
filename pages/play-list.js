@@ -63,7 +63,7 @@ export default function PlayList() {
         setIsloading(true)
         let item = JSON.parse(localStorage.getItem('emotionData'))
         // let item = localStorage.getItem('inputData')
-        let response = await getData('api/filter/filterByTrackSong' + `?q=${item}&access_token=${access_token}`)
+        let response = await getData('api/filter/filterByTrackSong' + `?q=${item.name}&access_token=${access_token}`)
         if (response) {
             setListSong(response.items)
             setIsloading(false)
@@ -72,7 +72,7 @@ export default function PlayList() {
 
     const [playSong, setPlaySong] = useState()
     const [vishal,setVishal] = useState(false)
-    console.log("first",vishal,classData)
+    // console.log("first",vishal,classData)
     const handledata = async (data) => {
 
             setIdData(data);
@@ -129,7 +129,6 @@ export default function PlayList() {
 
     }
     const [isPlaying, setIsPlaying] = useState(false);
-    console.log("firs000000t",isPlaying)
     const handlePlay = () => {
         setIsPlaying(true);
       };
