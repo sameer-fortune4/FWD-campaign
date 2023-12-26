@@ -17,6 +17,7 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import Link from 'next/link';
 import ReactAudioPlayer from 'react-audio-player';
+import Image from 'next/image';
 
 export default function PlayList() {
     const { data: session } = useSession();
@@ -153,9 +154,9 @@ export default function PlayList() {
                                 {listSong &&
                                     listSong.map((v, i) => (
                                         <SwiperSlide key={i}>
-                                            <a className={styles.card + " " + (classData == true ? "control" : "")} onClick={() => handledata(v.id)} >
+                                            <div className={styles.card + " " + (classData == true ? "control" : "")} onClick={() => handledata(v.id)} >
                                                 <div className={styles.image}>
-                                                    <img src={v.album?.images[0]?.url} alt={v.name} />
+                                                    <Image width={100} height={100} src={v.album?.images[0]?.url} alt={v.name} />
                                                     <div className={styles["player"] + " " + "player-wrapper"}>
                                                         <div className={styles["wrap-control"]}>
                                                             
@@ -174,12 +175,12 @@ export default function PlayList() {
                                                     </div>
                                                     <span className={styles["btn-play"] + " " + (classData ? "active" : "") + " " + (idData ==v.id && vishal && isPlaying ? styles["current"]:"")}></span>
                                                 </div>
-                                            </a>
+                                            </div>
                                         </SwiperSlide>
                                     ))}
 
-                                <div className="swiper-button-prev swipe-btn"></div>
-                                <div className="swiper-button-next swipe-btn"></div>
+                                <div className={"swiper-button-prev" + " " + styles["swipe-btn-prev"]}></div>
+                                <div className={"swiper-button-next" + " " + styles["swipe-btn-next"]}></div>
                             </Swiper>
                             :
                             <div className={styles["error-wrap"]}>

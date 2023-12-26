@@ -5,6 +5,8 @@ import lottie from 'lottie-web';
 import Chatbox from '../component/common/chatbox';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+import Link from 'next/link';
 export default function SongCollection() {
   const [emotions, setEmotions] = useState([]);
   const socketRef = useRef(null);
@@ -143,8 +145,8 @@ export default function SongCollection() {
         {/* <button onClick={signOut} >click</button> */}
         <section className={collectionStyle["playlist-wrappper"]}>
           <h2 className={commonStyle["medium-title"]}>Here's your Playlist for a Problem</h2>
-          <a href="#"><img onClick={handelClick} className={collectionStyle["playlist-img"]} src="https://images.unsplash.com/photo-1515010137531-66995c7f40e6?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /></a>
-          <a href="#" className={collectionStyle["listen-txt"]} onClick={handelClick}>Click to listen</a>
+          <Link href="#" aria-label="Listen more songs"><Image height={100} width={100} onClick={handelClick} className={collectionStyle["playlist-img"]} src="https://picsum.photos/200/300" alt="" /></Link>
+          <Link href="#" aria-label="Listen more songs" className={collectionStyle["listen-txt"]} onClick={handelClick}>Click to listen</Link>
         </section>
       </div>
       <Chatbox />

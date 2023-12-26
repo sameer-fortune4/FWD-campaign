@@ -178,7 +178,7 @@ export default function Index() {
                                     name="name"
                                     value={formData.name}
                                     onChange={handleChange}
-                                    autocomplete="off"
+                                    autoComplete="off"
                                 />
                                 {validation &&
                                     <p className={homeStyle["error"]}>Please enter your emotions before submitting!</p>

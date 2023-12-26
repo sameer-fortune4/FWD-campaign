@@ -4,7 +4,8 @@ export default function Document() {
     return (
         <Html lang='en'>
             <Head>
-               
+                <title>FWD Campaign</title>
+                <meta name="description" content="Your default meta description." />
             </Head>
             <body>
                 <Main />

@@ -26,11 +26,11 @@ export default function Chatbox() {
                 <p className={commonStyle["botton-title"]}>Click <a href="#">here</a> for a confidential session with a mental health
                     professional.</p>
             </div>
-            {/* <div className={commonStyle["msg-round"]} onClick={()=>SetOpen(!open)}>
+            <div className={commonStyle["msg-round"]} onClick={()=>SetOpen(!open)}>
               <div className={commonStyle[""]}></div>
-            </div> */}
+            </div>
         <a href="#" className={commonStyle["logo-wrap"]}>
-          <Image onClick={handleData} src={Logo} height={100} width={100} />
+          <Image onClick={handleData} src={Logo} width={100} alt='logo' />
         </a>
       </div>
     </>
