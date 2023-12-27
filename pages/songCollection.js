@@ -145,7 +145,7 @@ export default function SongCollection() {
         {/* <button onClick={signOut} >click</button> */}
         <section className={collectionStyle["playlist-wrappper"]}>
           <h2 className={commonStyle["medium-title"]}>Here's your Playlist for a Problem</h2>
-          <Link href="#" aria-label="Listen more songs" role="link"><Image height={100} width={100} onClick={handelClick} className={collectionStyle["playlist-img"]} src="https://picsum.photos/200/300" alt="" /></Link>
+          <Link href="#" aria-label="Listen more songs" role="link"><Image height={100} width={100} onClick={handelClick} className={collectionStyle["playlist-img"]} src="https://picsum.photos/900/900" alt="" /></Link>
           <Link href="#" aria-label="Listen more songs" role="link" className={collectionStyle["listen-txt"]} onClick={handelClick}>Click to listen</Link>
         </section>
       </div>

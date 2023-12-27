@@ -156,7 +156,7 @@ export default function PlayList() {
                                         <SwiperSlide key={i}>
                                             <div className={styles.card + " " + (classData == true ? "control" : "")} onClick={() => handledata(v.id)} >
                                                 <div className={styles.image}>
-                                                    <Image width={100} height={100} src={v.album?.images[0]?.url} alt={v.name} />
+                                                    <img width={200} height={200} src={v.album?.images[0]?.url} alt={v.name} />
                                                     <div className={styles["player"] + " " + "player-wrapper"}>
                                                         <div className={styles["wrap-control"]}>
                                                             
