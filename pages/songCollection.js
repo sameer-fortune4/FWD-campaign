@@ -7,6 +7,7 @@ import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
+import Loader from '../component/common/loader';
 export default function SongCollection() {
   const [emotions, setEmotions] = useState([]);
   const socketRef = useRef(null);
@@ -74,7 +75,7 @@ export default function SongCollection() {
     }
   }, []);
 
-  // console.log("nfgvbhfgrfg000000000000000", emotions && emotions.sort((a, b) => b.score - a.score).slice(0, 5))
+  // console.log("a, emotions && emotions.sort((a, b) => b.score - a.score).slice(0, 5))
   // const dar = "dfg df dfd df"
 
   const scoresObject = {};
@@ -130,25 +131,30 @@ export default function SongCollection() {
   //   // Perform localStorage action
   //   localStorage?.setItem('emotionData', JSON.stringify(arr[0]))
   // }
-
+  const [isLoading,setIsloading] = useState(true);
+  useEffect(()=>{
+    setTimeout(() => {
+      setIsloading(false)
+    }, 10000);
+  },[])
   const handelClick = () => {
-    let data = localStorage.getItem('emotionData')
-    if (data) {
       router.push('/play-list')
-    }
   }
+
   return (
     <>
       {/* <div id="bg-wrapper" className={commonStyle['bg-animation']}></div> */}
+      {isLoading ? <Loader /> :
       <div className={commonStyle['main-wrapper']}>
         <div className={commonStyle["bg-gradient"]}></div>
         {/* <button onClick={signOut} >click</button> */}
         <section className={collectionStyle["playlist-wrappper"]}>
-          <h2 className={commonStyle["medium-title"]}>Here's your Playlist for a Problem</h2>
+          <h2 className={commonStyle["medium-title"]}>Here&apos;s your Playlist for a Problem</h2>
           <Link href="#" aria-label="Listen more songs" role="link"><Image height={100} width={100} onClick={handelClick} className={collectionStyle["playlist-img"]} src="https://picsum.photos/900/900" alt="" /></Link>
           <Link href="#" aria-label="Listen more songs" role="link" className={collectionStyle["listen-txt"]} onClick={handelClick}>Click to listen</Link>
         </section>
       </div>
+}
       <Chatbox />
     </>
   )

@@ -155,6 +155,19 @@ export default function Index() {
             localStorage?.setItem('inputData', JSON.stringify(formData.name))
         }
     }
+    // useEffect(()=>{
+    //     var input = document.getElementById("myInput");
+
+    //     input.addEventListener("keypress", function(event) {
+    //     // If the user presses the "Enter" key on the keyboard
+    //     if (event.key === "Enter") {
+    //         // Cancel the default action, if needed
+    //         event.preventDefault();
+    //         // Trigger the button element with a click
+    //         document.getElementById("myBtn").click();
+    //     }
+    //     });
+    // },[])
     return (
         <>
             <div className={commonStyle["main-wrapper"]}>
@@ -179,6 +192,7 @@ export default function Index() {
                                     value={formData.name}
                                     onChange={handleChange}
                                     autoComplete="off"
+                                    id='myInput'
                                 />
                                 {validation &&
                                     <p className={homeStyle["error"]}>Please enter your emotions before submitting!</p>
@@ -189,7 +203,7 @@ export default function Index() {
                             </div>
                             {/* <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a> */}
                             <div className={commonStyle["button-wrapper"] + " " + homeStyle["home-btn"]}>
-                                <a href="#" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]} onClick={generateTExt}>Generate</a>
+                                <a href="#" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]} id='myBtn' onClick={generateTExt}>Generate</a>
                                 <div className={commonStyle["button-bg"]}></div>
                             </div>
 

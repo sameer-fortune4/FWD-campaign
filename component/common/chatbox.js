@@ -22,13 +22,13 @@ export default function Chatbox() {
     <>
       <div className={commonStyle["logo-wrapper"] + " " + (open == true ? commonStyle["active"] : "")}>
         <div className={commonStyle["chat-titie"]}>
-                <p>We're always here to listen. </p>
-                <p className={commonStyle["botton-title"]}>Click <a href="#">here</a> for a confidential session with a mental health
-                    professional.</p>
-            </div>
-            <div className={commonStyle["msg-round"]} onClick={()=>SetOpen(!open)}>
-              <div className={commonStyle[""]}></div>
-            </div>
+          <p>We're always here to listen. </p>
+          <p className={commonStyle["botton-title"]}>Click <a href="#">here</a> for a confidential session with a mental health
+              professional.</p>
+        </div>
+        <div className={commonStyle["msg-round"]} onClick={()=>SetOpen(!open)}>
+          <div className={commonStyle[""]}></div>
+        </div>
         <a href="#" className={commonStyle["logo-wrap"]}>
           <Image onClick={handleData} src={Logo} width={100} alt='logo' />
         </a>

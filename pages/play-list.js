@@ -144,7 +144,7 @@ export default function PlayList() {
             <div className={commonStyle["bg-gradient"]}></div>
             <div className={styles["swiper-box"]}>
                 <div className={styles.container + " " + "swiper-container"}>
-                    <h2 className={styles["medium-title"]}>Listen to other people's</h2>
+                    <h2 className={styles["medium-title"]}>Listen to other people&apos;s</h2>
                     <h2 className={styles["medium-title"]}>Playlist for a Problem</h2>
                     {isLoading ?
                         <LoaderCard />

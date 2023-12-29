@@ -26,7 +26,7 @@ export default function Loader() {
     };
   }, []);
 
-  useEffect(() => {
+  useEffect(() => { 
       const interval = setInterval(() => {
         if (progress >= 100) {
           setProgress(0);
