@@ -72,21 +72,25 @@ export default function PlayList() {
     }
 
     const [playSong, setPlaySong] = useState()
-    const [vishal,setVishal] = useState(false)
-    // console.log("first",vishal,classData)
+    const [playBtn, setPlayBtn] = useState(false)
     const handledata = async (data) => {
 
-            setIdData(data);
-            setClassData(true)
-            setVishal(true)
-            try {
-                let access_token = localStorage.getItem('access_token');
-                let response = await getData('api/filter/track' + `?access_token=${access_token}&id=${data}`);
-                setPlaySong(response.preview_url);
-            } catch (error) {
-                console.error('Error fetching playlist song data:', error);
+        setIdData(data);
+        setClassData(true)
+        setPlayBtn(true)
+        try {
+            let access_token
+            if (session) {
+                access_token = session?.accessToken;
+            } else {
+                access_token = localStorage.getItem('access_token');
             }
-        
+            let response = await getData('api/filter/track' + `?access_token=${access_token}&id=${data}`);
+            setPlaySong(response.preview_url);
+        } catch (error) {
+            console.error('Error fetching playlist song data:', error);
+        }
+
     };
 
     const swiperOptions = {
@@ -132,11 +136,11 @@ export default function PlayList() {
     const [isPlaying, setIsPlaying] = useState(false);
     const handlePlay = () => {
         setIsPlaying(true);
-      };
-      const handlePause = () => {
+    };
+    const handlePause = () => {
         setIsPlaying(false);
-      };
-      
+    };
+
     return (
         <>
             {/* <div className={commonStyle["main-wrapper"]}> */}
@@ -159,21 +163,21 @@ export default function PlayList() {
                                                     <img width={200} height={200} src={v.album?.images[0]?.url} alt={v.name} />
                                                     <div className={styles["player"] + " " + "player-wrapper"}>
                                                         <div className={styles["wrap-control"]}>
-                                                            
+
                                                             {idData == v.id && <>
-                                                            <p className={styles["card-title"]}>{v.name}</p>
-                                                             <AudioPlayer
-                                                                autoPlay={classData}
-                                                                src={playSong}
-                                                                onPlay={handlePlay}
-                                                                onPause={handlePause}
+                                                                <p className={styles["card-title"]}>{v.name}</p>
+                                                                <AudioPlayer
+                                                                    autoPlay={classData}
+                                                                    src={playSong}
+                                                                    onPlay={handlePlay}
+                                                                    onPause={handlePause}
                                                                 />
-                                                                
+
                                                             </>
                                                             }
                                                         </div>
                                                     </div>
-                                                    <span className={styles["btn-play"] + " " + (classData ? "active" : "") + " " + (idData ==v.id && vishal && isPlaying ? styles["current"]:"")}></span>
+                                                    <span className={styles["btn-play"] + " " + (classData ? "active" : "") + " " + (idData == v.id && playBtn && isPlaying ? styles["current"] : "")}></span>
                                                 </div>
                                             </div>
                                         </SwiperSlide>
@@ -193,7 +197,7 @@ export default function PlayList() {
                                 </div>
                             </div>
                     }
-                   
+
                 </div>
             </div>
             <Chatbox />

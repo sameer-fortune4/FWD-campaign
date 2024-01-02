@@ -18,7 +18,6 @@ export default function PageNotFound() {
 
         }
     },[router, counter])
-    console.log("first",router)
   return (
     <div className={commonStyle['main-wrapper']}>
         <div className={commonStyle["bg-gradient"]}></div>

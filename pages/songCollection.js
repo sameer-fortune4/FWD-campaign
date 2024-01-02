@@ -137,9 +137,9 @@ export default function SongCollection() {
       setIsloading(false)
     }, 10000);
   },[])
-  const handelClick = () => {
-      router.push('/play-list')
-  }
+  // const handelClick = () => {
+  //     router.push('/play-list')
+  // }
 
   return (
     <>
@@ -150,8 +150,8 @@ export default function SongCollection() {
         {/* <button onClick={signOut} >click</button> */}
         <section className={collectionStyle["playlist-wrappper"]}>
           <h2 className={commonStyle["medium-title"]}>Here&apos;s your Playlist for a Problem</h2>
-          <Link href="#" aria-label="Listen more songs" role="link"><Image height={100} width={100} onClick={handelClick} className={collectionStyle["playlist-img"]} src="https://picsum.photos/900/900" alt="" /></Link>
-          <Link href="#" aria-label="Listen more songs" role="link" className={collectionStyle["listen-txt"]} onClick={handelClick}>Click to listen</Link>
+          <Link href="/play-list" aria-label="Listen more songs" role="link"><Image height={100} width={100} className={collectionStyle["playlist-img"]} src="https://picsum.photos/900/900" alt="" /></Link>
+          <Link href="/play-list" aria-label="Listen more songs" role="link" className={collectionStyle["listen-txt"]}>Click to listen</Link>
         </section>
       </div>
 }
