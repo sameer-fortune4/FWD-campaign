@@ -64,7 +64,7 @@ export default function PlayList() {
         setIsloading(true)
         let item = JSON.parse(localStorage.getItem('emotionData'))
         // let item = localStorage.getItem('inputData')
-        let response = await getData('api/filter/filterByTrackSong' + `?q=${item.name}&access_token=${access_token}`)
+        let response = await getData('api/filter/filterByTrackSong' + `?q=${item}&access_token=${access_token}`)
         if (response) {
             setListSong(response.items)
             setIsloading(false)

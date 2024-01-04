@@ -75,9 +75,6 @@ export default function SongCollection() {
     }
   }, []);
 
-  // console.log("a, emotions && emotions.sort((a, b) => b.score - a.score).slice(0, 5))
-  // const dar = "dfg df dfd df"
-
   const scoresObject = {};
 
   emotions.forEach((item) => {
@@ -95,48 +92,40 @@ export default function SongCollection() {
     name,
     score: scoresObject[name],
   }));
-  let data = resultArray.sort((a, b) => b.score - a.score).slice(0,3);
-  // console.log(resultArray)
-  if (typeof window !== 'undefined') {
-      // Perform localStorage action
-      localStorage?.setItem('emotionData', JSON.stringify(data[0]))
+  let data = resultArray.sort((a, b) => b.score - a.score).slice(0, 3);
+  const [antonym, setAntonym] = useState();
+  useEffect(() => {
+    const antonymDictionary = {
+      'joy': 'joy',
+      'happy': 'happy',
+      'sad': 'happiness',
+      'Sadness': "happiness",
+      'Triumph':'Success',
+      'Tiredness':'energy',
+      'Sympathy':'kindness',
+      'Surprise (positive)':"Happiness positive",
+      'Shame':'Disapponited',
+      'Desire':"wish",
+      'Satisfaction':'Satisfaction',
+      'Romance':'Romance',
+      'Relief':'Relief'
     }
-  // const data = emotions?.map(v => v.emotions)
-  // const datamain = []?.concat(...data)
-  // // const t = new Set(datamain)
+    function replaceWithAntonym(word) {
+      return antonymDictionary[word] || word;
+    }
+    const originalWord = data[0]?.name;
+    setAntonym(replaceWithAntonym(originalWord))
+  }, [data])
 
-  // const scoreMap = {};
-
-  // // Iterate through the data and calculate the sum and count for each name
-  // datamain.forEach(item => {
-  //   if (!scoreMap[item.name]) {
-  //     scoreMap[item.name] = { sum: 0, count: 0 };
-  //   }
-
-  //   scoreMap[item.name].sum += item.score;
-  //   scoreMap[item.name].count += 1;
-  // });
-  // console.log("object",scoreMap);
-  // // Create a new array to store the averages
-  // const averagesArray = [];
-
-  // // Calculate the average for each name and push it to the new array
-  // Object.keys(scoreMap).forEach(name => {
-  //   const averageScore = scoreMap[name].sum / scoreMap[name].count;
-  //   averagesArray.push({ name, averageScore });
-  // });
-  // let arr = averagesArray.sort((a, b) => b.averageScore - a.averageScore).slice(0, 3)
-  // console.log("dfghdfg",averagesArray);
-  // if (typeof window !== 'undefined') {
-  //   // Perform localStorage action
-  //   localStorage?.setItem('emotionData', JSON.stringify(arr[0]))
-  // }
-  const [isLoading,setIsloading] = useState(true);
-  useEffect(()=>{
+  if (typeof window !== 'undefined') {
+    localStorage?.setItem('emotionData', JSON.stringify(antonym))
+  }
+  const [isLoading, setIsloading] = useState(true);
+  useEffect(() => {
     setTimeout(() => {
       setIsloading(false)
     }, 10000);
-  },[])
+  }, [])
   // const handelClick = () => {
   //     router.push('/play-list')
   // }
@@ -145,16 +134,16 @@ export default function SongCollection() {
     <>
       {/* <div id="bg-wrapper" className={commonStyle['bg-animation']}></div> */}
       {isLoading ? <Loader /> :
-      <div className={commonStyle['main-wrapper']}>
-        <div className={commonStyle["bg-gradient"]}></div>
-        {/* <button onClick={signOut} >click</button> */}
-        <section className={collectionStyle["playlist-wrappper"]}>
-          <h2 className={commonStyle["medium-title"]}>Here&apos;s your Playlist for a Problem</h2>
-          <Link href="/play-list" aria-label="Listen more songs" role="link"><Image height={100} width={100} className={collectionStyle["playlist-img"]} src="https://picsum.photos/900/900" alt="" /></Link>
-          <Link href="/play-list" aria-label="Listen more songs" role="link" className={collectionStyle["listen-txt"]}>Click to listen</Link>
-        </section>
-      </div>
-}
+        <div className={commonStyle['main-wrapper']}>
+          <div className={commonStyle["bg-gradient"]}></div>
+          {/* <button onClick={signOut} >click</button> */}
+          <section className={collectionStyle["playlist-wrappper"]}>
+            <h2 className={commonStyle["medium-title"]}>Here&apos;s your Playlist for a Problem</h2>
+            <Link href="/play-list" aria-label="Listen more songs" role="link"><Image height={100} width={100} className={collectionStyle["playlist-img"]} src="https://picsum.photos/900/900" alt="" /></Link>
+            <Link href="/play-list" aria-label="Listen more songs" role="link" className={collectionStyle["listen-txt"]}>Click to listen</Link>
+          </section>
+        </div>
+      }
       <Chatbox />
     </>
   )
