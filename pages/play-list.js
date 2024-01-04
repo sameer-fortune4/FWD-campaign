@@ -127,9 +127,11 @@ export default function PlayList() {
             prevEl: '.swiper-button-prev',
         },
     }
+    const [listenText,setListenText] = useState(false)
     const swipperData = (text) => {
         text.on('slideChange', () => {
             setClassData(false)
+            setListenText(true)
         })
 
     }
@@ -154,30 +156,34 @@ export default function PlayList() {
                         <LoaderCard />
                         :
                         listSong.length > 0 ?
+                        <>
                             <Swiper {...swiperOptions} onSwiper={swipperData} allowTouchMove={false}>
                                 {listSong &&
                                     listSong.map((v, i) => (
                                         <SwiperSlide key={i}>
-                                            <div className={styles.card + " " + (classData == true ? "control" : "")} onClick={() => handledata(v.id)} >
-                                                <div className={styles.image}>
-                                                    <img width={200} height={200} src={v.album?.images[0]?.url} alt={v.name} />
-                                                    <div className={styles["player"] + " " + "player-wrapper"}>
-                                                        <div className={styles["wrap-control"]}>
+                                            <div className={"swiper-outer"}>
+                                                <div className={styles.card + " " + (classData == true ? "control" : "")} onClick={() => handledata(v.id)} >
+                                                    <div className={styles.image + " " + "sliderCard-img"} >
+                                                        <img width={200} height={200} src={v.album?.images[0]?.url} alt={v.name} />
+                                                        <div className={styles["player"] + " " + "player-wrapper"}>
+                                                            <div className={styles["wrap-control"]}>
 
-                                                            {idData == v.id && <>
-                                                                <p className={styles["card-title"]}>{v.name}</p>
-                                                                <AudioPlayer
-                                                                    autoPlay={classData}
-                                                                    src={playSong}
-                                                                    onPlay={handlePlay}
-                                                                    onPause={handlePause}
-                                                                />
+                                                                {idData == v.id && <>
+                                                                    <p className={styles["card-title"]}>{v.name}</p>
+                                                                    <AudioPlayer
+                                                                        autoPlay={classData}
+                                                                        src={playSong}
+                                                                        onPlay={handlePlay}
+                                                                        onPause={handlePause}
+                                                                    />
 
-                                                            </>
-                                                            }
+                                                                </>
+                                                                }
+                                                            </div>
                                                         </div>
+                                                        <span className={styles["btn-play"] + " " + (classData ? "active" : "") + " " + (idData == v.id && playBtn && isPlaying ? styles["current"] : "")}></span>
                                                     </div>
-                                                    <span className={styles["btn-play"] + " " + (classData ? "active" : "") + " " + (idData == v.id && playBtn && isPlaying ? styles["current"] : "")}></span>
+                                                        <a onClick={() => handledata(v.id)} aria-label="Listen songs" role="link" className={styles["listen-txt"] + " " + "listen-link"} href="#">Click to listen</a>
                                                 </div>
                                             </div>
                                         </SwiperSlide>
@@ -186,6 +192,7 @@ export default function PlayList() {
                                 <div className={"swiper-button-prev" + " " + styles["swipe-btn-prev"]}></div>
                                 <div className={"swiper-button-next" + " " + styles["swipe-btn-next"]}></div>
                             </Swiper>
+                            </>
                             :
                             <div className={styles["error-wrap"]}>
                                 <p className={styles["error-txt"]}>No Result Found</p>

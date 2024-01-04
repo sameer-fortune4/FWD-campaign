@@ -10,3 +10,15 @@
     font-style: normal;
     font-display: swap;
 }
+@font-face {
+    font-family: 'FWD Circular Book';
+    src: url('../public/fonts/FWDCircular-Book.eot');
+    src: url('../public/fonts/FWDCircular-Book.eot?#iefix') format('embedded-opentype'),
+        url('../public/fonts/FWDCircular-Book.woff2') format('woff2'),
+        url('../public/fonts/FWDCircular-Book.woff') format('woff'),
+        url('../public/fonts/FWDCircular-Book.ttf') format('truetype'),
+        url('../public/fonts/FWDCircular-Book.svg#FWDCircular-Book') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

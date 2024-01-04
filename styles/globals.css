@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap'); */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,11 +9,11 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'FWD Circular Book', sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 18px;
   color: #1e2f28;
-  line-height: 1.4;
+  line-height: 1.2;
   scroll-behavior: smooth;
 }
 
@@ -27,22 +27,54 @@ a {
 .swiper-container .swiper-slide {
   pointer-events: none;
 }
+.sliderCard-img{
+  position: relative;
+}
+.swiper-container .swiper-slide-active .sliderCard-img::after{
+  display: none;
+}
+.sliderCard-img::after{
+  content: "";
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 98%;
+  width: 100%;
+  display: block;
+}
 .swiper-container .swiper-slide-active{
   pointer-events: all;
 }
 .swiper-container .swiper-slide-active .control .active{opacity: 0; visibility: hidden;}
 
+.swiper-slide .listen-link{
+  display: none !important;
+}
+.swiper-slide-active .listen-link{
+  display: block !important;
+}
+.swiper-3d .swiper-slide-shadow-left,.swiper-3d .swiper-slide-shadow-right{
+  display: none;
+}
+
 .swiper-container .swiper-slide-active .control::after {
-    content: "";background: linear-gradient(0deg, #000000d4, transparent 60%);position: absolute;height: 100%;width: 100%;left: 0;top: 0;bottom: 0;right: 0;transition: all .4s ease-in-out 0s;
+    content: "";background: linear-gradient(0deg, #000000d4, transparent 60%);position: absolute;height: 98%;width: 100%;left: 0;top: 0;bottom: 0;right: 0;transition: all .4s ease-in-out 0s;
 }
 .swiper{
-  max-height: 330px;
+  max-height: 370px;
 }
 .player-wrapper .rhap_container{
   background: rgba(255, 255, 255, 0);
   border-radius: 10px !important;
   box-shadow: none !important;
   padding-top: 5px !important;
+}
+.control .listen-link{
+  display: none !important;
 }
 .player-wrapper .rhap_time{ color: #fff !important; font-size: 12px !important; min-width: 35px;}
 .player-wrapper .rhap_progress-indicator{ height: 10px !important; width: 10px !important; top: -3px !important;}

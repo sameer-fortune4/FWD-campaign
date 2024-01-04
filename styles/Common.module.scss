@@ -106,7 +106,7 @@
   }
 }
 
-.listen-txt{ display: block;margin-top: 5px;font-weight: 600; text-align: center; width: 100%;}
+.listen-txt{ display: block;margin-top: 7px;font-weight: 600; text-align: center; width: 100%; transition: all .4s ease-in-out;}
 .small-title{font-size: 32px;font-weight: 500;font-family: 'Grand Rainbow Demo';
 @media (max-width:480px) {
     font-size: 27px !important;
@@ -125,8 +125,13 @@
 }
 #bg-wrapper svg{vertical-align: middle;}
 .bg-gradient{
-  background-color: #D9AFD9;background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
-  position: absolute;top: 0;left: 0;height: 100% ;width: 100%;z-index: -1; overflow: hidden;
+  background-color: #D9AFD9;
+  background-image: url("../public/assets/images/fwd-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;left: 0;height: 100% ;width: 100%;z-index: -1; overflow: hidden;
 
 }
 .logo-wrapper {position: absolute;bottom: 20px;right: 30px;
