@@ -74,7 +74,7 @@ a {
   padding-top: 5px !important;
 }
 .control .listen-link{
-  visibility: visible !important;
+  visibility: hidden !important;
 }
 .player-wrapper .rhap_time{ color: #fff !important; font-size: 12px !important; min-width: 35px;}
 .player-wrapper .rhap_progress-indicator{ height: 10px !important; width: 10px !important; top: -3px !important;}
