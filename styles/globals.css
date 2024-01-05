@@ -42,7 +42,7 @@ a {
   position: absolute;
   top: 0;
   left: 0;
-  height: 98%;
+  height: 98.6%;
   width: 100%;
   display: block;
 }
@@ -62,11 +62,11 @@ a {
 }
 
 .swiper-slide-active .control .sliderCard-img::before {
-    content: "";background: linear-gradient(0deg, #000000d4, transparent 60%);position: absolute;height: 98%;width: 100%;left: 0;top: 0;bottom: 0;right: 0;transition: all .4s ease-in-out 0s;
+    content: "";background: linear-gradient(0deg, #000000d4, transparent 60%);position: absolute;height: 98.6%;width: 100%;left: 0;top: 0;bottom: 0;right: 0;transition: all .4s ease-in-out 0s;
 }
-.swiper{
+/* .swiper{
   max-height: 370px;
-}
+} */
 .player-wrapper .rhap_container{
   background: rgba(255, 255, 255, 0);
   border-radius: 10px !important;
