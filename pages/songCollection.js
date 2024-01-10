@@ -93,32 +93,32 @@ export default function SongCollection() {
     score: scoresObject[name],
   }));
   let data = resultArray.sort((a, b) => b.score - a.score).slice(0, 3);
-  const [antonym, setAntonym] = useState();
-  useEffect(() => {
-    const antonymDictionary = {
-      'joy': 'joy',
-      'happy': 'happy',
-      'sad': 'happiness',
-      'Sadness': "happiness",
-      'Triumph':'Success',
-      'Tiredness':'energy',
-      'Sympathy':'kindness',
-      'Surprise (positive)':"Happiness positive",
-      'Shame':'Disapponited',
-      'Desire':"wish",
-      'Satisfaction':'Satisfaction',
-      'Romance':'Romance',
-      'Relief':'Relief'
-    }
-    function replaceWithAntonym(word) {
-      return antonymDictionary[word] || word;
-    }
-    const originalWord = data[0]?.name;
-    setAntonym(replaceWithAntonym(originalWord))
-  }, [data])
+  // const [antonym, setAntonym] = useState();
+  // useEffect(() => {
+  //   const antonymDictionary = {
+  //     'joy': 'joy',
+  //     'happy': 'happy',
+  //     'sad': 'happiness',
+  //     'Sadness': "happiness",
+  //     'Triumph':'Success',
+  //     'Tiredness':'energy',
+  //     'Sympathy':'kindness',
+  //     'Surprise (positive)':"Happiness positive",
+  //     'Shame':'Disapponited',
+  //     'Desire':"wish",
+  //     'Satisfaction':'Satisfaction',
+  //     'Romance':'Romance',
+  //     'Relief':'Relief'
+  //   }
+  //   function replaceWithAntonym(word) {
+  //     return antonymDictionary[word] || word;
+  //   }
+  //   const originalWord = data[0]?.name;
+  //   setAntonym(replaceWithAntonym(originalWord))
+  // }, [data])
 
   if (typeof window !== 'undefined') {
-    localStorage?.setItem('emotionData', JSON.stringify(antonym))
+    localStorage?.setItem('emotionData', JSON.stringify(data[0]?.name))
   }
   const [isLoading, setIsloading] = useState(true);
   useEffect(() => {
@@ -139,7 +139,7 @@ export default function SongCollection() {
           {/* <button onClick={signOut} >click</button> */}
           <section className={collectionStyle["playlist-wrappper"]}>
             <h2 className={commonStyle["medium-title"]}>Here&apos;s your Playlist for a Problem</h2>
-            <Link href="/play-list" aria-label="Listen more songs" role="link"><Image height={100} width={100} className={collectionStyle["playlist-img"]} src="https://picsum.photos/900/900" alt="" /></Link>
+            <Link href="/play-list" aria-label="Listen more songs" role="link"><Image height={100} width={100} className={collectionStyle["playlist-img"]} src="https://picsum.photos/id/2/200/300" alt="" /></Link>
             <Link href="/play-list" aria-label="Listen more songs" role="link" className={collectionStyle["listen-txt"]}>Click to listen</Link>
           </section>
         </div>

@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
 import Chatbox from '../component/common/chatbox';
 import Loader from '../component/common/loader';
+import Link from 'next/link';
 export default function Index() {
 
     const { data: session } = useSession();
@@ -72,7 +73,6 @@ export default function Index() {
             name: "I'm so anxious that I might lose my job I'm worried it's driving my wife away.",
         });
     }, []);
-    /////////////////
 
     useEffect(() => {
         const animation = lottie.loadAnimation({
@@ -91,7 +91,6 @@ export default function Index() {
         signIn('spotify')
         setLoading(true)
         e.preventDefault();
-        router.push('/songCollection')
         // setMainData(formData.name)
         // localStorage.clear();
     }
@@ -136,11 +135,8 @@ export default function Index() {
 
     useEffect(() => {
         if (session) {
-            // router.push("/play-list")
-            // router.push("/loader")
             router.push("/songCollection")
         } else {
-            // router.push("/songCollection")
             router.push("/")
         }
     }, [session])
