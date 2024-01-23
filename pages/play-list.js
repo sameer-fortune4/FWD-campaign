@@ -10,14 +10,14 @@ import 'swiper/css/pagination';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, EffectCoverflow } from 'swiper/modules';
-import lottie from 'lottie-web';
+// import lottie from 'lottie-web';
 import Chatbox from '../component/common/chatbox';
 import LoaderCard from '../component/common/loaderCard';
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
+// import AudioPlayer from 'react-h5-audio-player';
+// import 'react-h5-audio-player/lib/styles.css';
 import Link from 'next/link';
-import ReactAudioPlayer from 'react-audio-player';
-import Image from 'next/image';
+// import ReactAudioPlayer from 'react-audio-player';
+// import Image from 'next/image';
 
 export default function PlayList() {
     const { data: session } = useSession();
@@ -138,13 +138,13 @@ export default function PlayList() {
         })
 
     }
-    const [isPlaying, setIsPlaying] = useState(false);
-    const handlePlay = () => {
-        setIsPlaying(true);
-    };
-    const handlePause = () => {
-        setIsPlaying(false);
-    };
+    // const [isPlaying, setIsPlaying] = useState(false);
+    // const handlePlay = () => {
+    //     setIsPlaying(true);
+    // };
+    // const handlePause = () => {
+    //     setIsPlaying(false);
+    // };
 
     useEffect(() => {
         const access_token = localStorage.getItem('access_token');

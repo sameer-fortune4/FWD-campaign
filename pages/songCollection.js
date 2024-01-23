@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import commonStyle from "../styles/Common.module.scss"
 import collectionStyle from "../styles/songCollection.module.scss"
-import lottie from 'lottie-web';
+// import lottie from 'lottie-web';
 import Chatbox from '../component/common/chatbox';
-import { signOut } from 'next-auth/react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 import Loader from '../component/common/loader';
@@ -12,7 +10,7 @@ export default function SongCollection() {
   const [emotions, setEmotions] = useState([]);
   const socketRef = useRef(null);
   const mountRef = useRef(true);
-  const router = useRouter();
+
   // useEffect(() => {
   //   const animation = lottie.loadAnimation({
   //     container: document.getElementById('bg-wrapper'),
@@ -126,9 +124,6 @@ export default function SongCollection() {
       setIsloading(false)
     }, 10000);
   }, [])
-  // const handelClick = () => {
-  //     router.push('/play-list')
-  // }
 
   return (
     <>
@@ -136,7 +131,6 @@ export default function SongCollection() {
       {isLoading ? <Loader /> :
         <div className={commonStyle['main-wrapper']}>
           <div className={commonStyle["bg-gradient"]}></div>
-          {/* <button onClick={signOut} >click</button> */}
           <section className={collectionStyle["playlist-wrappper"]}>
             <h2 className={commonStyle["medium-title"]}>Here&apos;s your Playlist for a Problem</h2>
             <Link href="/play-list" aria-label="Listen more songs" role="link"><Image height={100} width={100} className={collectionStyle["playlist-img"]} src="https://picsum.photos/id/2/200/300" alt="" /></Link>

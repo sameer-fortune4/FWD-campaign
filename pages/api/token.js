@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
         const clientId = process.env.SPOTIFY_CLIENT_ID;
         const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-        const redirectUri = 'http://localhost:3000/api/auth/callback/spotify';
+        const redirectUri = process.env.NEXT_PUBLIC_REDIRECT_URI;
         const authorizationHeader = `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`;
         const resfresh_token = process.env.NEXT_PUBLIC_REFRESH_TOKEN
         try {
