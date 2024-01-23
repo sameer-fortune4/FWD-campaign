@@ -13,18 +13,18 @@ export default function SongCollection() {
   const socketRef = useRef(null);
   const mountRef = useRef(true);
   const router = useRouter();
-  useEffect(() => {
-    const animation = lottie.loadAnimation({
-      container: document.getElementById('bg-wrapper'),
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: '/assets/js/lottiefiles.json',
-    });
-    return () => {
-      animation.destroy();
-    };
-  }, []);
+  // useEffect(() => {
+  //   const animation = lottie.loadAnimation({
+  //     container: document.getElementById('bg-wrapper'),
+  //     renderer: 'svg',
+  //     loop: true,
+  //     autoplay: true,
+  //     path: '/assets/js/lottiefiles.json',
+  //   });
+  //   return () => {
+  //     animation.destroy();
+  //   };
+  // }, []);
   useEffect(() => {
     // socketRef.current = new WebSocket()
     socketRef.current = new WebSocket(`wss://api.hume.ai/v0/stream/models?apikey=${process.env.NEXT_PUBLIC_HUME_API_KEY}`)

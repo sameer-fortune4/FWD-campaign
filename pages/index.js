@@ -135,11 +135,17 @@ export default function Index() {
 
     useEffect(() => {
         if (session) {
+            localStorage.setItem('access_token', session.accessToken)
+            tokenData()
             router.push("/songCollection")
         } else {
             router.push("/")
         }
     }, [session])
+
+    const tokenData = async () => {
+        await localStorage.getItem('access_token')
+    }
 
     const generateTExt = () => {
         if (formData.name === '') {

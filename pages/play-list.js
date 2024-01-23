@@ -25,40 +25,40 @@ export default function PlayList() {
     const [listSong, setListSong] = useState([]);
     const [idData, setIdData] = useState()
     const [classData, setClassData] = useState(false)
+
     useEffect(() => {
-        let access_token = session?.accessToken;
         let token = localStorage.getItem('access_token')
-
-        // if (!session) {
-        //     router.push('/');
-        // } else {
-        //     fetchPlayListData(access_token);
-        //     handledata()
-        // }
-        if (!session) {
-            if (token) {
-                fetchFilterListSong(token)
-            }
-        } else {
-            fetchFilterListSong(access_token)
+        if (token !== '') {
+            fetchFilterListSong(token)
         }
-    }, [session]);
-
-    useEffect(() => {
-        // Load the Lottie animation
-        const animation = lottie.loadAnimation({
-            container: document.getElementById('bg'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: '/assets/js/lottiefiles.json',
-        });
-
-        // Clean up the animation when the component is unmounted
-        return () => {
-            animation.destroy();
-        };
     }, []);
+    // useEffect(() => {
+    //     let access_token = session?.accessToken;
+    //     let token = localStorage.getItem('access_token')
+    //     if (!session) {
+    //         if (token) {
+    //             fetchFilterListSong(token)
+    //         }
+    //     } else {
+    //         fetchFilterListSong(access_token)
+    //     }
+    // }, [session]);
+
+    // useEffect(() => {
+    //     // Load the Lottie animation
+    //     const animation = lottie.loadAnimation({
+    //         container: document.getElementById('bg'),
+    //         renderer: 'svg',
+    //         loop: true,
+    //         autoplay: true,
+    //         path: '/assets/js/lottiefiles.json',
+    //     });
+
+    //     // Clean up the animation when the component is unmounted
+    //     return () => {
+    //         animation.destroy();
+    //     };
+    // }, []);
     const [isLoading, setIsloading] = useState(false)
     const fetchFilterListSong = async (access_token) => {
         setIsloading(true)
