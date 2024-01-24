@@ -89,7 +89,7 @@ export default function Index() {
     // const [collection,setCollection] = useState(false)
     const login = (e) => {
         signIn('spotify')
-        setLoading(true)
+        // setLoading(true)
         e.preventDefault();
         // setMainData(formData.name)
         // localStorage.clear();
@@ -132,20 +132,22 @@ export default function Index() {
         fetchTokenApi(); // Call the API immediately when the close button is clicked
         // ... (your existing code)
     };
-
+    const [sessionData, setSessionData] = useState('');
+    
     useEffect(() => {
         if (session) {
             localStorage.setItem('access_token', session.accessToken)
-            tokenData()
+            setSessionData(session.accessToken)
+        }
+    }, [session])
+
+    useEffect(() => {
+        if (sessionData !== '') {
             router.push("/songCollection")
         } else {
             router.push("/")
         }
-    }, [session])
-
-    const tokenData = async () => {
-        await localStorage.getItem('access_token')
-    }
+    }, [sessionData])
 
     const generateTExt = () => {
         if (formData.name === '') {
