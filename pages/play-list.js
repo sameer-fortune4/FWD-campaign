@@ -13,11 +13,9 @@ import { Navigation, EffectCoverflow } from 'swiper/modules';
 // import lottie from 'lottie-web';
 import Chatbox from '../component/common/chatbox';
 import LoaderCard from '../component/common/loaderCard';
-// import AudioPlayer from 'react-h5-audio-player';
-// import 'react-h5-audio-player/lib/styles.css';
 import Link from 'next/link';
-// import ReactAudioPlayer from 'react-audio-player';
-// import Image from 'next/image';
+import PlaylistItem from '../component/playlistItem';
+
 
 export default function PlayList() {
     const { data: session } = useSession();
@@ -32,33 +30,7 @@ export default function PlayList() {
             fetchFilterListSong(token)
         }
     }, []);
-    // useEffect(() => {
-    //     let access_token = session?.accessToken;
-    //     let token = localStorage.getItem('access_token')
-    //     if (!session) {
-    //         if (token) {
-    //             fetchFilterListSong(token)
-    //         }
-    //     } else {
-    //         fetchFilterListSong(access_token)
-    //     }
-    // }, [session]);
 
-    // useEffect(() => {
-    //     // Load the Lottie animation
-    //     const animation = lottie.loadAnimation({
-    //         container: document.getElementById('bg'),
-    //         renderer: 'svg',
-    //         loop: true,
-    //         autoplay: true,
-    //         path: '/assets/js/lottiefiles.json',
-    //     });
-
-    //     // Clean up the animation when the component is unmounted
-    //     return () => {
-    //         animation.destroy();
-    //     };
-    // }, []);
     const [isLoading, setIsloading] = useState(false)
     const fetchFilterListSong = async (access_token) => {
         setIsloading(true)
@@ -70,29 +42,9 @@ export default function PlayList() {
             setIsloading(false)
         }
     }
-
-    const [playSong, setPlaySong] = useState()
-    const [playBtn, setPlayBtn] = useState(false)
-    const [embedData, setEmbedData] = useState(null)
     const handledata = async (data) => {
-
         setIdData(data);
         setClassData(true)
-        setPlayBtn(true)
-        try {
-            let access_token
-            if (session) {
-                access_token = session?.accessToken;
-            } else {
-                access_token = localStorage.getItem('access_token');
-            }
-            // let response = await getData('api/filter/track' + `?access_token=${access_token}&id=${data}`);
-            // setPlaySong(response.preview_url);
-            let response = await getData('api/filter/iframeData' + `?q=${data}&access_token=${access_token}`)
-            setEmbedData(response);
-        } catch (error) {
-            console.error('Error fetching playlist song data:', error);
-        }
 
     };
 
@@ -138,13 +90,6 @@ export default function PlayList() {
         })
 
     }
-    // const [isPlaying, setIsPlaying] = useState(false);
-    // const handlePlay = () => {
-    //     setIsPlaying(true);
-    // };
-    // const handlePause = () => {
-    //     setIsPlaying(false);
-    // };
 
     useEffect(() => {
         const access_token = localStorage.getItem('access_token');
@@ -159,8 +104,6 @@ export default function PlayList() {
 
     return (
         <>
-            {/* <div className={commonStyle["main-wrapper"]}> */}
-            {/* <div id="bg" className={commonStyle["bg-animation"]} ></div> */}
             <div className={commonStyle["bg-gradient"]}></div>
             <div className={styles["swiper-box"]}>
                 <div className={styles.container + " " + "swiper-container"}>
@@ -175,34 +118,7 @@ export default function PlayList() {
                                     {listSong &&
                                         listSong.map((v, i) => (
                                             <SwiperSlide key={i}>
-                                                <div className={"swiper-outer"}>
-                                                    <div className={styles.card + " " + (classData == true ? "control" : "")} onClick={() => handledata(v.id)} >
-                                                        <div className={styles.image + " " + "sliderCard-img"} >
-                                                            <img width={200} height={200} src={v.album?.images[0]?.url} alt={v.name} />
-                                                            <div className={styles["player"] + " " + "player-wrapper"}>
-                                                                <div className={styles["wrap-control"]}>
-                                                                    {/* {idData == v.id && <>
-                                                                        <p className={styles["card-title"]}>{v.name}</p>
-                                                                        <AudioPlayer
-                                                                            autoPlay={classData}
-                                                                            src={playSong}
-                                                                            onPlay={handlePlay}
-                                                                            onPause={handlePause}
-                                                                        />
-                                                                    </>
-                                                                    } */}
-                                                                    {embedData && <div dangerouslySetInnerHTML={{ __html: embedData.html }} />}
-                                                                </div>
-                                                            </div>
-                                                            <span className={styles["btn-play"] + " " + (classData ? "active" : "") + " " + (idData == v.id ? styles["current"] : "")}></span>
-                                                            {/* <span className={styles["btn-play"] + " " + (classData ? "active" : "") + " " + (idData == v.id && playBtn && isPlaying ? styles["current"] : "")}></span> */}
-                                                        </div>
-                                                        {/* <div key={i}>
-                                                            <iframe style={{ "borderRadius": "12px" }} src={`https://open.spotify.com/embed/track/${v.id}?utm_source=oembed`} width="100%" height="352" frameBorder="0" allowtransparency="true" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media" loading="lazy" theme="white"></iframe>
-                                                        </div> */}
-                                                        {/* <a onClick={() => handledata(v.id)} aria-label="Listen songs" role="link" className={styles["listen-txt"] + " " + "listen-link"} href="#">Click to listen</a> */}
-                                                    </div>
-                                                </div>
+                                                <PlaylistItem data={v} setClassData={setClassData} classData={classData} />
                                             </SwiperSlide>
                                         ))}
 
