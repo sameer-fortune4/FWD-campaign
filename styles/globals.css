@@ -91,3 +91,8 @@ a {
     margin-right: -20px !important;
   }
 }
+@supports (-moz-appearance: none) {
+  .swiper-3d .swiper-wrapper{
+    transform-style: flat !important;
+  }
+}
