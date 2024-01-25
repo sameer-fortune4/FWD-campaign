@@ -42,11 +42,6 @@ export default function PlayList() {
             setIsloading(false)
         }
     }
-    const handledata = async (data) => {
-        setIdData(data);
-        setClassData(true)
-
-    };
 
     const swiperOptions = {
         className: "mySwiper",

@@ -4,14 +4,15 @@ import Image from 'next/image';
 
 export default function PlaylistItem({ data, classData, setClassData }) {
     const [showIframe, setShowIframe] = useState(false)
-
+    const [active, setActive] = useState(false)
     const handledata = () => {
         setShowIframe(true)
+        setClassData(true)
     };
 
     return (
         <div className={"swiper-outer"}>
-            <div className={styles.card + " " + (classData == true ? "control" : "")}  >
+            <div className={styles.card + " " + (active ? "control" : "")} onClick={()=>setActive(true)}  >
                 <div className={styles.image + " sliderCard-img"} >
                     {showIframe ?
                         <div className={styles["player"] + " player-wrapper"}>
@@ -26,8 +27,9 @@ export default function PlaylistItem({ data, classData, setClassData }) {
                                 ></iframe>
                             </div>
                         </div> :
-                        <Image width={200} height={200} src={data.album?.images[0]?.url} alt={data.name} onClick={() => handledata()} />
+                        <Image width={200} height={200} className="banner-img" src={data.album?.images[0]?.url} alt={data.name} onClick={() => handledata()} />
                     }
+                    <span onClick={() => handledata()} className={styles["btn-play"] + " " + "act-btn"}></span>
                 </div>
             </div>
         </div>
