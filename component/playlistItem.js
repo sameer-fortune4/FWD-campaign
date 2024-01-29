@@ -20,7 +20,7 @@ export default function PlaylistItem({ data, classData, setClassData }) {
                                 <iframe
                                     src={`https://open.spotify.com/embed/track/${data.id}?utm_source=generator`}
                                     width="300"
-                                    height="360"
+                                    height="352"
                                     frameBorder="0"
                                     allowtransparency="true"
                                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
