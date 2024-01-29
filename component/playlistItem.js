@@ -3,33 +3,19 @@ import styles from '../styles/Common.module.scss';
 import Image from 'next/image';
 
 export default function PlaylistItem({ data, classData, setClassData }) {
-    const [showIframe, setShowIframe] = useState(false)
-    const [active, setActive] = useState(false)
-    const handledata = () => {
-        setShowIframe(true)
-        setClassData(true)
-    };
+    // const [showIframe, setShowIframe] = useState(false)
+    // const [active, setActive] = useState(false)
+    // const handledata = () => {
+    //     setShowIframe(true)
+    //     setClassData(true)
+    // };
 
     return (
         <div className={"swiper-outer"}>
-            <div className={styles.card + " " + (active ? "control" : "")} onClick={()=>setActive(true)}  >
+            <div className={styles.card}>
                 <div className={styles.image + " sliderCard-img"} >
-                    {showIframe ?
-                        <div className={styles["player"] + " player-wrapper"}>
-                            <div className={styles["wrap-control"]}>
-                                <iframe
-                                    src={`https://open.spotify.com/embed/track/${data.id}?utm_source=generator`}
-                                    width="300"
-                                    height="352"
-                                    frameBorder="0"
-                                    allowtransparency="true"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                ></iframe>
-                            </div>
-                        </div> :
-                        <Image width={200} height={200} className="banner-img" src={data.album?.images[0]?.url} alt={data.name} onClick={() => handledata()} />
-                    }
-                    <span onClick={() => handledata()} className={styles["btn-play"] + " " + "act-btn"}></span>
+                        <Image width={200} height={200} className="banner-img" src={data.album?.images[0]?.url} alt={data.name} />
+                    <span className={styles["btn-play"] + " " + "act-btn"}></span>
                 </div>
             </div>
         </div>

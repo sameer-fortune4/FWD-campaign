@@ -26,11 +26,11 @@ export default function Chatbox() {
   return (
     <>
       <div className={commonStyle["logo-wrapper"] + " " + (open == true ? commonStyle["active"] : "")}>
-        <div className={commonStyle["chat-titie"]}>
+        {/* <div className={commonStyle["chat-titie"]}>
           <p>We're always here to listen. </p>
           <p className={commonStyle["botton-title"]}>Click <Link href="/">here</Link> for a confidential session with a mental health
             professional.</p>
-        </div>
+        </div> */}
         <div className={commonStyle["msg-round"]} onClick={() => SetOpen(!open)}>
           <div className={commonStyle[""]}></div>
         </div>

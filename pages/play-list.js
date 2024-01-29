@@ -15,7 +15,8 @@ import Chatbox from '../component/common/chatbox';
 import LoaderCard from '../component/common/loaderCard';
 import Link from 'next/link';
 import PlaylistItem from '../component/playlistItem';
-
+import Lottie from 'react-lottie';
+import animationData from '../public/assets/js/scene1.json';
 
 export default function PlayList() {
     const { data: session } = useSession();
@@ -99,7 +100,21 @@ export default function PlayList() {
 
     return (
         <>
-            <div className={commonStyle["bg-gradient"]}></div>
+            {/* <div className={commonStyle["bg-gradient"]}></div> */}
+            <div className={commonStyle["bg-animation"]} style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Lottie
+                    options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: animationData,
+                    rendererSettings: {
+                        preserveAspectRatio: 'xMidYMid slice'
+                    }
+                    }}
+                    height={'100%'}
+                    width={'100%'}
+                />
+            </div>
             <div className={styles["swiper-box"]}>
                 <div className={styles.container + " " + "swiper-container"}>
                     <h2 className={styles["medium-title"]}>Listen to other people&apos;s</h2>

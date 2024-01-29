@@ -6,6 +6,8 @@ import Chatbox from '../component/common/chatbox';
 import Image from 'next/image';
 import Link from 'next/link';
 import Loader from '../component/common/loader';
+import Lottie from 'react-lottie';
+import animationData from "/public/assets/js/scene1.json"
 export default function SongCollection() {
   const [emotions, setEmotions] = useState([]);
   const socketRef = useRef(null);
@@ -130,7 +132,21 @@ export default function SongCollection() {
       {/* <div id="bg-wrapper" className={commonStyle['bg-animation']}></div> */}
       {isLoading ? <Loader /> :
         <div className={commonStyle['main-wrapper']}>
-          <div className={commonStyle["bg-gradient"]}></div>
+              <div className={commonStyle["bg-animation"]} style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Lottie
+                    options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: animationData,
+                    rendererSettings: {
+                        preserveAspectRatio: 'xMidYMid slice'
+                    }
+                    }}
+                    height={'100%'}
+                    width={'100%'}
+                />
+              </div>
+          {/* <div className={commonStyle["bg-gradient"]}></div> */}
           <section className={collectionStyle["playlist-wrappper"]}>
             <h2 className={commonStyle["medium-title"]}>Here&apos;s your Playlist for a Problem</h2>
             <Link href="/play-list" aria-label="Listen more songs" role="link"><Image height={100} width={100} className={collectionStyle["playlist-img"]} src="https://picsum.photos/id/2/200/300" alt="" /></Link>

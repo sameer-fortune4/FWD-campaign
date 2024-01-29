@@ -1,30 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import commonStyle from '../../styles/Common.module.scss';
 import loaderStyle from '../../styles/loader.module.scss';
-
-import lottie from 'lottie-web';
 import { useSession } from 'next-auth/react';
-
+import animationData from '/public/assets/js/scene2.json';
+import Lottie from 'react-lottie';
 export default function Loader() {
   const [progress, setProgress] = useState(0);
 
   const { data: session } = useSession();
 
-  useEffect(() => {
-    // Load the Lottie animation
-    const animation = lottie.loadAnimation({
-      container: document.getElementById('bg-wrapper'),
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: '/assets/js/lottiefiles.json',
-    });
-
-    // Clean up the animation when the component is unmounted
-    return () => {
-      animation.destroy();
-    };
-  }, []);
 
   useEffect(() => { 
       const interval = setInterval(() => {
@@ -43,9 +27,24 @@ export default function Loader() {
     <>
       <div className={commonStyle["main-wrapper"]}>
         {/* <div id="bg-wrapper" className={commonStyle['bg-animation']}></div> */}
-        <div className={commonStyle["bg-gradient"]}></div>
+
+        {/* <div className={commonStyle["bg-gradient"]}></div> */}
+        <div className={commonStyle["bg-animation"]} style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Lottie
+                    options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: animationData,
+                    rendererSettings: {
+                        preserveAspectRatio: 'xMidYMid slice'
+                    }
+                    }}
+                    height={'100%'}
+                    width={'100%'}
+                />
+            </div>
         <section className={loaderStyle['loader-wrapper']}>
-          <h4 className={commonStyle['small-title']}>
+          <h4 className={commonStyle['small-title']  + " " + commonStyle["light-title"]}>
             Breathe in, breathe out... <br /> Your Playlist for a Problem is on its way.
           </h4>
           <div className={loaderStyle['dots-container']}>

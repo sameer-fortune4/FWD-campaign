@@ -2,12 +2,13 @@ import React, { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import homeStyle from "../styles/home.module.scss";
 import commonStyle from "../styles/Common.module.scss"
-import lottie from 'lottie-web';
 import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
 import Chatbox from '../component/common/chatbox';
 import Loader from '../component/common/loader';
 import Link from 'next/link';
+import Lottie from 'react-lottie';
+import animationData from '../public/assets/js/scene1.json';
 export default function Index() {
 
     const { data: session } = useSession();
@@ -74,18 +75,19 @@ export default function Index() {
         });
     }, []);
 
-    useEffect(() => {
-        const animation = lottie.loadAnimation({
-            container: document.getElementById('bg-wrapper'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: '/assets/js/lottiefiles.json',
-        });
-        return () => {
-            animation.destroy();
-        };
-    }, []);
+    // useEffect(() => {
+    //     const animation = lottie.loadAnimation({
+    //         container: document.getElementById('bg-wrapper'),
+    //         renderer: 'svg',
+    //         loop: true,
+    //         autoplay: true,
+    //         path: '/assets/js/scene1.json',
+            
+    //     });
+    //     return () => {
+    //         animation.destroy();
+    //     };
+    // }, []);
     // const [collection,setCollection] = useState(false)
     const login = (e) => {
         signIn('spotify')
@@ -172,11 +174,26 @@ export default function Index() {
     //     }
     //     });
     // },[])
+    
     return (
         <>
             <div className={commonStyle["main-wrapper"]}>
+            <div className={commonStyle["bg-animation"]} style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Lottie
+                    options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: animationData,
+                    rendererSettings: {
+                        preserveAspectRatio: 'xMidYMid slice'
+                    }
+                    }}
+                    height={'100%'}
+                    width={'100%'}
+                />
+            </div>
                 {/* <div id="bg-wrapper" className={commonStyle["bg-animation"]}></div> */}
-                <div className={commonStyle["bg-gradient"]}></div>
+                {/* <div className={commonStyle["bg-gradient"]}></div> */}
                 {loading ?
                     <Loader />
                     :
