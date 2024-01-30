@@ -42,6 +42,7 @@ export default function Chatbox() {
           <p className={commonStyle["top-title"]}>We're always here to listen. </p>
           <p className={commonStyle["botton-title"]}>Click <a href="#">here</a> for a confidential session with a mental health
               professional.</p>
+        <span className={commonStyle["close-btn"]} onClick={()=> SetOpen(false)}></span>
         </div>
         <div className={commonStyle["msg-round"]} onClick={()=>SetOpen(!open)}>
           <div className={commonStyle[""]}></div>

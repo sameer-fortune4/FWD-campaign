@@ -109,6 +109,7 @@ export default function Index() {
     };
 
     useEffect(() => {
+        setHomePage(true)
         const fetchTokenInterval = setInterval(fetchTokenApi, 60 * 60 * 1000); // 1 hour
         // fetchTokenApi()
         return () => {

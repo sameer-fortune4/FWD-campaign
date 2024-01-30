@@ -13,7 +13,7 @@ export default function PlaylistItem({ data }) {
 
     return (
         <div className={"swiper-outer"}>
-            <Link className={styles.card} href={data.external_urls.spotify}>
+            <Link className={styles.card} href={data.external_urls.spotify} target='_blank'>
                 <div className={styles.image + " sliderCard-img"} >
                         <Image width={200} height={200} className="banner-img" src={data.album?.images[0]?.url} alt={data.name} />
                     <span className={styles["btn-play"] + " " + "act-btn"}></span>
