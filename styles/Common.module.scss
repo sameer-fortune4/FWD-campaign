@@ -137,43 +137,74 @@
   top: 0;left: 0;height: 100% ;width: 100%;z-index: -1; overflow: hidden;
 
 }
-.logo-wrapper {position: absolute;bottom: 20px;right: 30px;
-  @media (max-width:480px){right: 0;margin: 0 20px;}
-  .chat-titie {max-width: 144px;background-color: #dbdedf;padding: 15px;border-radius: 20px;margin-bottom: 25px; font-weight: 600; font-size: 15px;position: relative;
-    transition: all .4s ease-in-out;z-index: 3;
-    @media (min-width:768px) {
-       visibility: hidden;
-        animation: chat-box 1.3s ease-in-out;
-        animation-delay: 2s;
-        animation-fill-mode: forwards;
-     }
-    @media (max-width:480px){max-width: 100%; text-align: center; margin-bottom: 20px;opacity: 0; visibility: hidden;}
+.logo-wrapper {position: absolute;top: 35px;left: 40px;
+  @media (max-width:480px){right: 0;margin: 0 20px; top: auto; bottom: 15px;display: flex;flex-direction: column;
+  }
+  .chat-titie {
+    max-width: 168px;
+    height: 240px;
+    padding: 20px 30px;
+    font-weight: 600;
+    font-size: 16px;
+    position: relative;
+    transition: all 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    .top-title{
+      margin-top: 20px;
+    }
+    &::before{
+      content: "";
+      background-image: url("../public//assets/images/caht-box.png");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      z-index: -1;
+      left: -2px;
+      @media (min-width:768px) {
+        animation: chat-box;
+          animation-timing-function: ease-in-out;
+          animation-fill-mode: forwards;
+          animation-delay: 2s;
+          animation-iteration-count: infinite;
+          // animation-direction: alternate;
+          animation-duration: 4s;
+       }
+    }       
+    @media (max-width:480px){max-width: 100%; text-align: center; margin-bottom: 20px;opacity: 0; visibility: hidden; height: fit-content; background-color: #DADEE0; z-index: 3; border-radius: 10px; padding: 20px;
+      .top-title{
+        margin-top: 0;
+      }
+      &::before{
+        display: none;
+      }
+      &::after{
+        content: "";
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+        background-color: #dbdedf;
+        height: 15px;
+        width: 15px;
+        position: absolute;
+        bottom: -14px;
+        right: 28px;
+    }
+    }
     .botton-title {margin-top: 10px;
     a{text-decoration: underline;}
     }
-    &::after{
-      content: "";
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      background-color: #dbdedf;
-      height: 15px;
-      width: 15px;
-      position: absolute;
-      bottom: -14px;
-      left: 50%;
-      transform: translateX(-50%);
-      @media (max-width:480px) {
-        left: calc(100% - 35px);
-      }
-    }
   }
   .logo-wrap{ display: flex; justify-content: center;
-    img{display: block; height: auto; width: 100px;
+    img{display: block; height: auto; width: 115px;
       @media (max-width:480px) {
         width: 70px;
         height: auto;
       }
     }
-    @media (max-width:480px) {justify-content: flex-end;}
+    @media (max-width:480px) {justify-content: flex-end; order: 1;}
   }
   &.active{
     .chat-titie{
@@ -195,6 +226,7 @@
       display: block;
     }
   }
+
 }
 
 @media (max-width:480px) {
@@ -407,14 +439,12 @@
 
 @keyframes chat-box{
   0%{
-    transform: translateY(30px) scale(0.6);
-    transform-origin:bottom center;
-    opacity: 0;
-    visibility: visible;
+    transform: scale(0.95);
+  }
+  50%{    
+    transform: scale(1);
   }
   100%{
-    transform: translateY(0) scale(1);
-    opacity: 1;
-    visibility: visible;
+    transform: scale(0.95);
   }
 }

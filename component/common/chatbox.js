@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import commonStyle from "../../styles/Common.module.scss";
 import Image from 'next/image';
-import Logo from "../../public/assets/images/fwd-logo.svg"
+import Logo from "../../public/assets/images/fwd-logo.png"
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -35,12 +35,17 @@ export default function Chatbox() {
   return (
     <>
       <div className={commonStyle["logo-wrapper"] + " " + (open == true ? commonStyle["active"] : "")}>
-        <div className={commonStyle["msg-round"]} onClick={() => SetOpen(!open)}>
+        <a href="#" className={commonStyle["logo-wrap"]}>
+          <Image onClick={handleData} src={Logo} width={100} alt='logo' />
+        </a>
+        <div className={commonStyle["chat-titie"]}>
+          <p className={commonStyle["top-title"]}>We're always here to listen. </p>
+          <p className={commonStyle["botton-title"]}>Click <a href="#">here</a> for a confidential session with a mental health
+              professional.</p>
+        </div>
+        <div className={commonStyle["msg-round"]} onClick={()=>SetOpen(!open)}>
           <div className={commonStyle[""]}></div>
         </div>
-        <Link href="/" className={commonStyle["logo-wrap"]}>
-          <Image onClick={handleData} src={Logo} width={100} alt='logo' />
-        </Link>
       </div>
     </>
   )
