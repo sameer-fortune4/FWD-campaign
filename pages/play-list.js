@@ -16,7 +16,7 @@ import LoaderCard from '../component/common/loaderCard';
 import Link from 'next/link';
 import PlaylistItem from '../component/playlistItem';
 import Lottie from 'react-lottie';
-import animationData from '../public/assets/js/scene1.json';
+import animationData from '../public/assets/js/scene1.json'; 
 
 export default function PlayList() {
     const { data: session } = useSession();
