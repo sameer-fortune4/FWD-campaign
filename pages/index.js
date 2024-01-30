@@ -1,19 +1,23 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useEffect } from 'react';
 import homeStyle from "../styles/home.module.scss";
 import commonStyle from "../styles/Common.module.scss"
+import lottie from 'lottie-web';
 import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
 import Chatbox from '../component/common/chatbox';
 import Loader from '../component/common/loader';
 import Link from 'next/link';
+import { ConnContext } from '../context/connContext';
 import Lottie from 'react-lottie';
 import animationData from '../public/assets/js/scene1.json';
+
 export default function Index() {
 
     const { data: session } = useSession();
     const [loading, setLoading] = useState(false)
     const router = useRouter()
+    const { homePage,setHomePage } = useContext(ConnContext)
 
     const [open, setOpen] = useState(false)
     const [formData, setFormData] = useState({ name: '', });
@@ -73,28 +77,11 @@ export default function Index() {
         setFields({
             name: "I'm so anxious that I might lose my job I'm worried it's driving my wife away.",
         });
-    }, []);
+    }, []); 
 
-    // useEffect(() => {
-    //     const animation = lottie.loadAnimation({
-    //         container: document.getElementById('bg-wrapper'),
-    //         renderer: 'svg',
-    //         loop: true,
-    //         autoplay: true,
-    //         path: '/assets/js/scene1.json',
-            
-    //     });
-    //     return () => {
-    //         animation.destroy();
-    //     };
-    // }, []);
-    // const [collection,setCollection] = useState(false)
     const login = (e) => {
         signIn('spotify')
-        // setLoading(true)
         e.preventDefault();
-        // setMainData(formData.name)
-        // localStorage.clear();
     }
 
     const fetchTokenApi = async () => {
@@ -135,7 +122,7 @@ export default function Index() {
         // ... (your existing code)
     };
     const [sessionData, setSessionData] = useState('');
-    
+
     useEffect(() => {
         if (session) {
             localStorage.setItem('access_token', session.accessToken)
@@ -144,40 +131,40 @@ export default function Index() {
     }, [session])
 
     useEffect(() => {
-        if (sessionData !== '') {
-            router.push("/songCollection")
+        if (homePage) {
+            router.push('/')
         } else {
-            router.push("/")
+            if (sessionData !== '') {
+                router.push("/songCollection")
+            } else {
+                router.push("/")
+            }
         }
-    }, [sessionData])
+    }, [sessionData, homePage])
 
     const generateTExt = () => {
+        setHomePage(false)
         if (formData.name === '') {
             // alert("please enter text11")
             setValidation(true)
             setSpace(false)
         } else {
-            setOpen(true)
-            localStorage?.setItem('inputData', JSON.stringify(formData.name))
+            if (sessionData) {
+                setOpen(false)
+                router.push('/songCollection')
+                localStorage?.setItem('inputData', JSON.stringify(formData.name))
+            }else {
+                setOpen(true)
+                localStorage?.setItem('inputData', JSON.stringify(formData.name))
+            }
         }
     }
-    // useEffect(()=>{
-    //     var input = document.getElementById("myInput");
 
-    //     input.addEventListener("keypress", function(event) {
-    //     // If the user presses the "Enter" key on the keyboard
-    //     if (event.key === "Enter") {
-    //         // Cancel the default action, if needed
-    //         event.preventDefault();
-    //         // Trigger the button element with a click
-    //         document.getElementById("myBtn").click();
-    //     }
-    //     });
-    // },[])
-    
     return (
         <>
             <div className={commonStyle["main-wrapper"]}>
+                {/* <div id="bg-wrapper" className={commonStyle["bg-animation"]}></div> */}
+                {/* <div className={commonStyle["bg-gradient"]}></div> */}
             <div className={commonStyle["bg-animation"]} style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Lottie
                     options={{
@@ -192,13 +179,9 @@ export default function Index() {
                     width={'100%'}
                 />
             </div>
-                {/* <div id="bg-wrapper" className={commonStyle["bg-animation"]}></div> */}
-                {/* <div className={commonStyle["bg-gradient"]}></div> */}
                 {loading ?
                     <Loader />
                     :
-                    // {collection ? <SongCollection mainData={mainData} /> :
-
                     <>
                         <section className={homeStyle["banner-wrapper"]} >
                             <div className={homeStyle["text-container"]}>

@@ -128,7 +128,7 @@ export default function PlayList() {
                                     {listSong &&
                                         listSong.map((v, i) => (
                                             <SwiperSlide key={i}>
-                                                <PlaylistItem data={v} setClassData={setClassData} classData={classData} />
+                                                <PlaylistItem data={v} />
                                             </SwiperSlide>
                                         ))}
 

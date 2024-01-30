@@ -1,36 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import commonStyle from "../../styles/Common.module.scss";
 import Image from 'next/image';
 import Logo from "../../public/assets/images/fwd-logo.svg"
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { ConnContext } from '../../context/connContext';
 export default function Chatbox() {
   const [open, SetOpen] = useState(false)
   const router = useRouter()
   const { data: session } = useSession()
+  const { setHomePage, homePage } = useContext(ConnContext)
 
-  const handleData = async() => {
-    await signOut();
-    localStorage.clear()
+  const handleData = async () => {
+    // await signOut();
+    // localStorage.clear()
+    setHomePage(true)
   }
-  useEffect(() => {
-    let token = localStorage.getItem('access_token')
-    if (session == null || session === undefined) {
-      if (!token) {
-        router.push('/')
-      }
-    }
-  }, [session])
+  // useEffect(() => {
+  //   let token = localStorage.getItem('access_token')
+  //   if (session == null || session === undefined) {
+  //     if (!token) {
+  //       router.push('/')
+  //     }
+  //   }
+  // }, [session])
 
+  useEffect(() => {
+    if (homePage === true) {
+      router.push('/')
+    }
+  }, [homePage])
+  
   return (
     <>
       <div className={commonStyle["logo-wrapper"] + " " + (open == true ? commonStyle["active"] : "")}>
-        {/* <div className={commonStyle["chat-titie"]}>
-          <p>We're always here to listen. </p>
-          <p className={commonStyle["botton-title"]}>Click <Link href="/">here</Link> for a confidential session with a mental health
-            professional.</p>
-        </div> */}
         <div className={commonStyle["msg-round"]} onClick={() => SetOpen(!open)}>
           <div className={commonStyle[""]}></div>
         </div>
