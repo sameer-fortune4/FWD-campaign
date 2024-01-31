@@ -22,3 +22,15 @@
     font-style: normal;
     font-display: swap;
 }
+@font-face {
+    font-family: 'FWD Circular';
+    src: url('../public/fonts/FWDCircular-Medium.eot');
+    src: url('../public/fonts/FWDCircular-Medium.eot?#iefix') format('embedded-opentype'),
+        url('../public/fonts/FWDCircular-Medium.woff2') format('woff2'),
+        url('../public/fonts/FWDCircular-Medium.woff') format('woff'),
+        url('../public/fonts/FWDCircular-Medium.ttf') format('truetype'),
+        url('../public/fonts/FWDCircular-Medium.svg#FWDCircular-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}

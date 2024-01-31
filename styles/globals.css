@@ -9,10 +9,11 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'FWD Circular Book', sans-serif;
-  font-weight: 400;
+  /* font-family: 'FWD Circular Book', sans-serif; */
+  font-family: 'FWD Circular', sans-serif;
+  font-weight: 500;
   font-size: 18px;
-  color: #1e2f28;
+  color: #183028;
   line-height: 1.2;
   scroll-behavior: smooth;
   background-color: #E77723;

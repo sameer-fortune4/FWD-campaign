@@ -144,7 +144,6 @@
     max-width: 168px;
     height: 240px;
     padding: 20px 30px;
-    font-weight: 600;
     font-size: 16px;
     position: relative;
     transition: all 0.4s ease-in-out;
@@ -248,11 +247,18 @@
 }
 .button-wrapper {
   position: relative;
-    .btn{letter-spacing: .4px; display: block;padding: 10px 40px;border-radius: 35px;border: none;color: #fff;background-color: #1E2F28; transition: all .4s ease-in-out;}
+    .btn{letter-spacing: .4px; display: block;padding: 12px 40px;border-radius: 35px;border: none;color: #fff;background-color: #1E2F28; transition: all .4s ease-in-out;}
+    span{
+      transition: all .3s ease-in;
+    }
     &:hover{
-      .btn{background-color: #fff;color: #1E2F28;font-weight: 600;}
-      .button-bg {position: absolute;top: 0;left: 0;width: calc(100% + 4px);height: calc(100% + 4px);background: linear-gradient(90deg, #FF8038 0%, #FF0099 30.43%, #00EBEB 68.23%, #DB00FF 100%);background-size: 600% 600%;border-radius: 50px;animation: AnimateBorder 4s ease infinite;-webkit-animation: AnimateBorder 4s ease infinite;-moz-animation: AnimateBorder 4s ease infinite;z-index: -1;transform: translate(-2px, -2px);transition: filter 1s ease-in;
+      .btn{
+        span{
+          opacity: .7;
         }
+      }
+      // .button-bg {position: absolute;top: 0;left: 0;width: calc(100% + 4px);height: calc(100% + 4px);background: linear-gradient(90deg, #FF8038 0%, #FF0099 30.43%, #00EBEB 68.23%, #DB00FF 100%);background-size: 600% 600%;border-radius: 50px;animation: AnimateBorder 4s ease infinite;-webkit-animation: AnimateBorder 4s ease infinite;-moz-animation: AnimateBorder 4s ease infinite;z-index: -1;transform: translate(-2px, -2px);transition: filter 1s ease-in;
+      //   }
     }
 }
 

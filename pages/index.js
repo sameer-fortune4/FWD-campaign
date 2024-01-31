@@ -208,7 +208,7 @@ export default function Index() {
                             </div>
                             {/* <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a> */}
                             <div className={commonStyle["button-wrapper"] + " " + homeStyle["home-btn"]}>
-                                <a href="#" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]} id='myBtn' onClick={generateTExt}>Generate</a>
+                                <a href="#" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]} id='myBtn' onClick={generateTExt}><span>Generate</span></a>
                                 <div className={commonStyle["button-bg"]}></div>
                             </div>
 

@@ -149,7 +149,25 @@ export default function SongCollection() {
           {/* <div className={commonStyle["bg-gradient"]}></div> */}
           <section className={collectionStyle["playlist-wrappper"]}>
             <h2 className={commonStyle["medium-title"]}>Here&apos;s your Playlist for a Problem</h2>
-            <Link href="/play-list" aria-label="Listen more songs" role="link"><Image height={100} width={100} className={collectionStyle["playlist-img"]} src="https://picsum.photos/id/2/200/300" alt="" /></Link>
+            <Link href="/play-list" aria-label="Listen more songs" className={collectionStyle["avatar-wrapper"]} role="link">
+              <Image height={100} width={100} className={collectionStyle["playlist-img"]} src="https://picsum.photos/id/2/200/300" alt="" />
+              <ul className={collectionStyle["list-wrapper"]}>
+                <li>
+                  <p className={collectionStyle["song-title"]}>This little light of mine</p>
+                  <div className={collectionStyle["sub-wrapper"]}>
+                    <span>Elizabeth Michel</span>
+                    <span>3:05</span>
+                  </div>
+                </li>
+                <li>
+                  <p className={collectionStyle["song-title"]}>This little light of mine</p>
+                  <div className={collectionStyle["sub-wrapper"]}>
+                    <span>Elizabeth Michel</span>
+                    <span>3:05</span>
+                  </div>
+                </li>
+              </ul>
+            </Link>
             <Link href="/play-list" aria-label="Listen more songs" role="link" className={collectionStyle["listen-txt"]}>Click to listen</Link>
           </section>
         </div>
