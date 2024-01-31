@@ -17,12 +17,12 @@ export default function Index() {
     const { data: session } = useSession();
     const [loading, setLoading] = useState(false)
     const router = useRouter()
-    const { homePage,setHomePage } = useContext(ConnContext)
+    const { homePage, setHomePage, setFormData, formData, blockKey, setBlockKey } = useContext(ConnContext)
 
     const [open, setOpen] = useState(false)
-    const [formData, setFormData] = useState({ name: '', });
-    const [validation, setValidation] = useState(false)
     const [space, setSpace] = useState(false)
+    const [validation, setValidation] = useState(false)
+
     const handleChange = (e) => {
         const inputValue = e.target.value;
         if (inputValue !== " ") {
@@ -39,9 +39,12 @@ export default function Index() {
             } else {
                 setValidation(false);
                 setSpace(true)
+                setBlockKey(false)
             }
         } else {
             setSpace(true)
+            setValidation(false);
+            setBlockKey(false)
         }
     };
     //////////
@@ -59,7 +62,6 @@ export default function Index() {
             }, 65);
         }
     };
-
     const setFields = (objFields) => {
         for (const key in objFields) {
             if (objFields.hasOwnProperty(key)) {
@@ -77,7 +79,7 @@ export default function Index() {
         setFields({
             name: "I'm so anxious that I might lose my job I'm worried it's driving my wife away.",
         });
-    }, []); 
+    }, []);
 
     const login = (e) => {
         signIn('spotify')
@@ -86,6 +88,7 @@ export default function Index() {
 
     const fetchTokenApi = async () => {
         const authorizationCode = process.env.NEXT_PUBLIC_CODE;
+        localStorage.setItem('refresh_token', authorizationCode)
         try {
             const response = await fetch('/api/token', {
                 method: 'POST',
@@ -109,7 +112,6 @@ export default function Index() {
     };
 
     useEffect(() => {
-        setHomePage(true)
         const fetchTokenInterval = setInterval(fetchTokenApi, 60 * 60 * 1000); // 1 hour
         // fetchTokenApi()
         return () => {
@@ -127,6 +129,7 @@ export default function Index() {
     useEffect(() => {
         if (session) {
             localStorage.setItem('access_token', session.accessToken)
+            localStorage.setItem('refresh_token', session.refreshToken)
             setSessionData(session.accessToken)
         }
     }, [session])
@@ -136,7 +139,10 @@ export default function Index() {
             router.push('/')
         } else {
             if (sessionData !== '') {
-                router.push("/songCollection")
+                let inputData = localStorage.getItem('inputData')
+                if (inputData !== '' && inputData !== null) {
+                    router.push("/songCollection")
+                }
             } else {
                 router.push("/")
             }
@@ -146,15 +152,18 @@ export default function Index() {
     const generateTExt = () => {
         setHomePage(false)
         if (formData.name === '') {
-            // alert("please enter text11")
             setValidation(true)
+            setSpace(false)
+        } else if (blockKey) {
             setSpace(false)
         } else {
             if (sessionData) {
-                setOpen(false)
-                router.push('/songCollection')
-                localStorage?.setItem('inputData', JSON.stringify(formData.name))
-            }else {
+                if (!space) {
+                    setOpen(false)
+                    router.push('/songCollection')
+                    localStorage?.setItem('inputData', JSON.stringify(formData.name))
+                }
+            } else {
                 setOpen(true)
                 localStorage?.setItem('inputData', JSON.stringify(formData.name))
             }
@@ -190,7 +199,7 @@ export default function Index() {
                             </div>
                             <p className={homeStyle["tag-lines"]}>Sharing your feelings is healthy. Tell us how you feel today and we&apos;ll curate an album
                                 designed to make you feel better.</p>
-                            <div className={homeStyle["form-group"] + " " + (validation == true || space == true ? homeStyle["active"] : "")}>
+                            <div className={homeStyle["form-group"] + " " + (validation == true || space == true || blockKey == true ? homeStyle["active"] : "")}>
                                 <input type="text"
                                     placeholder={placeholders.name}
                                     name="name"
@@ -204,6 +213,9 @@ export default function Index() {
                                 }
                                 {space &&
                                     <p className={homeStyle["error"]}>Please enter correct para or word before submitting!</p>
+                                }
+                                {blockKey &&
+                                    <p className={homeStyle["error"]}>Invalid Keyword</p>
                                 }
                             </div>
                             {/* <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a> */}

@@ -12,7 +12,7 @@ export const authOptions = {
                     access_type: "offline",
                     response_type: "code",
                     redirect_uri: process.env.NEXT_PUBLIC_REDIRECT_URI,
-                    scope: ['user-read-private', 'user-read-email', 'user-modify-playback-state', 'user-read-playback-state', 'user-modify-playback-state', 'user-read-currently-playing', 'streaming', 'playlist-modify-private', 'user-library-modify'],
+                    scope: ['user-read-private', 'user-read-email', 'user-modify-playback-state', 'user-read-playback-state', 'user-modify-playback-state', 'user-read-currently-playing', 'streaming', 'playlist-modify-private', 'user-library-modify','playlist-modify-public'],
                 },
             },
         }),
@@ -28,12 +28,14 @@ export const authOptions = {
             // Persist the OAuth access_token to the token right after signin
             if (account) {
                 token.accessToken = account.access_token;
+                token.refreshToken = account.refresh_token;
             }
             return token;
         },
         async session({ session, token, user }) {
             // Send properties to the client, like an access_token from a provider.
             session.accessToken = token.accessToken;
+            session.refreshToken = token.refreshToken;
             return session;
         },
     },

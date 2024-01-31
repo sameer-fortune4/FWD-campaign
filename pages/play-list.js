@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/Common.module.scss';
-import { getData } from '../utilities/service';
+import { getData, postRefreshToken } from '../utilities/service';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import commonStyle from "../styles/Common.module.scss"
@@ -16,7 +16,7 @@ import LoaderCard from '../component/common/loaderCard';
 import Link from 'next/link';
 import PlaylistItem from '../component/playlistItem';
 import Lottie from 'react-lottie';
-import animationData from '../public/assets/js/scene1.json'; 
+import animationData from '../public/assets/js/scene1.json';
 
 export default function PlayList() {
     const { data: session } = useSession();
@@ -41,6 +41,27 @@ export default function PlayList() {
         if (response) {
             setListSong(response.items)
             setIsloading(false)
+        } else {
+            getRefreshToken()
+        }
+    }
+
+
+    const getRefreshToken = async () => {
+        // refresh token that has been previously stored
+        const refreshToken = localStorage.getItem('refresh_token');
+        try {
+            const response = await fetch('/api/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ refresh: refreshToken }),
+            });
+            const responses = await response.json()
+            localStorage.setItem('access_token', responses.access_token);
+        } catch (error) {
+            console.error('Error:', error);
         }
     }
 
@@ -104,12 +125,12 @@ export default function PlayList() {
             <div className={commonStyle["bg-animation"]} style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Lottie
                     options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: animationData,
-                    rendererSettings: {
-                        preserveAspectRatio: 'xMidYMid slice'
-                    }
+                        loop: true,
+                        autoplay: true,
+                        animationData: animationData,
+                        rendererSettings: {
+                            preserveAspectRatio: 'xMidYMid slice'
+                        }
                     }}
                     height={'100%'}
                     width={'100%'}

@@ -14,7 +14,7 @@ export default function Chatbox() {
 
   const handleData = async () => {
     // await signOut();
-    // localStorage.clear()
+    localStorage.removeItem('inputData')
     setHomePage(true)
   }
   // useEffect(() => {

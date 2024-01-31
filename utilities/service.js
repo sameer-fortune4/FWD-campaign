@@ -15,8 +15,39 @@ export async function getData(url) {
       'Content-Type': "application/json"
     }
   })
-  // console.log("datdatatstasd",await response.json());
   const data = await response.json()
   return data
-  // return validateResponse(data);
+}
+
+export async function postApiData(action, payload) {
+  try {
+    const response = await fetch(action, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow'
+    });
+    const data = await response.json();
+    return data
+  } catch (error) {
+    console.log("object", error);
+  }
+}
+
+export async function postRefreshToken(action, payload) {
+  try {
+    const response = await fetch(action, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+    });
+    const data = await response.json();
+    return data
+  } catch (error) {
+    console.log("object", error);
+  }
 }
