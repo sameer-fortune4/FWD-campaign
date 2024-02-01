@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/Common.module.scss';
-import { getData, postRefreshToken } from '../utilities/service';
+import { getData } from '../utilities/service';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import commonStyle from "../styles/Common.module.scss"
@@ -9,14 +9,14 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, EffectCoverflow } from 'swiper/modules';
+import { Navigation, EffectCoverflow, Mousewheel } from 'swiper/modules';
 // import lottie from 'lottie-web';
 import Chatbox from '../component/common/chatbox';
 import LoaderCard from '../component/common/loaderCard';
 import Link from 'next/link';
 import PlaylistItem from '../component/playlistItem';
 import Lottie from 'react-lottie';
-import animationData from '../public/assets/js/scene1.json';
+import animationData from '../public/assets/js/scene1.json'; 
 
 export default function PlayList() {
     const { data: session } = useSession();
@@ -41,27 +41,6 @@ export default function PlayList() {
         if (response) {
             setListSong(response.items)
             setIsloading(false)
-        } else {
-            getRefreshToken()
-        }
-    }
-
-
-    const getRefreshToken = async () => {
-        // refresh token that has been previously stored
-        const refreshToken = localStorage.getItem('refresh_token');
-        try {
-            const response = await fetch('/api/token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ refresh: refreshToken }),
-            });
-            const responses = await response.json()
-            localStorage.setItem('access_token', responses.access_token);
-        } catch (error) {
-            console.error('Error:', error);
         }
     }
 
@@ -93,19 +72,35 @@ export default function PlayList() {
         // loop:true,
         pagination: true,
         allowTouchMove: true,
-        modules: [EffectCoverflow, Navigation],
+        modules: [EffectCoverflow, Navigation, Mousewheel],
+        mousewheel: true,
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
     }
     const [listenText, setListenText] = useState(false)
-    const swipperData = (text) => {
-        text.on('slideChange', () => {
+    const swipperData = (swiper) => {
+        swiper.on('slideChange', () => {
             setClassData(false)
             setListenText(true)
         })
-
+        const handleMouseWheel = (event) => {
+            event.preventDefault();
+    
+            const delta = Math.max(-1, Math.min(1, event.deltaY || -event.detail));
+            const newIndex = swiper.activeIndex - delta;
+    
+            if (newIndex >= 0 && newIndex < swiper.slides.length) {
+                swiper.slideTo(newIndex);
+            }
+        };
+    
+        document.addEventListener('wheel', handleMouseWheel);
+    
+        swiper.on('destroy', () => {
+            document.removeEventListener('wheel', handleMouseWheel);
+        });
     }
 
     useEffect(() => {
@@ -125,12 +120,12 @@ export default function PlayList() {
             <div className={commonStyle["bg-animation"]} style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Lottie
                     options={{
-                        loop: true,
-                        autoplay: true,
-                        animationData: animationData,
-                        rendererSettings: {
-                            preserveAspectRatio: 'xMidYMid slice'
-                        }
+                    loop: true,
+                    autoplay: true,
+                    animationData: animationData,
+                    rendererSettings: {
+                        preserveAspectRatio: 'xMidYMid slice'
+                    }
                     }}
                     height={'100%'}
                     width={'100%'}
@@ -145,7 +140,7 @@ export default function PlayList() {
                         :
                         listSong.length > 0 ?
                             <>
-                                <Swiper {...swiperOptions} onSwiper={swipperData} allowTouchMove={false}>
+                                <Swiper {...swiperOptions} onSwiper={swipperData}>
                                     {listSong &&
                                         listSong.map((v, i) => (
                                             <SwiperSlide key={i}>

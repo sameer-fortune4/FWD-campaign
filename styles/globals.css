@@ -9,7 +9,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  /* font-family: 'FWD Circular Book', sans-serif; */
   font-family: 'FWD Circular', sans-serif;
   font-weight: 500;
   font-size: 18px;
@@ -27,7 +26,8 @@ a {
   opacity: 1 !important; visibility: visible !important;
 }
 .swiper-container .swiper-slide {
-  pointer-events: none;
+  /* pointer-events: none; */
+  /* height: 293px; */
 }
 .sliderCard-img{
   position: relative;
@@ -35,19 +35,6 @@ a {
 .swiper-container .swiper-slide-active .sliderCard-img::after{
   display: none;
 }
-/* .sliderCard-img::after{
-  content: "";
-  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 98.6%;
-  width: 100%;
-  display: block;
-} */
 .swiper-container .swiper-slide-active{
   pointer-events: all;
 }
@@ -62,13 +49,6 @@ a {
 .swiper-3d .swiper-slide-shadow-left,.swiper-3d .swiper-slide-shadow-right{
   display: none;
 }
-
-/* .swiper-slide-active .control .sliderCard-img::before {
-    content: "";background: linear-gradient(0deg, #000000d4, transparent 60%);position: absolute;height: 98.6%;width: 100%;left: 0;top: 0;bottom: 0;right: 0;transition: all .4s ease-in-out 0s;
-} */
-/* .swiper{
-  max-height: 370px;
-} */
 .player-wrapper .rhap_container{
   background: rgba(255, 255, 255, 0);
   border-radius: 10px !important;
@@ -92,6 +72,10 @@ a {
     margin-left: -20px !important;
     margin-right: -20px !important;
   }
+  .swiper-container .swiper-slide{
+    height: 290px !important;
+    /* width: 300px !important; */
+  }
 }
 @supports (-moz-appearance: none) {
   .swiper-3d .swiper-wrapper{
@@ -100,18 +84,4 @@ a {
 }
 .swiper-outer{
   height: 100%;
-}
-.banner-img{
-  /* height: 300px !important; */
-  width: 100% !important;
-  border-radius: 10px;
-}
-.swiper-container  .act-btn{
-  opacity: 0; visibility: hidden;
-}
-.swiper-container .act-btn{
-  opacity: 1; visibility: visible;
-}
-.swiper-outer .control .act-btn{
-  opacity: 0; visibility: hidden;
 }

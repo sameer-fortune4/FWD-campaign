@@ -39,10 +39,11 @@ export default function Chatbox() {
           <Image onClick={handleData} src="/assets/images/fwd-logo.png" height={100} width={100} alt='logo' />
         </a>
         <div className={commonStyle["chat-titie"]}>
+          <span className={commonStyle["doodle"]}></span>
           <p className={commonStyle["top-title"]}>We're always here to listen. </p>
           <p className={commonStyle["botton-title"]}>Click <a href="#">here</a> for a confidential session with a mental health
               professional.</p>
-        <span className={commonStyle["close-btn"]} onClick={()=> SetOpen(false)}></span>
+          <span className={commonStyle["close-btn"]} onClick={()=> SetOpen(false)}></span>
         </div>
         <div className={commonStyle["msg-round"]} onClick={()=>SetOpen(!open)}>
           <div className={commonStyle[""]}></div>

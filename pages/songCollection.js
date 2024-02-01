@@ -9,6 +9,7 @@ import Loader from '../component/common/loader';
 import Lottie from 'react-lottie';
 import animationData from "/public/assets/js/scene1.json"
 import { postApiData } from '../utilities/service';
+import data from "/public/assets/js/songCollection.json"
 export default function SongCollection() {
   const [emotions, setEmotions] = useState([]);
   const [imageCreation, setImageCreation] = useState();
@@ -168,7 +169,7 @@ export default function SongCollection() {
       setIsloading(false)
     }
   }
-  
+  console.log(data);
   return (
     <>
       {/* <div id="bg-wrapper" className={commonStyle['bg-animation']}></div> */}
@@ -193,22 +194,19 @@ export default function SongCollection() {
             <h2 className={commonStyle["medium-title"]}>Here&apos;s your Playlist for a Problem</h2>
               <Link href="/play-list" aria-label="Listen more songs" className={collectionStyle["avatar-wrapper"]} role="link">
                 <Image height={100} width={100} className={collectionStyle["playlist-img"]} src={imageCreation ? imageCreation.output[0] : "https://picsum.photos/id/3/200/300"} alt="" />
-              {/* <ul className={collectionStyle["list-wrapper"]}>
+              <ul className={collectionStyle["list-wrapper"]}>
+                {
+                  data?.map((ele,i)=>(
                 <li>
-                  <p className={collectionStyle["song-title"]}>This little light of mine</p>
+                  <p className={collectionStyle["song-title"]}>{ele.name}</p>
                   <div className={collectionStyle["sub-wrapper"]}>
-                    <span>Elizabeth Michel</span>
-                    <span>3:05</span>
+                    <span>{ele.artist}</span>
+                    <span>{ele.time}</span>
                   </div>
                 </li>
-                <li>
-                  <p className={collectionStyle["song-title"]}>This little light of mine</p>
-                  <div className={collectionStyle["sub-wrapper"]}>
-                    <span>Elizabeth Michel</span>
-                    <span>3:05</span>
-                  </div>
-                </li>
-              </ul> */}
+                  ))
+                }
+              </ul>
             </Link>
             <Link href="/play-list" aria-label="Listen more songs" role="link" className={collectionStyle["listen-txt"]}>Click to listen</Link>
           </section>

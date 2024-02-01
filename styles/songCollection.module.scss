@@ -2,7 +2,11 @@
     h2{margin-bottom: 20px;
         @media (max-width:480px) {max-width: 300px; margin-bottom: 30px;}
     }
-    .avatar-wrapper{height: 280px;width: 280px; display: block; margin: 0 auto; position: relative; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    .avatar-wrapper{height: 280px;width: 280px; display: block; margin: 0 auto; position: relative; box-shadow: rgba(47, 77, 80, 0.28) -7px 8px 15px;
+        @media (max-width:480px) {
+            height: 230px;
+            width: 230px;
+        }
         .playlist-img{height: 100%;width: 100%;object-fit: cover;
             transition: all .4s ease-in-out;
         }
@@ -47,24 +51,29 @@
                 }
                 .song-title{
                     font-size: 16px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    text-wrap: nowrap;
                 }
                 .sub-wrapper{
                     font-size: 12px;
                     display: flex;
                     justify-content: space-between;
-                    margin-top: 2px;
+                    margin-top: 1px;
+                    font-family: 'FWD Circular Book', sans-serif;
+                    // font-weight: 400;
                 }
             }
         }
         &:hover{
-            // .list-wrapper{
-            //     opacity: 1;
-            //     visibility: visible;
-            // }
-            // .playlist-img{
-            //     visibility: hidden;
-            //     opacity: 0;
-            // }
+            .list-wrapper{
+                opacity: 1;
+                visibility: visible;
+            }
+            .playlist-img{
+                visibility: hidden;
+                opacity: 0;
+            }
         }
     }
     .listen-txt{display: block;margin-top: 10px;
