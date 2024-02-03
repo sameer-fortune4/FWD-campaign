@@ -19,53 +19,67 @@
   .list{font-size:22px;display: block;font-weight:600;}
 }
 
-.card{width:100% !important; height: 100%; overflow:hidden;cursor: pointer; box-shadow: rgba(47, 77, 80, 0.28) -7px 8px 15px;
+.card{width:100% !important; height: 100%; overflow:hidden;cursor: pointer;
+    .iframe-wrapper{overflow: hidden !important; }
   .image{position: relative; height: 100%;
     h2{margin:0;font-size:16px;margin-top:8px;font-weight:500;letter-spacing:.6px;margin-left:15px;}
     img{width:100%; height: 100%;}
     .player{
-       opacity: 0; visibility: hidden;
-      z-index: 1; border-radius: 10px;
-       position: absolute;left:50%; transform: translateX(-50%); bottom:20px;width:90%; background: rgba(255, 255, 255, 0.28);backdrop-filter: blur(6px); transition: all .4s ease-in-out;
-      .media-icon{
-        height: 40px; width: 40px; display: block; border-radius: 50%; flex: 0 0 auto; border: 1px solid #fff;display: flex; align-items: center; justify-content: center;
-        &::after{
-          content: "" !important; background-repeat: no-repeat; background-size: contain; background-position: 100%; height: 20px; width: 16px; display: block; transition: all .3s ease-in-out;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='34' viewBox='0 0 21 34' fill='none'%3E%3Cpath d='M0 34V0L21 17.8293L0 34Z' fill='white'/%3E%3C/svg%3E");
-        }
-        &.active{
-          &::after{
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='19' height='25' viewBox='0 0 19 25' fill='none'%3E%3Cpath d='M2.5 0.5V24.5M16 0.5V24.5' stroke='white' stroke-width='5' stroke-linejoin='round'/%3E%3C/svg%3E");
+       // position: absolute; opacity: 0; visibility: hidden; bottom:4.5%;width:90%; left:50%; transform: translateX(-50%);
+        //  opacity: 0; visibility: hidden;
+        // z-index: 1; border-radius: 10px;
+       //  position: absolute;left:50%; transform: translateX(-50%); bottom:4.5%;width:90%;
+          // background: rgba(255, 255, 255, 0.28);
+          // backdrop-filter: blur(6px); transition: all .4s ease-in-out;
+      // .media-icon{
+        //   height: 40px; width: 40px; display: block; border-radius: 50%; flex: 0 0 auto; border: 1px solid #fff;display: flex; align-items: center; justify-content: center;
+        //   &::after{
+          //     content: "" !important; background-repeat: no-repeat; background-size: contain; background-position: 100%; height: 20px; width: 16px; display: block; transition: all .3s ease-in-out;
+          //     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='34' viewBox='0 0 21 34' fill='none'%3E%3Cpath d='M0 34V0L21 17.8293L0 34Z' fill='white'/%3E%3C/svg%3E");
+        //   }
+        //   &.active{
+          //     &::after{
+            //       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='19' height='25' viewBox='0 0 19 25' fill='none'%3E%3Cpath d='M2.5 0.5V24.5M16 0.5V24.5' stroke='white' stroke-width='5' stroke-linejoin='round'/%3E%3C/svg%3E");
+          //     }
+        //   }
+        // }
+      .wrap-control{
+          // border-radius: 10px;
+        // // background: rgba(255, 255, 255, 0.1);
+        // -webkit-backdrop-filter: blur(6px);
+        // backdrop-filter: blur(20px);
+        // border-radius: 10px !important;
+        // .card-title{
+          //   color: #fff;
+          //   overflow: hidden;
+          //   display: -webkit-box !important;
+          //   -webkit-line-clamp: 1 !important;
+          //   -webkit-box-orient: vertical !important;
+          //   padding: 10px 15px 0 15px;
+        // }
+          // audio{
+          //   margin-top: 10px;
+          //   height: 30px !important;
+          //   accent-color: red !important;
+          //   border-radius: 9px;
+          //   background-color: #f1f3f4 !important;
+          //   width: 100% !important;
+        // }
+          iframe{
+            width: 100% !important;
+            // height: 450px !important;
+            // -webkit-pointer-events: none !important;
+            // pointer-events: none !important;
           }
-        }
-      }
-      .wrap-control{ border-radius: 10px;
-        background: rgba(255, 255, 255, 0.1);
-        -webkit-backdrop-filter: blur(6px);
-        backdrop-filter: blur(20px);
-        border-radius: 10px !important;
-        .card-title{
-          color: #fff;
-          overflow: hidden;
-          display: -webkit-box !important;
-          -webkit-line-clamp: 1 !important;
-          -webkit-box-orient: vertical !important;
-          padding: 10px 15px 0 15px;
-        }
-        audio{
-          margin-top: 10px;
-          height: 30px !important;
-          accent-color: red !important;
-          border-radius: 9px;
-          background-color: #f1f3f4 !important;
-          width: 100% !important;
-        }
       }
     }
-    .btn-play{height: 60px; width: 60px; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);background:rgb(232 232 237/70%);backdrop-filter: blur(7px); box-shadow: inset 0 0 1px rgb(0 0 0/20%); transition: all .4s ease-in-out; display: flex; align-items: center; justify-content: center;
+    .btn-play{height: 60px; width: 60px; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);    background: rgba(232,232,237,.7);
+      -webkit-backdrop-filter: blur(7px);
+      backdrop-filter: blur(7px);
+      box-shadow: inset 0 0 1px rgba(0,0,0,.2); transition: all .4s ease-in-out; display: flex; align-items: center; justify-content: center;
     &::after{content: ""; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='34' viewBox='0 0 21 34' fill='none'%3E%3Cpath d='M0 34V0L21 17.8293L0 34Z' fill='white'/%3E%3C/svg%3E"); background-size: contain; background-position: 100%; background-repeat: no-repeat;height: 25px;width: 20px;display: block;}
     &.active{
-      opacity: 1; visibility: visible; 
+      // opacity: 1; visibility: visible; 
     }
     &.current{
       &:before {
@@ -139,6 +153,9 @@
 }
 .logo-wrapper {position: absolute;top: 35px;left: 40px;
   @media (max-width:480px){right: 0;margin: 0 20px; top: auto; bottom: 15px;display: flex;flex-direction: column;
+  }
+  @media (min-width: 481px) {
+    z-index: 2;
   }
   .chat-titie {
     max-width: 168px;
@@ -491,4 +508,9 @@
     transform: scale(1);
     opacity: 0;
     }
+}
+@mixin responsive($device){
+  if ($device == "mobile"){
+
+  }
 }

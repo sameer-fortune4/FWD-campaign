@@ -133,7 +133,7 @@ export default function SongCollection() {
   useEffect(() => {
     setTimeout(() => {
       setIsloading(false)
-    }, 10000);
+    }, 5000);
   }, [])
 
   useEffect(() => {
@@ -197,7 +197,7 @@ export default function SongCollection() {
               <ul className={collectionStyle["list-wrapper"]}>
                 {
                   data?.map((ele,i)=>(
-                <li>
+                <li key={i}>
                   <p className={collectionStyle["song-title"]}>{ele.name}</p>
                   <div className={collectionStyle["sub-wrapper"]}>
                     <span>{ele.artist}</span>

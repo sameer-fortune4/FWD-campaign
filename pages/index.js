@@ -22,12 +22,17 @@ export default function Index() {
     const [open, setOpen] = useState(false)
     const [space, setSpace] = useState(false)
     const [validation, setValidation] = useState(false)
+    const [demo, setDemo] = useState(false)
+
 
     const handleChange = (e) => {
         const inputValue = e.target.value;
+        if(inputValue.length > 8){
+            setDemo(false)
+        }
         if (inputValue !== " ") {
             // Validate input using a regular expression (allowing only letters and spaces)
-            const isValid = /^[a-zA-Z\s]*$/.test(inputValue);
+            const isValid = /^[a-zA-Z!\s]*$/.test(inputValue);
             // Update state only if the input is valid
             if (isValid) {
                 setFormData({
@@ -150,26 +155,35 @@ export default function Index() {
     }, [sessionData, homePage])
 
     const generateTExt = () => {
-        setHomePage(false)
-        if (formData.name === '') {
-            setValidation(true)
-            setSpace(false)
-        } else if (blockKey) {
-            setSpace(false)
+        setHomePage(false);
+        let inputData = formData.name.trim()
+        if (inputData.length < 8) {
+            setDemo(true)
         } else {
-            if (sessionData) {
-                if (!space) {
-                    setOpen(false)
-                    router.push('/songCollection')
-                    localStorage?.setItem('inputData', JSON.stringify(formData.name))
-                }
+            setDemo(false)
+            if (formData.name === '') {
+                setValidation(true)
+                setSpace(false)
+            } else if (blockKey) {
+                setSpace(false)
             } else {
-                setOpen(true)
-                localStorage?.setItem('inputData', JSON.stringify(formData.name))
+                if (sessionData) {
+                    // setOpen(false)
+                    if (!space) {
+                        router.push('/songCollection')
+                        localStorage?.setItem('inputData', JSON.stringify(formData.name))
+                    }
+                } else {
+                    if (space) {
+                        setOpen(false)
+                    } else {
+                        setOpen(true)
+                        localStorage?.setItem('inputData', JSON.stringify(formData.name))
+                    }
+                }
             }
         }
     }
-
     return (
         <>
             <div className={commonStyle["main-wrapper"]}>
@@ -199,7 +213,7 @@ export default function Index() {
                             </div>
                             <p className={homeStyle["tag-lines"]}>Sharing your feelings is healthy. Tell us how you feel today and we&apos;ll curate an album
                                 designed to make you feel better.</p>
-                            <div className={homeStyle["form-group"] + " " + (validation == true || space == true || blockKey == true ? homeStyle["active"] : "")}>
+                            <div className={homeStyle["form-group"] + " " + (validation == true || space == true || blockKey == true || demo == true ? homeStyle["active"] : "")}>
                                 <input type="text"
                                     placeholder={placeholders.name}
                                     name="name"
@@ -216,6 +230,9 @@ export default function Index() {
                                 }
                                 {blockKey &&
                                     <p className={homeStyle["error"]}>Invalid Keyword</p>
+                                }
+                                {demo &&
+                                    <p className={homeStyle['error']}>Please enter minimum 8 characters</p>
                                 }
                             </div>
                             {/* <a href="#" className={homeStyle["btn"] + " " + homeStyle["bnt-main"]} onClick={() => setOpen(true)}>Generate</a> */}

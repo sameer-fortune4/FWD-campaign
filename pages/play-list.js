@@ -24,7 +24,7 @@ export default function PlayList() {
     const [listSong, setListSong] = useState([]);
     const [idData, setIdData] = useState()
     const [classData, setClassData] = useState(false)
-
+    const [iframeOpen, setIframeOpen] = useState(false);
     useEffect(() => {
         let token = localStorage.getItem('access_token')
         if (token !== '') {
@@ -32,7 +32,7 @@ export default function PlayList() {
         }
     }, []);
 
-    const [isLoading, setIsloading] = useState(false)
+    const [isLoading, setIsloading] = useState(true)
     const fetchFilterListSong = async (access_token) => {
         setIsloading(true)
         let item = JSON.parse(localStorage.getItem('emotionData'))
@@ -41,14 +41,47 @@ export default function PlayList() {
         if (response) {
             setListSong(response.items)
             setIsloading(false)
+        } else {
+            getRefreshToken()
+    }
+}
+    useEffect(()=>{
+        getRefreshToken()
+    },[])
+    const getRefreshToken = async () => {
+        // refresh token that has been previously stored
+        const refreshToken = localStorage.getItem('refresh_token');
+        try {
+            const response = await fetch('/api/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ refresh: refreshToken }),
+            });
+            const responses = await response.json()
+            localStorage.setItem('access_token', responses.access_token);
+        } catch (error) {
+            console.error('Error:', error);
         }
     }
+    useEffect(() => {
+        const intervalCall = setInterval(() => {
+            getRefreshToken();
+        }, 3e+6);
+        return () => {
+            // clean up
+            clearInterval(intervalCall);
+        };
+    }, []);
 
     const swiperOptions = {
         className: "mySwiper",
         effect: 'coverflow',
         centeredSlides: true,
         // slidesPerView: [1.2],
+        freeMode: true,
+        slidesPerView: 'auto',
         initialSlide: [2],
         speed: [1000],
         coverflowEffect: {
@@ -86,8 +119,6 @@ export default function PlayList() {
             setListenText(true)
         })
         const handleMouseWheel = (event) => {
-            event.preventDefault();
-    
             const delta = Math.max(-1, Math.min(1, event.deltaY || -event.detail));
             const newIndex = swiper.activeIndex - delta;
     
@@ -113,7 +144,7 @@ export default function PlayList() {
             }
         }
     }, [session])
-
+    
     return (
         <>
             {/* <div className={commonStyle["bg-gradient"]}></div> */}
@@ -138,13 +169,12 @@ export default function PlayList() {
                     {isLoading ?
                         <LoaderCard />
                         :
-                        listSong.length > 0 ?
                             <>
                                 <Swiper {...swiperOptions} onSwiper={swipperData}>
                                     {listSong &&
                                         listSong.map((v, i) => (
                                             <SwiperSlide key={i}>
-                                                <PlaylistItem data={v} />
+                                                <PlaylistItem data={v} setClassData={setClassData} classData={classData} />
                                             </SwiperSlide>
                                         ))}
 
@@ -152,16 +182,6 @@ export default function PlayList() {
                                     <div className={"swiper-button-next" + " " + styles["swipe-btn-next"]}></div>
                                 </Swiper>
                             </>
-                            :
-                            <div className={styles["error-wrap"]}>
-                                <p className={styles["error-txt"]}>No Result Found</p>
-                                <div className={commonStyle["button-wrapper"]} style={{ width: "fit-content", margin: "0 auto" }}>
-                                    <Link href="/" className={commonStyle["btn"] + " " + commonStyle["bnt-main"]}>
-                                        Go To Home Page
-                                    </Link>
-                                    <div className={commonStyle["button-bg"]}></div>
-                                </div>
-                            </div>
                     }
 
                 </div>

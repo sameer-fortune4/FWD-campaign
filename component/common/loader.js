@@ -17,7 +17,7 @@ export default function Loader() {
         } else {
           setProgress((prevProgress) => prevProgress + 1);
         }
-      }, 30);
+      }, 43);
 
       return () => clearInterval(interval);
 

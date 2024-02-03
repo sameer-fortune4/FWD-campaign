@@ -16,6 +16,7 @@ body {
   line-height: 1.2;
   scroll-behavior: smooth;
   background-color: #E77723;
+  overflow: hidden;
 }
 
 a {
@@ -26,7 +27,7 @@ a {
   opacity: 1 !important; visibility: visible !important;
 }
 .swiper-container .swiper-slide {
-  /* pointer-events: none; */
+  pointer-events: none;
   /* height: 293px; */
 }
 .sliderCard-img{
@@ -36,7 +37,7 @@ a {
   display: none;
 }
 .swiper-container .swiper-slide-active{
-  pointer-events: all;
+  pointer-events: all !important;
 }
 .swiper-container .swiper-slide-active .control .active{opacity: 0; visibility: hidden;}
 
@@ -73,15 +74,38 @@ a {
     margin-right: -20px !important;
   }
   .swiper-container .swiper-slide{
-    height: 290px !important;
+    /* height: 290px !important; */
     /* width: 300px !important; */
   }
 }
 @supports (-moz-appearance: none) {
   .swiper-3d .swiper-wrapper{
-    transform-style: flat !important;
+    /* transform-style: flat !important; */
   }
+
+}
+.swiper-wrapper {
+  pointer-events: none !important;
+}
+
+.swiper-slide .swiper-slide-active {
+  pointer-events: auto !important;
 }
 .swiper-outer{
   height: 100%;
+}
+
+.banner-img{
+  height: 350px !important;
+  width: 100% !important;
+  border-radius: 10px;
+}
+.swiper-container  .act-btn{
+  opacity: 0; visibility: hidden;
+}
+.swiper-container .act-btn{
+  opacity: 1; visibility: visible;
+}
+.swiper-outer .control .act-btn{
+  opacity: 0; visibility: hidden;
 }
